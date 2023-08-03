@@ -375,6 +375,16 @@ shift_local_energy_quadratic_vertices(
   shift_array(face_global_edge_indices, shift);
 }
 
+// Find pairs of split vertices that should share the same location.
+std::vector<std::pair<int, int>>
+compute_split_vertex_correspondence(
+  const std::vector<SpatialVector>& vertex_positions
+) {
+  std::pair<int, int> placeholder1 {0, 0};
+  std::vector<std::pair<int, int>> placeholder2 {placeholder1};
+  return placeholder2;
+}
+
 // Compute the energy system for a twelve-split spline
 void
 compute_twelve_split_energy_quadratic(
@@ -547,6 +557,9 @@ compute_twelve_split_energy_quadratic(
       derivatives,
       hessian_entries);
   }
+
+  std::vector<std::pair<int, int>> vertex_corrspondence = 
+  compute_split_vertex_correspondence(vertex_positions);
 
   // Set hessian from the triplets
   hessian.resize(num_independent_variables, num_independent_variables);

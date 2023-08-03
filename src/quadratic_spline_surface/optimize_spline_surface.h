@@ -127,3 +127,13 @@ convert_reduced_edge_gradients_to_full(
   const std::vector<std::array<TriangleCornerFunctionData, 3>>& corner_data,
   const AffineManifold& affine_manifold,
   std::vector<std::array<Matrix2x3r, 3>>& edge_gradients);
+
+/// @brief Given a list of vertex positions, returns a list of pairs of vertex
+/// indices that share the same position. 
+/// @param vertex_positions A list of 1 x 3 vectors where each vector is a vertex position in global space.
+/// @return A list of pairs of vertex indices. Each pair of indices refer to 
+/// two different vertices with the same position.
+std::vector<std::pair<int, int>>
+compute_split_vertex_correspondence(
+  const std::vector<SpatialVector>& vertex_positions
+);
