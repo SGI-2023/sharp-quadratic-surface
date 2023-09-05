@@ -1,0 +1,92 @@
+\doxysection{optimize\+\_\+spline\+\_\+surface.\+h}
+\hypertarget{optimize__spline__surface_8h_source}{}\label{optimize__spline__surface_8h_source}\index{src/quadratic\_spline\_surface/optimize\_spline\_surface.h@{src/quadratic\_spline\_surface/optimize\_spline\_surface.h}}
+\mbox{\hyperlink{optimize__spline__surface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{affine__manifold_8h}{affine\_manifold.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}differentiable\_variable.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{halfedge_8h}{halfedge.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{polynomial__function_8h}{polynomial\_function.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}position\_data.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <Eigen/CholmodSupport>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <Eigen/Sparse>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_optimization_parameters}{OptimizationParameters}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \textcolor{comment}{//\ Main\ optimization\ weight\ options}}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{double}\ position\_difference\_factor\ =\ 1.0;}
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{double}\ parametrized\_quadratic\_surface\_mapping\_factor\ =\ 1.0;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \textcolor{comment}{//\ Weights\ for\ cone\ positions,\ normals,\ and\ gradients}}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{double}\ cone\_position\_difference\_factor\ =}
+\DoxyCodeLine{00027\ \ \ \ \ 1.0;\ \textcolor{comment}{//\ fitting\ weight\ for\ cone\ vertices}}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{double}\ cone\_vertex\_gradient\_difference\_factor\ =}
+\DoxyCodeLine{00029\ \ \ \ \ 1e6;\ \textcolor{comment}{//\ fitting\ weight\ for\ cone\ vertex\ gradients}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{double}\ cone\_adjacent\_position\_difference\_factor\ =}
+\DoxyCodeLine{00032\ \ \ \ \ 1.0;\ \textcolor{comment}{//\ fitting\ weight\ for\ vertices\ collapsed\ to\ a\ cone}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{double}\ cone\_adjacent\_vertex\_gradient\_difference\_factor\ =}
+\DoxyCodeLine{00034\ \ \ \ \ 0.0;\ \textcolor{comment}{//\ fitting\ weight\ for\ vertex\ gradients\ collapsing\ to\ a\ cone}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{double}\ cone\_adjacent\_edge\_gradient\_difference\_factor\ =}
+\DoxyCodeLine{00036\ \ \ \ \ 0.0;\ \textcolor{comment}{//\ fitting\ weight\ for\ vertex\ edge\ gradients\ collapsing\ to\ a\ cone}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{double}\ cone\_normal\_orthogonality\_factor\ =}
+\DoxyCodeLine{00039\ \ \ \ \ 0.0;\ \textcolor{comment}{//\ wight\ for\ encouraging\ orthogonality\ with\ a\ normal\ at\ a\ cone}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \textcolor{comment}{//\ TODO}}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{bool}\ compute\_final\_energy\ =}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Perform\ one\ more\ energy\ computation\ for\ the\ final\ value}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{bool}\ flatten\_cones\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Perform\ final\ optimization\ with\ fixed\ vertices}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ and\ flatten\ cone\ constraints}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{int}\ hessian\_builder\ =\ 1;\ \textcolor{comment}{//\ 1\ for\ assemble,\ 0\ for\ autodiff,\ otherwise\ assemble}}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00061\ \mbox{\hyperlink{optimize__spline__surface_8h_a8712d962939c31848c4c2fd710b377be}{build\_twelve\_split\_spline\_energy\_system}}(}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{const}\ MatrixXr\&\ initial\_V,}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{const}\ MatrixXr\&\ initial\_face\_normals,}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_affine_manifold}{AffineManifold}}\&\ affine\_manifold,}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_optimization_parameters}{OptimizationParameters}}\&\ optimization\_params,}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{double}\&\ energy,}
+\DoxyCodeLine{00067\ \ \ VectorXr\&\ derivatives,}
+\DoxyCodeLine{00068\ \ \ Eigen::SparseMatrix<double>\&\ hessian,}
+\DoxyCodeLine{00069\ \ \ MatrixInverse\&\ hessian\_inverse);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00080\ \mbox{\hyperlink{optimize__spline__surface_8h_a621d4fa277e91a8e3a441868ce343a10}{generate\_optimized\_twelve\_split\_position\_data}}(}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_affine_manifold}{AffineManifold}}\&\ affine\_manifold,}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ Eigen::SparseMatrix<double>\&\ fit\_matrix,}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{const}\ MatrixInverse\&}
+\DoxyCodeLine{00085\ \ \ \ \ hessian\_inverse,}
+\DoxyCodeLine{00086\ \ \ std::vector<std::array<TriangleCornerFunctionData,\ 3>>\&\ corner\_data,}
+\DoxyCodeLine{00087\ \ \ std::vector<std::array<TriangleMidpointFunctionData,\ 3>>\&\ midpoint\_data);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00094\ \mbox{\hyperlink{optimize__spline__surface_8h_a5b45de98ed7ededc98adf11c01863c06}{generate\_zero\_vertex\_gradients}}(\textcolor{keywordtype}{int}\ num\_vertices,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Matrix2x3r>\&\ gradients);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00101\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00102\ \mbox{\hyperlink{optimize__spline__surface_8h_a47aa1de22198d6ccd5fc756919792775}{generate\_zero\_edge\_gradients}}(}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{int}\ num\_faces,}
+\DoxyCodeLine{00104\ \ \ std::vector<std::array<SpatialVector,\ 3>>\&\ edge\_gradients);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00112\ \mbox{\hyperlink{optimize__spline__surface_8h_a0f33fa2aef7d28aa4e7a3e90230548b9}{convert\_full\_edge\_gradients\_to\_reduced}}(}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{const}\ std::vector<std::array<Matrix2x3r,\ 3>>\&\ edge\_gradients,}
+\DoxyCodeLine{00114\ \ \ std::vector<std::array<SpatialVector,\ 3>>\&\ reduced\_edge\_gradients);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00125\ \mbox{\hyperlink{optimize__spline__surface_8h_ab9e812b51ef8c87d56f222d7f67f2af5}{convert\_reduced\_edge\_gradients\_to\_full}}(}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{const}\ std::vector<std::array<SpatialVector,\ 3>>\&\ reduced\_edge\_gradients,}
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{const}\ std::vector<std::array<TriangleCornerFunctionData,\ 3>>\&\ corner\_data,}
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_affine_manifold}{AffineManifold}}\&\ affine\_manifold,}
+\DoxyCodeLine{00129\ \ \ std::vector<std::array<Matrix2x3r,\ 3>>\&\ edge\_gradients);}
+
+\end{DoxyCode}

@@ -1,0 +1,32 @@
+\doxysection{src/contour\+\_\+network/ray\+\_\+intersection\+\_\+heuristics.h File Reference}
+\hypertarget{ray__intersection__heuristics_8h}{}\label{ray__intersection__heuristics_8h}\index{src/contour\_network/ray\_intersection\_heuristics.h@{src/contour\_network/ray\_intersection\_heuristics.h}}
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}quadratic\+\_\+spline\+\_\+surface.\+h\"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{ray__intersection__heuristics_8h_a982ebe35b9610370f7fbe6ef40afd073}{compute\+\_\+spline\+\_\+surface\+\_\+bounding\+\_\+boxes}} (const \mbox{\hyperlink{class_quadratic_spline_surface}{Quadratic\+Spline\+Surface}} \&spline\+\_\+surface, std\+::vector$<$ Spatial\+Vector $>$ \&min\+\_\+points, std\+::vector$<$ Spatial\+Vector $>$ \&max\+\_\+points)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to accelerate computation of intersections of a ray and a quadratic surface. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{ray__intersection__heuristics_8h_a982ebe35b9610370f7fbe6ef40afd073}\label{ray__intersection__heuristics_8h_a982ebe35b9610370f7fbe6ef40afd073} 
+\index{ray\_intersection\_heuristics.h@{ray\_intersection\_heuristics.h}!compute\_spline\_surface\_bounding\_boxes@{compute\_spline\_surface\_bounding\_boxes}}
+\index{compute\_spline\_surface\_bounding\_boxes@{compute\_spline\_surface\_bounding\_boxes}!ray\_intersection\_heuristics.h@{ray\_intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{compute\_spline\_surface\_bounding\_boxes()}{compute\_spline\_surface\_bounding\_boxes()}}
+{\footnotesize\ttfamily void compute\+\_\+spline\+\_\+surface\+\_\+bounding\+\_\+boxes (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_quadratic_spline_surface}{Quadratic\+Spline\+Surface}} \&}]{spline\+\_\+surface,  }\item[{std\+::vector$<$ Spatial\+Vector $>$ \&}]{min\+\_\+points,  }\item[{std\+::vector$<$ Spatial\+Vector $>$ \&}]{max\+\_\+points }\end{DoxyParamCaption})}
+
+Compute the 3D bounding boxes for the spline surface patches.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em spline\+\_\+surface} & surface to compute patch bounding boxes for \\
+\hline
+\mbox{\texttt{ out}}  & {\em min\+\_\+points} & minimum coefficients points of the bounding boxes \\
+\hline
+\mbox{\texttt{ out}}  & {\em max\+\_\+points} & maximum coefficients points of the bounding boxes \\
+\hline
+\end{DoxyParams}

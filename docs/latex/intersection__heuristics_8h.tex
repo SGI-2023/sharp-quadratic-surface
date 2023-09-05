@@ -1,0 +1,233 @@
+\doxysection{src/contour\+\_\+network/intersection\+\_\+heuristics.h File Reference}
+\hypertarget{intersection__heuristics_8h}{}\label{intersection__heuristics_8h}\index{src/contour\_network/intersection\_heuristics.h@{src/contour\_network/intersection\_heuristics.h}}
+{\ttfamily \#include \"{}rational\+\_\+function.\+h\"{}}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_intersection_stats}{Intersection\+Stats}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{intersection__heuristics_8h_abbc69e99c7c00449eb55b96026b0e233}{compute\+\_\+homogeneous\+\_\+bezier\+\_\+points\+\_\+over\+\_\+interval}} (const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&planar\+\_\+curve, double t\+\_\+min, double t\+\_\+max, Eigen\+::\+Matrix$<$ double, 5, 3 $>$ \&bezier\+\_\+points)
+\begin{DoxyCompactList}\small\item\em Compute the bezier control points for a curve over a domain. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{intersection__heuristics_8h_a90d96a38b13619c1f91cf3daa7f299a9}{compute\+\_\+bezier\+\_\+bounding\+\_\+box}} (const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&planar\+\_\+curve, Planar\+Point \&lower\+\_\+left\+\_\+point, Planar\+Point \&upper\+\_\+right\+\_\+point)
+\begin{DoxyCompactList}\small\item\em Compute a bounding box for a planar curve using Bezier control points for the two subcurves split at the middle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{intersection__heuristics_8h_ab591735ff869fac76231c817aa8f3cec}{compute\+\_\+bezier\+\_\+bounding\+\_\+boxes}} (const std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ $>$ \&planar\+\_\+curves, std\+::vector$<$ Planar\+Point $>$ \&lower\+\_\+left\+\_\+points, std\+::vector$<$ Planar\+Point $>$ \&upper\+\_\+right\+\_\+points)
+\begin{DoxyCompactList}\small\item\em Compute bounding boxes for a list of planar curve using Bezier control points. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{intersection__heuristics_8h_a696b69456fc7dd29a0cbb43ea8f05e5a}{combine\+\_\+bounding\+\_\+boxes}} (const Planar\+Point \&first\+\_\+box\+\_\+lower\+\_\+left\+\_\+point, const Planar\+Point \&first\+\_\+box\+\_\+upper\+\_\+right\+\_\+point, const Planar\+Point \&second\+\_\+box\+\_\+lower\+\_\+left\+\_\+point, const Planar\+Point \&second\+\_\+box\+\_\+upper\+\_\+right\+\_\+point, Planar\+Point \&lower\+\_\+left\+\_\+point, Planar\+Point \&upper\+\_\+right\+\_\+point)
+\begin{DoxyCompactList}\small\item\em Get the bounding box containing two bounding boxes. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{intersection__heuristics_8h_ad24d6d52b40a11d1c82ca00150301e2b}{is\+\_\+in\+\_\+bounding\+\_\+box}} (const Planar\+Point \&test\+\_\+point, const Planar\+Point \&lower\+\_\+left\+\_\+point, const Planar\+Point \&upper\+\_\+right\+\_\+point)
+\begin{DoxyCompactList}\small\item\em Check if a test point is in a bounding box with extreme corners lower left point and upper right point. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{intersection__heuristics_8h_ae0d621e14dd69e6834f4658b67d37ba7}{are\+\_\+nonintersecting\+\_\+by\+\_\+heuristic}} (const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&first\+\_\+planar\+\_\+curve, const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&second\+\_\+planar\+\_\+curve, \mbox{\hyperlink{struct_intersection_stats}{Intersection\+Stats}} \&intersection\+\_\+stats)
+\begin{DoxyCompactList}\small\item\em Determine if two planar curves cannot intersect by heuristics. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{intersection__heuristics_8h_ac3cbc40622d6df770fa972d1ad04b6ba}{are\+\_\+nonintersecting\+\_\+by\+\_\+heuristic}} (const std\+::pair$<$ Planar\+Point, Planar\+Point $>$ \&first\+\_\+bounding\+\_\+box, const std\+::pair$<$ Planar\+Point, Planar\+Point $>$ \&second\+\_\+bounding\+\_\+box, \mbox{\hyperlink{struct_intersection_stats}{Intersection\+Stats}} \&intersection\+\_\+stats)
+\begin{DoxyCompactList}\small\item\em Determine if two planar curves cannot intersect by heuristics using just the bounding boxes of the curve. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{intersection__heuristics_8h_a19b7d7ef96495d43575feea748443b72}{compute\+\_\+bounding\+\_\+box\+\_\+hash\+\_\+table}} (const std\+::vector$<$ std\+::pair$<$ Planar\+Point, Planar\+Point $>$ $>$ \&bounding\+\_\+boxes, std\+::vector$<$ int $>$ hash\+\_\+table\mbox{[}50\mbox{]}\mbox{[}50\mbox{]}, std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&reverse\+\_\+hash\+\_\+table)
+\begin{DoxyCompactList}\small\item\em Hash bounding boxes by x and y coordinates. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{intersection__heuristics_8h_ab14cde502618479497423e384905f08e}{has\+\_\+linear\+\_\+intersection}} (const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&first\+\_\+planar\+\_\+curve, const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&second\+\_\+planar\+\_\+curve)
+\begin{DoxyCompactList}\small\item\em Determine if the line between the endpoints of two curves intersect. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to quickly determine if two planar curves do not intersect. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{intersection__heuristics_8h_ae0d621e14dd69e6834f4658b67d37ba7}\label{intersection__heuristics_8h_ae0d621e14dd69e6834f4658b67d37ba7} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!are\_nonintersecting\_by\_heuristic@{are\_nonintersecting\_by\_heuristic}}
+\index{are\_nonintersecting\_by\_heuristic@{are\_nonintersecting\_by\_heuristic}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{are\_nonintersecting\_by\_heuristic()}{are\_nonintersecting\_by\_heuristic()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool are\+\_\+nonintersecting\+\_\+by\+\_\+heuristic (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&}]{first\+\_\+planar\+\_\+curve,  }\item[{const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&}]{second\+\_\+planar\+\_\+curve,  }\item[{\mbox{\hyperlink{struct_intersection_stats}{Intersection\+Stats}} \&}]{intersection\+\_\+stats }\end{DoxyParamCaption})}
+
+
+
+Determine if two planar curves cannot intersect by heuristics. 
+
+This method can only determine if two curves do not intersect and may have false negatives.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em first\+\_\+planar\+\_\+curve} & first planar curve segment \\
+\hline
+\mbox{\texttt{ in}}  & {\em second\+\_\+planar\+\_\+curve} & second planar curve segment \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em intersection\+\_\+stats} & statistics for intersections computation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the two curves do not intersect 
+\end{DoxyReturn}
+\Hypertarget{intersection__heuristics_8h_ac3cbc40622d6df770fa972d1ad04b6ba}\label{intersection__heuristics_8h_ac3cbc40622d6df770fa972d1ad04b6ba} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!are\_nonintersecting\_by\_heuristic@{are\_nonintersecting\_by\_heuristic}}
+\index{are\_nonintersecting\_by\_heuristic@{are\_nonintersecting\_by\_heuristic}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{are\_nonintersecting\_by\_heuristic()}{are\_nonintersecting\_by\_heuristic()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool are\+\_\+nonintersecting\+\_\+by\+\_\+heuristic (\begin{DoxyParamCaption}\item[{const std\+::pair$<$ Planar\+Point, Planar\+Point $>$ \&}]{first\+\_\+bounding\+\_\+box,  }\item[{const std\+::pair$<$ Planar\+Point, Planar\+Point $>$ \&}]{second\+\_\+bounding\+\_\+box,  }\item[{\mbox{\hyperlink{struct_intersection_stats}{Intersection\+Stats}} \&}]{intersection\+\_\+stats }\end{DoxyParamCaption})}
+
+
+
+Determine if two planar curves cannot intersect by heuristics using just the bounding boxes of the curve. 
+
+This method can only determine if two curves do not intersect and may have false negatives.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em first\+\_\+bounding\+\_\+box} & bounding box of the first planar curve segment \\
+\hline
+\mbox{\texttt{ in}}  & {\em second\+\_\+bounding\+\_\+box} & bounding box of the second planar curve segment \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em intersection\+\_\+stats} & statistics for intersections computation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the two curves do not intersect 
+\end{DoxyReturn}
+\Hypertarget{intersection__heuristics_8h_a696b69456fc7dd29a0cbb43ea8f05e5a}\label{intersection__heuristics_8h_a696b69456fc7dd29a0cbb43ea8f05e5a} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!combine\_bounding\_boxes@{combine\_bounding\_boxes}}
+\index{combine\_bounding\_boxes@{combine\_bounding\_boxes}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{combine\_bounding\_boxes()}{combine\_bounding\_boxes()}}
+{\footnotesize\ttfamily void combine\+\_\+bounding\+\_\+boxes (\begin{DoxyParamCaption}\item[{const Planar\+Point \&}]{first\+\_\+box\+\_\+lower\+\_\+left\+\_\+point,  }\item[{const Planar\+Point \&}]{first\+\_\+box\+\_\+upper\+\_\+right\+\_\+point,  }\item[{const Planar\+Point \&}]{second\+\_\+box\+\_\+lower\+\_\+left\+\_\+point,  }\item[{const Planar\+Point \&}]{second\+\_\+box\+\_\+upper\+\_\+right\+\_\+point,  }\item[{Planar\+Point \&}]{lower\+\_\+left\+\_\+point,  }\item[{Planar\+Point \&}]{upper\+\_\+right\+\_\+point }\end{DoxyParamCaption})}
+
+
+
+Get the bounding box containing two bounding boxes. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em first\+\_\+box\+\_\+lower\+\_\+left\+\_\+point} & lower left point of the first bounding box \\
+\hline
+\mbox{\texttt{ in}}  & {\em first\+\_\+box\+\_\+upper\+\_\+right\+\_\+point} & upper right point of the first bounding box \\
+\hline
+\mbox{\texttt{ in}}  & {\em second\+\_\+box\+\_\+lower\+\_\+left\+\_\+point} & lower left point of the second bounding box \\
+\hline
+\mbox{\texttt{ in}}  & {\em second\+\_\+box\+\_\+upper\+\_\+right\+\_\+point} & upper right point of the second bounding box \\
+\hline
+\mbox{\texttt{ out}}  & {\em lower\+\_\+left\+\_\+point} & lower left point of the combined bounding box \\
+\hline
+\mbox{\texttt{ out}}  & {\em upper\+\_\+right\+\_\+point} & upper right point of the combined bounding box \\
+\hline
+\end{DoxyParams}
+\Hypertarget{intersection__heuristics_8h_a90d96a38b13619c1f91cf3daa7f299a9}\label{intersection__heuristics_8h_a90d96a38b13619c1f91cf3daa7f299a9} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!compute\_bezier\_bounding\_box@{compute\_bezier\_bounding\_box}}
+\index{compute\_bezier\_bounding\_box@{compute\_bezier\_bounding\_box}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{compute\_bezier\_bounding\_box()}{compute\_bezier\_bounding\_box()}}
+{\footnotesize\ttfamily void compute\+\_\+bezier\+\_\+bounding\+\_\+box (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&}]{planar\+\_\+curve,  }\item[{Planar\+Point \&}]{lower\+\_\+left\+\_\+point,  }\item[{Planar\+Point \&}]{upper\+\_\+right\+\_\+point }\end{DoxyParamCaption})}
+
+
+
+Compute a bounding box for a planar curve using Bezier control points for the two subcurves split at the middle. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em planar\+\_\+curve} & planar curve segment \\
+\hline
+\mbox{\texttt{ out}}  & {\em lower\+\_\+left\+\_\+point} & lower left point of the bounding box \\
+\hline
+\mbox{\texttt{ out}}  & {\em upper\+\_\+right\+\_\+point} & upper right point of the bounding box \\
+\hline
+\end{DoxyParams}
+\Hypertarget{intersection__heuristics_8h_ab591735ff869fac76231c817aa8f3cec}\label{intersection__heuristics_8h_ab591735ff869fac76231c817aa8f3cec} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!compute\_bezier\_bounding\_boxes@{compute\_bezier\_bounding\_boxes}}
+\index{compute\_bezier\_bounding\_boxes@{compute\_bezier\_bounding\_boxes}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{compute\_bezier\_bounding\_boxes()}{compute\_bezier\_bounding\_boxes()}}
+{\footnotesize\ttfamily void compute\+\_\+bezier\+\_\+bounding\+\_\+boxes (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ $>$ \&}]{planar\+\_\+curves,  }\item[{std\+::vector$<$ Planar\+Point $>$ \&}]{lower\+\_\+left\+\_\+points,  }\item[{std\+::vector$<$ Planar\+Point $>$ \&}]{upper\+\_\+right\+\_\+points }\end{DoxyParamCaption})}
+
+
+
+Compute bounding boxes for a list of planar curve using Bezier control points. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em planar\+\_\+curves} & planar curve segments \\
+\hline
+\mbox{\texttt{ out}}  & {\em lower\+\_\+left\+\_\+points} & lower left points of the bounding boxes \\
+\hline
+\mbox{\texttt{ out}}  & {\em upper\+\_\+right\+\_\+points} & upper right points of the bounding boxes \\
+\hline
+\end{DoxyParams}
+\Hypertarget{intersection__heuristics_8h_a19b7d7ef96495d43575feea748443b72}\label{intersection__heuristics_8h_a19b7d7ef96495d43575feea748443b72} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!compute\_bounding\_box\_hash\_table@{compute\_bounding\_box\_hash\_table}}
+\index{compute\_bounding\_box\_hash\_table@{compute\_bounding\_box\_hash\_table}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{compute\_bounding\_box\_hash\_table()}{compute\_bounding\_box\_hash\_table()}}
+{\footnotesize\ttfamily void compute\+\_\+bounding\+\_\+box\+\_\+hash\+\_\+table (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::pair$<$ Planar\+Point, Planar\+Point $>$ $>$ \&}]{bounding\+\_\+boxes,  }\item[{std\+::vector$<$ int $>$}]{hash\+\_\+table\mbox{[}50\mbox{]}\mbox{[}50\mbox{]},  }\item[{std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&}]{reverse\+\_\+hash\+\_\+table }\end{DoxyParamCaption})}
+
+
+
+Hash bounding boxes by x and y coordinates. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em bounding\+\_\+boxes} & bounding boxes to hash \\
+\hline
+\mbox{\texttt{ out}}  & {\em hash\+\_\+table} & lists of bounding boxes per hash region \\
+\hline
+\mbox{\texttt{ out}}  & {\em reverse\+\_\+hash\+\_\+table} & map from bounding boxes to ids of hash regions containing them \\
+\hline
+\end{DoxyParams}
+\Hypertarget{intersection__heuristics_8h_abbc69e99c7c00449eb55b96026b0e233}\label{intersection__heuristics_8h_abbc69e99c7c00449eb55b96026b0e233} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!compute\_homogeneous\_bezier\_points\_over\_interval@{compute\_homogeneous\_bezier\_points\_over\_interval}}
+\index{compute\_homogeneous\_bezier\_points\_over\_interval@{compute\_homogeneous\_bezier\_points\_over\_interval}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{compute\_homogeneous\_bezier\_points\_over\_interval()}{compute\_homogeneous\_bezier\_points\_over\_interval()}}
+{\footnotesize\ttfamily void compute\+\_\+homogeneous\+\_\+bezier\+\_\+points\+\_\+over\+\_\+interval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&}]{planar\+\_\+curve,  }\item[{double}]{t\+\_\+min,  }\item[{double}]{t\+\_\+max,  }\item[{Eigen\+::\+Matrix$<$ double, 5, 3 $>$ \&}]{bezier\+\_\+points }\end{DoxyParamCaption})}
+
+
+
+Compute the bezier control points for a curve over a domain. 
+
+The domain may differ from the domain of the planar curve itself.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em planar\+\_\+curve} & planar curve segment \\
+\hline
+\mbox{\texttt{ in}}  & {\em t\+\_\+min} & lower bound of the domain \\
+\hline
+\mbox{\texttt{ in}}  & {\em t\+\_\+max} & upper bound of the domain \\
+\hline
+\mbox{\texttt{ out}}  & {\em bezier\+\_\+points} & homogeneous control points of the curve \\
+\hline
+\end{DoxyParams}
+\Hypertarget{intersection__heuristics_8h_ab14cde502618479497423e384905f08e}\label{intersection__heuristics_8h_ab14cde502618479497423e384905f08e} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!has\_linear\_intersection@{has\_linear\_intersection}}
+\index{has\_linear\_intersection@{has\_linear\_intersection}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{has\_linear\_intersection()}{has\_linear\_intersection()}}
+{\footnotesize\ttfamily bool has\+\_\+linear\+\_\+intersection (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&}]{first\+\_\+planar\+\_\+curve,  }\item[{const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&}]{second\+\_\+planar\+\_\+curve }\end{DoxyParamCaption})}
+
+
+
+Determine if the line between the endpoints of two curves intersect. 
+
+Note that linear intersection does not imply curve intersection, and the the absence of linear intersection does not imply the curves do not intersect. It just roughly indicates potential intersections for simple curves.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em first\+\_\+planar\+\_\+curve} & first planar curve segment \\
+\hline
+\mbox{\texttt{ in}}  & {\em second\+\_\+planar\+\_\+curve} & second planar curve segment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the lines between the respective endpoints of the curves intersect 
+\end{DoxyReturn}
+\Hypertarget{intersection__heuristics_8h_ad24d6d52b40a11d1c82ca00150301e2b}\label{intersection__heuristics_8h_ad24d6d52b40a11d1c82ca00150301e2b} 
+\index{intersection\_heuristics.h@{intersection\_heuristics.h}!is\_in\_bounding\_box@{is\_in\_bounding\_box}}
+\index{is\_in\_bounding\_box@{is\_in\_bounding\_box}!intersection\_heuristics.h@{intersection\_heuristics.h}}
+\doxysubsubsection{\texorpdfstring{is\_in\_bounding\_box()}{is\_in\_bounding\_box()}}
+{\footnotesize\ttfamily bool is\+\_\+in\+\_\+bounding\+\_\+box (\begin{DoxyParamCaption}\item[{const Planar\+Point \&}]{test\+\_\+point,  }\item[{const Planar\+Point \&}]{lower\+\_\+left\+\_\+point,  }\item[{const Planar\+Point \&}]{upper\+\_\+right\+\_\+point }\end{DoxyParamCaption})}
+
+
+
+Check if a test point is in a bounding box with extreme corners lower left point and upper right point. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em test\+\_\+point} & point to test for containment \\
+\hline
+\mbox{\texttt{ in}}  & {\em lower\+\_\+left\+\_\+point} & lower left point of the bounding box \\
+\hline
+\mbox{\texttt{ in}}  & {\em upper\+\_\+right\+\_\+point} & upper right point of the bounding box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the test point is in the bounding box 
+\end{DoxyReturn}

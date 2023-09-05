@@ -1,0 +1,68 @@
+\doxysection{test\+\_\+apply\+\_\+transformation.\+cpp}
+\hypertarget{test__apply__transformation_8cpp_source}{}\label{test__apply__transformation_8cpp_source}\index{src/tests/test\_apply\_transformation.cpp@{src/tests/test\_apply\_transformation.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <catch2/catch\_test\_macros.hpp>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Eigen/Core>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{apply__transformation_8h}{apply\_transformation.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ TEST\_CASE\ (\ \textcolor{stringliteral}{"{}Vectors\ can\ be\ converted\ to\ homogeneous\ coordinates"{}},\ \textcolor{stringliteral}{"{}[apply\_transformation]"{}})}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Zero\ case"{}}\ )}
+\DoxyCodeLine{00014\ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \ \ SpatialVector\ vector(3);}
+\DoxyCodeLine{00016\ \ \ \ \ vector\ <<\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ Eigen::Matrix<double,\ 4,\ 1>\ homogeneous\_coords;}
+\DoxyCodeLine{00018\ \ \ \ \ convert\_point\_to\_homogeneous\_coords(vector,\ homogeneous\_coords);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ REQUIRE(\ float\_equal(homogeneous\_coords(0),\ 0.0)\ );}
+\DoxyCodeLine{00021\ \ \ \ \ REQUIRE(\ float\_equal(homogeneous\_coords(1),\ 0.0)\ );}
+\DoxyCodeLine{00022\ \ \ \ \ REQUIRE(\ float\_equal(homogeneous\_coords(2),\ 0.0)\ );}
+\DoxyCodeLine{00023\ \ \ \ \ REQUIRE(\ float\_equal(homogeneous\_coords(3),\ 1.0)\ );}
+\DoxyCodeLine{00024\ \ \ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}General\ case"{}}\ )}
+\DoxyCodeLine{00027\ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ SpatialVector\ vector(3);}
+\DoxyCodeLine{00029\ \ \ \ \ vector\ <<\ 1,\ 2,\ 3;}
+\DoxyCodeLine{00030\ \ \ \ \ Eigen::Matrix<double,\ 4,\ 1>\ homogeneous\_coords;}
+\DoxyCodeLine{00031\ \ \ \ \ convert\_point\_to\_homogeneous\_coords(vector,\ homogeneous\_coords);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ REQUIRE(\ float\_equal(homogeneous\_coords(0),\ 1.0)\ );}
+\DoxyCodeLine{00034\ \ \ \ \ REQUIRE(\ float\_equal(homogeneous\_coords(1),\ 2.0)\ );}
+\DoxyCodeLine{00035\ \ \ \ \ REQUIRE(\ float\_equal(homogeneous\_coords(2),\ 3.0)\ );}
+\DoxyCodeLine{00036\ \ \ \ \ REQUIRE(\ float\_equal(homogeneous\_coords(3),\ 1.0)\ );}
+\DoxyCodeLine{00037\ \ \ \}}
+\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ TEST\_CASE\ (\ \textcolor{stringliteral}{"{}Homogeneous\ coordinates\ can\ be\ translated"{}},\ \textcolor{stringliteral}{"{}[apply\_transformation]"{}})}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ SpatialVector\ translation(3);}
+\DoxyCodeLine{00043\ \ \ Eigen::Matrix<double,\ 4,\ 1>\ \ e1,\ e2,\ e3;}
+\DoxyCodeLine{00044\ \ \ convert\_point\_to\_homogeneous\_coords(elementary\_basis\_vector<3>(0),\ e1);}
+\DoxyCodeLine{00045\ \ \ convert\_point\_to\_homogeneous\_coords(elementary\_basis\_vector<3>(1),\ e2);}
+\DoxyCodeLine{00046\ \ \ convert\_point\_to\_homogeneous\_coords(elementary\_basis\_vector<3>(2),\ e3);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Zero\ case"{}}\ )}
+\DoxyCodeLine{00049\ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ translation\ <<\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00051\ \ \ \ \ Eigen::Matrix<double,\ 4,\ 4>\ translation\_matrix\ =\ translation\_projective\_matrix(translation);}
+\DoxyCodeLine{00052\ \ \ \ \ Eigen::Matrix<double,\ 4,\ 1>\ v1\ =\ translation\_matrix\ *\ e1;}
+\DoxyCodeLine{00053\ \ \ \ \ Eigen::Matrix<double,\ 4,\ 1>\ v2\ =\ translation\_matrix\ *\ e2;}
+\DoxyCodeLine{00054\ \ \ \ \ Eigen::Matrix<double,\ 4,\ 1>\ v3\ =\ translation\_matrix\ *\ e3;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ REQUIRE(\ float\_equal(v1(0),\ 1.0)\ );}
+\DoxyCodeLine{00057\ \ \ \ \ REQUIRE(\ float\_equal(v1(1),\ 0.0)\ );}
+\DoxyCodeLine{00058\ \ \ \ \ REQUIRE(\ float\_equal(v1(2),\ 0.0)\ );}
+\DoxyCodeLine{00059\ \ \ \ \ REQUIRE(\ float\_equal(v2(0),\ 0.0)\ );}
+\DoxyCodeLine{00060\ \ \ \ \ REQUIRE(\ float\_equal(v3(0),\ 0.0)\ );}
+\DoxyCodeLine{00061\ \ \ \}}
+\DoxyCodeLine{00062\ \}}
+
+\end{DoxyCode}

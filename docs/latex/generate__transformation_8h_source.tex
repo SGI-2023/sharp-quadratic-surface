@@ -1,0 +1,45 @@
+\doxysection{generate\+\_\+transformation.\+h}
+\hypertarget{generate__transformation_8h_source}{}\label{generate__transformation_8h_source}\index{src/core/generate\_transformation.h@{src/core/generate\_transformation.h}}
+\mbox{\hyperlink{generate__transformation_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00018\ Matrix3x3r}
+\DoxyCodeLine{00019\ \mbox{\hyperlink{generate__transformation_8h_aa89e9318d94948b977ba4b339859afa8}{get\_frame}}(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ 3,\ 1>\&\ tau);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00026\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00027\ \mbox{\hyperlink{generate__transformation_8h_a1466880922b4a1a12884462dae75dd0f}{origin\_to\_infinity\_projective\_matrix}}(\textcolor{keywordtype}{double}\ plane\_distance);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00036\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00037\ \mbox{\hyperlink{generate__transformation_8h_aa378abd8613332e74095463a61afacde}{infinity\_to\_origin\_projective\_matrix}}(\textcolor{keywordtype}{double}\ plane\_distance);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00044\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00045\ \mbox{\hyperlink{generate__transformation_8h_a4c3b90a0f8c82166127368af762aa997}{rotate\_frame\_projective\_matrix}}(\textcolor{keyword}{const}\ Matrix3x3r\&\ frame);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00052\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00053\ \mbox{\hyperlink{generate__transformation_8h_a6a67a5fe111d7ad7e4ba316d32372590}{translation\_projective\_matrix}}(\textcolor{keyword}{const}\ SpatialVector\&\ translation);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00060\ \mbox{\hyperlink{generate__transformation_8h_a56f4368d64e409363b8b82ec017a131f}{scaling\_projective\_matrix}}(\textcolor{keywordtype}{double}\ scale);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00067\ \mbox{\hyperlink{generate__transformation_8h_a2ebf86e1bb6e4c3617a0dfb2dedcaa2c}{x\_axis\_rotation\_projective\_matrix}}(\textcolor{keywordtype}{double}\ degree);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00073\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00074\ \mbox{\hyperlink{generate__transformation_8h_a1833e895010f42a6e4489f600394bf92}{y\_axis\_rotation\_projective\_matrix}}(\textcolor{keywordtype}{double}\ degree);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00080\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00081\ \mbox{\hyperlink{generate__transformation_8h_a99e345f958185d6722bc9e5a9f95acd9}{z\_axis\_rotation\_projective\_matrix}}(\textcolor{keywordtype}{double}\ degree);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00092\ Eigen::Matrix<double,\ 4,\ 4>}
+\DoxyCodeLine{00093\ \mbox{\hyperlink{generate__transformation_8h_a5d827a032d07784e8a24b7bee0be2f5f}{axis\_rotation\_projective\_matrix}}(\textcolor{keywordtype}{double}\ x\_degree,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ y\_degree,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ z\_degree);}
+
+\end{DoxyCode}

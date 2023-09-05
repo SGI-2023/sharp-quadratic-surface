@@ -12,7 +12,7 @@ TwelveSplitSplineSurface::TwelveSplitSplineSurface(
   std::vector<int>& patch_to_face_indices,
   Eigen::SparseMatrix<double>& fit_matrix,
   Eigen::SparseMatrix<double>& energy_hessian,
-  Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>&
+  MatrixInverse&
     energy_hessian_inverse)
   : m_affine_manifold(affine_manifold)
 {
@@ -26,7 +26,7 @@ TwelveSplitSplineSurface::TwelveSplitSplineSurface(
   VectorXr fit_derivatives;
   OptimizationParameters optimization_params_fit = optimization_params;
   optimization_params_fit.parametrized_quadratic_surface_mapping_factor = 0.0;
-  Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>> fit_matrix_inverse;
+  MatrixInverse fit_matrix_inverse;
   build_twelve_split_spline_energy_system(V,
                                           N,
                                           affine_manifold,
@@ -95,7 +95,7 @@ void
 TwelveSplitSplineSurface::update_positions(
   const Eigen::MatrixXd& V,
   const Eigen::SparseMatrix<double>& fit_matrix,
-  const Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>&
+  const MatrixInverse&
     energy_hessian_inverse)
 {
   AffineManifold const& affine_manifold = get_affine_manifold();

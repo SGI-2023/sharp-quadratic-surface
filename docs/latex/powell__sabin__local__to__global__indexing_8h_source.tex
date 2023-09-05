@@ -1,0 +1,181 @@
+\doxysection{powell\+\_\+sabin\+\_\+local\+\_\+to\+\_\+global\+\_\+indexing.\+h}
+\hypertarget{powell__sabin__local__to__global__indexing_8h_source}{}\label{powell__sabin__local__to__global__indexing_8h_source}\index{src/quadratic\_spline\_surface/powell\_sabin\_local\_to\_global\_indexing.h@{src/quadratic\_spline\_surface/powell\_sabin\_local\_to\_global\_indexing.h}}
+\mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{affine__manifold_8h}{affine\_manifold.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}differentiable\_variable.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{halfedge_8h}{halfedge.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{polynomial__function_8h}{polynomial\_function.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}position\_data.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <Eigen/CholmodSupport>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <Eigen/Sparse>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00027\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a09af358b4e7c80d24906a454d25651cd}{generate\_local\_vertex\_position\_variable\_index}}(\textcolor{keywordtype}{size\_t}\ face\_vertex\_index,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ coord,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dimension\ =\ 3);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00039\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_ac18ece1cefff94dd859aad4fd2005db0}{generate\_local\_vertex\_gradient\_variable\_index}}(\textcolor{keywordtype}{size\_t}\ face\_vertex\_index,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ row,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ col,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dimension\ =\ 3);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00051\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_ad0c4759c204abc2a08ccf3bc861e5db5}{generate\_local\_edge\_gradient\_variable\_index}}(\textcolor{keywordtype}{size\_t}\ face\_edge\_index,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ coord,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dimension\ =\ 3);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00062\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a288662677c9bbae19ee64d6c989a42c9}{generate\_global\_vertex\_position\_variable\_index}}(\textcolor{keywordtype}{int}\ vertex\_index,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ coord,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dimension\ =\ 3);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00075\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_adcf94900d467ff5e78ed1d134e9a1e4f}{generate\_global\_vertex\_gradient\_variable\_index}}(\textcolor{keywordtype}{int}\ num\_variable\_vertices,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ vertex\_index,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ row,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ col,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dimension\ =\ 3);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00089\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_ac8609893ab1164edfcdb6ec950a3d445}{generate\_global\_edge\_gradient\_variable\_index}}(\textcolor{keywordtype}{int}\ num\_variable\_vertices,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ edge\_index,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ coord,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dimension\ =\ 3);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00105\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a1ed00063a4005007d3f1f6a5809e5b1b}{generate\_six\_split\_variable\_value\_vector}}(}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{const}\ std::vector<SpatialVector>\&\ vertex\_positions,}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{const}\ std::vector<Matrix2x3r>\&\ vertex\_gradients,}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_vertices,}
+\DoxyCodeLine{00109\ \ \ VectorXr\&\ variable\_values);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00124\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a91cbfe9dab367e54af4df8f8a52148f6}{generate\_twelve\_split\_variable\_value\_vector}}(}
+\DoxyCodeLine{00125\ \ \ \textcolor{keyword}{const}\ std::vector<SpatialVector>\&\ vertex\_positions,}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{const}\ std::vector<Matrix2x3r>\&\ vertex\_gradients,}
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{const}\ std::vector<std::array<SpatialVector,\ 3>>\&\ edge\_gradients,}
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_vertices,}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_edges,}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_halfedge}{Halfedge}}\&\ halfedge,}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{const}\ std::vector<std::pair<Eigen::Index,\ Eigen::Index>>\&\ he\_to\_corner,}
+\DoxyCodeLine{00132\ \ \ VectorXr\&\ variable\_values);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00144\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a6e100f7532c0157510e4bcc2258fafb2}{generate\_six\_split\_local\_to\_global\_map}}(}
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{const}\ std::array<int,\ 3>\&\ global\_vertex\_indices,}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{int}\ num\_variable\_vertices,}
+\DoxyCodeLine{00147\ \ \ std::vector<int>\&\ local\_to\_global\_map);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00157\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00158\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a06df9a9379397214eac19bf5ef76d3a3}{generate\_twelve\_split\_local\_to\_global\_map}}(}
+\DoxyCodeLine{00159\ \ \ \textcolor{keyword}{const}\ std::array<int,\ 3>\&\ global\_vertex\_indices,}
+\DoxyCodeLine{00160\ \ \ \textcolor{keyword}{const}\ std::array<int,\ 3>\&\ global\_edge\_indices,}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{int}\ num\_variable\_vertices,}
+\DoxyCodeLine{00162\ \ \ std::vector<int>\&\ local\_to\_global\_map);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00169\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00170\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a81f84a7632b3c17c1d6361363fb80883}{update\_position\_variables}}(\textcolor{keyword}{const}\ VectorXr\&\ variable\_values,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_vertices,}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<SpatialVector>\&\ vertex\_positions);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00179\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00180\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_acc36dd05cc58d2ef98b964b293ea7069}{update\_vertex\_gradient\_variables}}(\textcolor{keyword}{const}\ VectorXr\&\ variable\_values,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_vertices,}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Matrix2x3r>\&\ vertex\_gradients);}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00192\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00193\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_af97ba6cf360335a27711de72c5c29752}{update\_edge\_gradient\_variables}}(}
+\DoxyCodeLine{00194\ \ \ \textcolor{keyword}{const}\ VectorXr\&\ variable\_values,}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_vertices,}
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_edges,}
+\DoxyCodeLine{00197\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_halfedge}{Halfedge}}\&\ halfedge,}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{const}\ std::vector<std::pair<Eigen::Index,\ Eigen::Index>>\&\ he\_to\_corner,}
+\DoxyCodeLine{00199\ \ \ std::vector<std::array<SpatialVector,\ 3>>\&\ edge\_gradients);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00208\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a3b8ab1dd359f37f1c62a4bc9333a7c8d}{build\_variable\_vertex\_indices\_map}}(\textcolor{keywordtype}{int}\ num\_vertices,}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_vertices,}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\&\ global\_vertex\_indices);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00221\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00222\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_ae6ed90152ad6b03ff423a119b0e287c6}{build\_variable\_edge\_indices\_map}}(}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{int}\ num\_faces,}
+\DoxyCodeLine{00224\ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ variable\_edges,}
+\DoxyCodeLine{00225\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_halfedge}{Halfedge}}\&\ halfedge,}
+\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{const}\ std::vector<std::pair<Eigen::Index,\ Eigen::Index>>\&\ he\_to\_corner,}
+\DoxyCodeLine{00227\ \ \ std::vector<std::array<int,\ 3>>\&\ global\_edge\_indices);}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00238\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Gradient,\ \textcolor{keyword}{typename}\ Hessian>}
+\DoxyCodeLine{00239\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00240\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_aafae89ad411eaeeeacd196a4f6602d66}{update\_energy\_quadratic}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\&\ local\_energy,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Gradient\&\ local\_derivatives,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Hessian\&\ local\_hessian,}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ local\_to\_global\_map,}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\&\ energy,}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VectorXr\&\ derivatives,}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Eigen::Triplet<double>>\&\ hessian\_entries)}
+\DoxyCodeLine{00247\ \{}
+\DoxyCodeLine{00248\ \ \ spdlog::trace(\textcolor{stringliteral}{"{}Adding\ local\ face\ energy\ \{\}"{}},\ local\_energy);}
+\DoxyCodeLine{00249\ \ \ SPDLOG\_TRACE(\textcolor{stringliteral}{"{}Local\ to\ global\ map:\ \{\}"{}},}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_vector(local\_to\_global\_map,\ \textcolor{stringliteral}{"{},\ "{}}));}
+\DoxyCodeLine{00251\ \ \ \textcolor{comment}{//\ Update\ energy}}
+\DoxyCodeLine{00252\ \ \ energy\ +=\ local\_energy;}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \textcolor{comment}{//\ Update\ derivatives}}
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordtype}{int}\ num\_local\_indices\ =\ local\_to\_global\_map.size();}
+\DoxyCodeLine{00256\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ local\_index\ =\ 0;\ local\_index\ <\ num\_local\_indices;\ ++local\_index)\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordtype}{int}\ global\_index\ =\ local\_to\_global\_map[local\_index];}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{if}\ (global\_index\ <\ 0)}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//\ Skip\ fixed\ variables\ with\ no\ global\ index}}
+\DoxyCodeLine{00260\ \ \ \ \ derivatives[global\_index]\ +=\ local\_derivatives[local\_index];}
+\DoxyCodeLine{00261\ \ \ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \textcolor{comment}{//\ Update\ hessian\ entries}}
+\DoxyCodeLine{00264\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ local\_index\_i\ =\ 0;\ local\_index\_i\ <\ num\_local\_indices;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ ++local\_index\_i)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{comment}{//\ Get\ global\ row\ index,\ skipping\ fixed\ variables\ with\ no\ global\ index}}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{int}\ global\_index\_i\ =\ local\_to\_global\_map[local\_index\_i];}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{if}\ (global\_index\_i\ <\ 0)}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ local\_index\_j\ =\ 0;\ local\_index\_j\ <\ num\_local\_indices;}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ ++local\_index\_j)\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ global\ column\ index,\ skipping\ fixed\ variables\ with\ no\ global\ index}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ global\_index\_j\ =\ local\_to\_global\_map[local\_index\_j];}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (global\_index\_j\ <\ 0)}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};\ }
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ Hessian\ entry\ value}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ hessian\_value\ =\ local\_hessian(local\_index\_i,\ local\_index\_j);}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \textcolor{comment}{//\ Assemble\ global\ Hessian\ entry}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ hessian\_entries.push\_back(}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ Eigen::Triplet<double>(global\_index\_i,\ global\_index\_j,\ hessian\_value));}
+\DoxyCodeLine{00284\ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \}}
+\DoxyCodeLine{00286\ \}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00295\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00296\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00297\ \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a1bb94de1d5d1336e3675b221de67f228}{build\_face\_variable\_vector}}(\textcolor{keyword}{const}\ std::vector<T>\&\ variables,}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i,}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ j,}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ k,}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::array<T,\ 3>\&\ face\_variable\_vector)}
+\DoxyCodeLine{00302\ \{}
+\DoxyCodeLine{00303\ \ \ face\_variable\_vector[0]\ =\ variables[i];}
+\DoxyCodeLine{00304\ \ \ face\_variable\_vector[1]\ =\ variables[j];}
+\DoxyCodeLine{00305\ \ \ face\_variable\_vector[2]\ =\ variables[k];}
+\DoxyCodeLine{00306\ \}}
+
+\end{DoxyCode}

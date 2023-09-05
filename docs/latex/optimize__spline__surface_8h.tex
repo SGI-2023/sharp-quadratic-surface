@@ -1,0 +1,150 @@
+\doxysection{src/quadratic\+\_\+spline\+\_\+surface/optimize\+\_\+spline\+\_\+surface.h File Reference}
+\hypertarget{optimize__spline__surface_8h}{}\label{optimize__spline__surface_8h}\index{src/quadratic\_spline\_surface/optimize\_spline\_surface.h@{src/quadratic\_spline\_surface/optimize\_spline\_surface.h}}
+{\ttfamily \#include \"{}affine\+\_\+manifold.\+h\"{}}\newline
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}differentiable\+\_\+variable.\+h\"{}}\newline
+{\ttfamily \#include \"{}halfedge.\+h\"{}}\newline
+{\ttfamily \#include \"{}polynomial\+\_\+function.\+h\"{}}\newline
+{\ttfamily \#include \"{}position\+\_\+data.\+h\"{}}\newline
+{\ttfamily \#include $<$Eigen/\+Cholmod\+Support$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Sparse$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_optimization_parameters}{Optimization\+Parameters}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{optimize__spline__surface_8h_a8712d962939c31848c4c2fd710b377be}{build\+\_\+twelve\+\_\+split\+\_\+spline\+\_\+energy\+\_\+system}} (const Matrix\+Xr \&initial\+\_\+V, const Matrix\+Xr \&initial\+\_\+face\+\_\+normals, const \mbox{\hyperlink{class_affine_manifold}{Affine\+Manifold}} \&affine\+\_\+manifold, const \mbox{\hyperlink{struct_optimization_parameters}{Optimization\+Parameters}} \&optimization\+\_\+params, double \&energy, Vector\+Xr \&derivatives, Eigen\+::\+Sparse\+Matrix$<$ double $>$ \&hessian, Eigen\+::\+Cholmod\+Supernodal\+LLT$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$ $>$ \&hessian\+\_\+inverse)
+\item 
+void \mbox{\hyperlink{optimize__spline__surface_8h_a621d4fa277e91a8e3a441868ce343a10}{generate\+\_\+optimized\+\_\+twelve\+\_\+split\+\_\+position\+\_\+data}} (const Eigen\+::\+Matrix\+Xd \&V, const \mbox{\hyperlink{class_affine_manifold}{Affine\+Manifold}} \&affine\+\_\+manifold, const Eigen\+::\+Sparse\+Matrix$<$ double $>$ \&fit\+\_\+matrix, const Eigen\+::\+Cholmod\+Supernodal\+LLT$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$ $>$ \&hessian\+\_\+inverse, std\+::vector$<$ std\+::array$<$ \mbox{\hyperlink{struct_triangle_corner_data}{Triangle\+Corner\+Function\+Data}}, 3 $>$ $>$ \&corner\+\_\+data, std\+::vector$<$ std\+::array$<$ \mbox{\hyperlink{struct_triangle_midpoint_data}{Triangle\+Midpoint\+Function\+Data}}, 3 $>$ $>$ \&midpoint\+\_\+data)
+\item 
+void \mbox{\hyperlink{optimize__spline__surface_8h_a5b45de98ed7ededc98adf11c01863c06}{generate\+\_\+zero\+\_\+vertex\+\_\+gradients}} (int num\+\_\+vertices, std\+::vector$<$ Matrix2x3r $>$ \&gradients)
+\item 
+void \mbox{\hyperlink{optimize__spline__surface_8h_a47aa1de22198d6ccd5fc756919792775}{generate\+\_\+zero\+\_\+edge\+\_\+gradients}} (int num\+\_\+faces, std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&edge\+\_\+gradients)
+\item 
+void \mbox{\hyperlink{optimize__spline__surface_8h_a0f33fa2aef7d28aa4e7a3e90230548b9}{convert\+\_\+full\+\_\+edge\+\_\+gradients\+\_\+to\+\_\+reduced}} (const std\+::vector$<$ std\+::array$<$ Matrix2x3r, 3 $>$ $>$ \&edge\+\_\+gradients, std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&reduced\+\_\+edge\+\_\+gradients)
+\item 
+void \mbox{\hyperlink{optimize__spline__surface_8h_ab9e812b51ef8c87d56f222d7f67f2af5}{convert\+\_\+reduced\+\_\+edge\+\_\+gradients\+\_\+to\+\_\+full}} (const std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&reduced\+\_\+edge\+\_\+gradients, const std\+::vector$<$ std\+::array$<$ \mbox{\hyperlink{struct_triangle_corner_data}{Triangle\+Corner\+Function\+Data}}, 3 $>$ $>$ \&corner\+\_\+data, const \mbox{\hyperlink{class_affine_manifold}{Affine\+Manifold}} \&affine\+\_\+manifold, std\+::vector$<$ std\+::array$<$ Matrix2x3r, 3 $>$ $>$ \&edge\+\_\+gradients)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to optimize a spline surface 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{optimize__spline__surface_8h_a8712d962939c31848c4c2fd710b377be}\label{optimize__spline__surface_8h_a8712d962939c31848c4c2fd710b377be} 
+\index{optimize\_spline\_surface.h@{optimize\_spline\_surface.h}!build\_twelve\_split\_spline\_energy\_system@{build\_twelve\_split\_spline\_energy\_system}}
+\index{build\_twelve\_split\_spline\_energy\_system@{build\_twelve\_split\_spline\_energy\_system}!optimize\_spline\_surface.h@{optimize\_spline\_surface.h}}
+\doxysubsubsection{\texorpdfstring{build\_twelve\_split\_spline\_energy\_system()}{build\_twelve\_split\_spline\_energy\_system()}}
+{\footnotesize\ttfamily void build\+\_\+twelve\+\_\+split\+\_\+spline\+\_\+energy\+\_\+system (\begin{DoxyParamCaption}\item[{const Matrix\+Xr \&}]{initial\+\_\+V,  }\item[{const Matrix\+Xr \&}]{initial\+\_\+face\+\_\+normals,  }\item[{const \mbox{\hyperlink{class_affine_manifold}{Affine\+Manifold}} \&}]{affine\+\_\+manifold,  }\item[{const \mbox{\hyperlink{struct_optimization_parameters}{Optimization\+Parameters}} \&}]{optimization\+\_\+params,  }\item[{double \&}]{energy,  }\item[{Vector\+Xr \&}]{derivatives,  }\item[{Eigen\+::\+Sparse\+Matrix$<$ double $>$ \&}]{hessian,  }\item[{Eigen\+::\+Cholmod\+Supernodal\+LLT$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$ $>$ \&}]{hessian\+\_\+inverse }\end{DoxyParamCaption})}
+
+Build the quadratic energy system for the twelve-\/split spline with thin plate, fitting, and planarity energies.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em initial\+\_\+V} & initial vertex positions \\
+\hline
+\mbox{\texttt{ in}}  & {\em initial\+\_\+face\+\_\+normals} & initial vertex normals \\
+\hline
+\mbox{\texttt{ in}}  & {\em affine\+\_\+manifold} & mesh topology and affine manifold structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em optimization\+\_\+params} & parameters for the spline optimization \\
+\hline
+\mbox{\texttt{ out}}  & {\em energy} & energy value (i.\+e., constant term) \\
+\hline
+\mbox{\texttt{ out}}  & {\em derivatives} & energy gradient (i.\+e., linear term) \\
+\hline
+\mbox{\texttt{ out}}  & {\em hessian} & energy Hessian (i.\+e., quadratic term) \\
+\hline
+\mbox{\texttt{ out}}  & {\em hessian\+\_\+inverse} & solver for inverting the Hessian \\
+\hline
+\end{DoxyParams}
+\Hypertarget{optimize__spline__surface_8h_a0f33fa2aef7d28aa4e7a3e90230548b9}\label{optimize__spline__surface_8h_a0f33fa2aef7d28aa4e7a3e90230548b9} 
+\index{optimize\_spline\_surface.h@{optimize\_spline\_surface.h}!convert\_full\_edge\_gradients\_to\_reduced@{convert\_full\_edge\_gradients\_to\_reduced}}
+\index{convert\_full\_edge\_gradients\_to\_reduced@{convert\_full\_edge\_gradients\_to\_reduced}!optimize\_spline\_surface.h@{optimize\_spline\_surface.h}}
+\doxysubsubsection{\texorpdfstring{convert\_full\_edge\_gradients\_to\_reduced()}{convert\_full\_edge\_gradients\_to\_reduced()}}
+{\footnotesize\ttfamily void convert\+\_\+full\+\_\+edge\+\_\+gradients\+\_\+to\+\_\+reduced (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::array$<$ Matrix2x3r, 3 $>$ $>$ \&}]{edge\+\_\+gradients,  }\item[{std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&}]{reduced\+\_\+edge\+\_\+gradients }\end{DoxyParamCaption})}
+
+Given edge and opposite corner direction gradients at triangle edge midpoints, extract just the opposite corner direction gradient
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em edge\+\_\+gradients} & edge and corner directed gradients per edge midpoints \\
+\hline
+\mbox{\texttt{ out}}  & {\em reduced\+\_\+edge\+\_\+gradients} & opposite corner directed gradients per edge midpoints \\
+\hline
+\end{DoxyParams}
+\Hypertarget{optimize__spline__surface_8h_ab9e812b51ef8c87d56f222d7f67f2af5}\label{optimize__spline__surface_8h_ab9e812b51ef8c87d56f222d7f67f2af5} 
+\index{optimize\_spline\_surface.h@{optimize\_spline\_surface.h}!convert\_reduced\_edge\_gradients\_to\_full@{convert\_reduced\_edge\_gradients\_to\_full}}
+\index{convert\_reduced\_edge\_gradients\_to\_full@{convert\_reduced\_edge\_gradients\_to\_full}!optimize\_spline\_surface.h@{optimize\_spline\_surface.h}}
+\doxysubsubsection{\texorpdfstring{convert\_reduced\_edge\_gradients\_to\_full()}{convert\_reduced\_edge\_gradients\_to\_full()}}
+{\footnotesize\ttfamily void convert\+\_\+reduced\+\_\+edge\+\_\+gradients\+\_\+to\+\_\+full (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&}]{reduced\+\_\+edge\+\_\+gradients,  }\item[{const std\+::vector$<$ std\+::array$<$ \mbox{\hyperlink{struct_triangle_corner_data}{Triangle\+Corner\+Function\+Data}}, 3 $>$ $>$ \&}]{corner\+\_\+data,  }\item[{const \mbox{\hyperlink{class_affine_manifold}{Affine\+Manifold}} \&}]{affine\+\_\+manifold,  }\item[{std\+::vector$<$ std\+::array$<$ Matrix2x3r, 3 $>$ $>$ \&}]{edge\+\_\+gradients }\end{DoxyParamCaption})}
+
+Given edge direction gradients at triangle edge midpoints, append the gradients in the direction of the opposite triangle corners, which are determined by gradients and position data at the corners.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em reduced\+\_\+edge\+\_\+gradients} & opposite corner directed gradients per edge midpoints \\
+\hline
+\mbox{\texttt{ in}}  & {\em corner\+\_\+data} & quadratic vertex position and derivative data \\
+\hline
+\mbox{\texttt{ in}}  & {\em affine\+\_\+manifold} & mesh topology and affine manifold structure \\
+\hline
+\mbox{\texttt{ out}}  & {\em edge\+\_\+gradients} & edge and corner directed gradients per edge midpoints \\
+\hline
+\end{DoxyParams}
+\Hypertarget{optimize__spline__surface_8h_a621d4fa277e91a8e3a441868ce343a10}\label{optimize__spline__surface_8h_a621d4fa277e91a8e3a441868ce343a10} 
+\index{optimize\_spline\_surface.h@{optimize\_spline\_surface.h}!generate\_optimized\_twelve\_split\_position\_data@{generate\_optimized\_twelve\_split\_position\_data}}
+\index{generate\_optimized\_twelve\_split\_position\_data@{generate\_optimized\_twelve\_split\_position\_data}!optimize\_spline\_surface.h@{optimize\_spline\_surface.h}}
+\doxysubsubsection{\texorpdfstring{generate\_optimized\_twelve\_split\_position\_data()}{generate\_optimized\_twelve\_split\_position\_data()}}
+{\footnotesize\ttfamily void generate\+\_\+optimized\+\_\+twelve\+\_\+split\+\_\+position\+\_\+data (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Xd \&}]{V,  }\item[{const \mbox{\hyperlink{class_affine_manifold}{Affine\+Manifold}} \&}]{affine\+\_\+manifold,  }\item[{const Eigen\+::\+Sparse\+Matrix$<$ double $>$ \&}]{fit\+\_\+matrix,  }\item[{const Eigen\+::\+Cholmod\+Supernodal\+LLT$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$ $>$ \&}]{hessian\+\_\+inverse,  }\item[{std\+::vector$<$ std\+::array$<$ \mbox{\hyperlink{struct_triangle_corner_data}{Triangle\+Corner\+Function\+Data}}, 3 $>$ $>$ \&}]{corner\+\_\+data,  }\item[{std\+::vector$<$ std\+::array$<$ \mbox{\hyperlink{struct_triangle_midpoint_data}{Triangle\+Midpoint\+Function\+Data}}, 3 $>$ $>$ \&}]{midpoint\+\_\+data }\end{DoxyParamCaption})}
+
+Compute the optimal per triangle position data for given vertex positions.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em V} & vertex positions \\
+\hline
+\mbox{\texttt{ in}}  & {\em affine\+\_\+manifold} & mesh topology and affine manifold structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em fit\+\_\+matrix} & quadratic fit energy Hessian matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em hessian\+\_\+inverse} & solver for inverting the energy Hessian \\
+\hline
+\mbox{\texttt{ out}}  & {\em corner\+\_\+data} & quadratic vertex position and derivative data \\
+\hline
+\mbox{\texttt{ out}}  & {\em midpoint\+\_\+data} & quadratic edge midpoint derivative data \\
+\hline
+\end{DoxyParams}
+\Hypertarget{optimize__spline__surface_8h_a47aa1de22198d6ccd5fc756919792775}\label{optimize__spline__surface_8h_a47aa1de22198d6ccd5fc756919792775} 
+\index{optimize\_spline\_surface.h@{optimize\_spline\_surface.h}!generate\_zero\_edge\_gradients@{generate\_zero\_edge\_gradients}}
+\index{generate\_zero\_edge\_gradients@{generate\_zero\_edge\_gradients}!optimize\_spline\_surface.h@{optimize\_spline\_surface.h}}
+\doxysubsubsection{\texorpdfstring{generate\_zero\_edge\_gradients()}{generate\_zero\_edge\_gradients()}}
+{\footnotesize\ttfamily void generate\+\_\+zero\+\_\+edge\+\_\+gradients (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+faces,  }\item[{std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&}]{edge\+\_\+gradients }\end{DoxyParamCaption})}
+
+Generate zero value gradients for a given number of halfedges.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num\+\_\+faces} & number of faces \texorpdfstring{$\vert$}{|}\+F\texorpdfstring{$\vert$}{|} \\
+\hline
+\mbox{\texttt{ out}}  & {\em gradients} & 3\texorpdfstring{$\vert$}{|}\+F\texorpdfstring{$\vert$}{|} trivial edge gradient matrices \\
+\hline
+\end{DoxyParams}
+\Hypertarget{optimize__spline__surface_8h_a5b45de98ed7ededc98adf11c01863c06}\label{optimize__spline__surface_8h_a5b45de98ed7ededc98adf11c01863c06} 
+\index{optimize\_spline\_surface.h@{optimize\_spline\_surface.h}!generate\_zero\_vertex\_gradients@{generate\_zero\_vertex\_gradients}}
+\index{generate\_zero\_vertex\_gradients@{generate\_zero\_vertex\_gradients}!optimize\_spline\_surface.h@{optimize\_spline\_surface.h}}
+\doxysubsubsection{\texorpdfstring{generate\_zero\_vertex\_gradients()}{generate\_zero\_vertex\_gradients()}}
+{\footnotesize\ttfamily void generate\+\_\+zero\+\_\+vertex\+\_\+gradients (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+vertices,  }\item[{std\+::vector$<$ Matrix2x3r $>$ \&}]{gradients }\end{DoxyParamCaption})}
+
+Generate zero value gradients for a given number of vertices.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num\+\_\+vertices} & number of vertices \texorpdfstring{$\vert$}{|}\+V\texorpdfstring{$\vert$}{|} \\
+\hline
+\mbox{\texttt{ out}}  & {\em gradients} & \texorpdfstring{$\vert$}{|}\+V\texorpdfstring{$\vert$}{|} trivial vertex gradient matrices \\
+\hline
+\end{DoxyParams}

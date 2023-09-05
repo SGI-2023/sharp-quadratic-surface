@@ -1,0 +1,2536 @@
+vertex_correspondence.size():
+630
+vertex_correspondence:
+vertex pair 1:
+723, 8
+vertex pair 2:
+724, 29
+vertex pair 3:
+725, 16
+vertex pair 4:
+726, 37
+vertex pair 5:
+727, 32
+vertex pair 6:
+728, 54
+vertex pair 7:
+729, 40
+vertex pair 8:
+730, 62
+vertex pair 9:
+731, 48
+vertex pair 10:
+732, 70
+vertex pair 11:
+733, 56
+vertex pair 12:
+734, 78
+vertex pair 13:
+735, 72
+vertex pair 14:
+736, 93
+vertex pair 15:
+737, 88
+vertex pair 16:
+738, 110
+vertex pair 17:
+739, 96
+vertex pair 18:
+740, 118
+vertex pair 19:
+741, 104
+vertex pair 20:
+742, 126
+vertex pair 21:
+743, 120
+vertex pair 22:
+744, 141
+vertex pair 23:
+745, 128
+vertex pair 24:
+746, 149
+vertex pair 25:
+747, 136
+vertex pair 26:
+748, 157
+vertex pair 27:
+749, 152
+vertex pair 28:
+750, 174
+vertex pair 29:
+751, 160
+vertex pair 30:
+752, 182
+vertex pair 31:
+753, 168
+vertex pair 32:
+754, 190
+vertex pair 33:
+755, 184
+vertex pair 34:
+756, 206
+vertex pair 35:
+757, 192
+vertex pair 36:
+758, 214
+vertex pair 37:
+759, 216
+vertex pair 38:
+760, 238
+vertex pair 39:
+761, 224
+vertex pair 40:
+762, 246
+vertex pair 41:
+763, 248
+vertex pair 42:
+764, 270
+vertex pair 43:
+765, 256
+vertex pair 44:
+766, 278
+vertex pair 45:
+767, 568
+vertex pair 46:
+768, 568
+vertex pair 47:
+768, 767
+vertex pair 48:
+769, 577
+vertex pair 49:
+770, 577
+vertex pair 50:
+770, 769
+vertex pair 51:
+771, 264
+vertex pair 52:
+772, 285
+vertex pair 53:
+773, 272
+vertex pair 54:
+774, 293
+vertex pair 55:
+775, 288
+vertex pair 56:
+776, 310
+vertex pair 57:
+777, 296
+vertex pair 58:
+778, 318
+vertex pair 59:
+779, 304
+vertex pair 60:
+780, 326
+vertex pair 61:
+781, 312
+vertex pair 62:
+782, 334
+vertex pair 63:
+783, 320
+vertex pair 64:
+784, 342
+vertex pair 65:
+785, 336
+vertex pair 66:
+786, 357
+vertex pair 67:
+787, 344
+vertex pair 68:
+788, 365
+vertex pair 69:
+789, 352
+vertex pair 70:
+790, 374
+vertex pair 71:
+791, 368
+vertex pair 72:
+792, 390
+vertex pair 73:
+793, 376
+vertex pair 74:
+794, 397
+vertex pair 75:
+795, 400
+vertex pair 76:
+796, 421
+vertex pair 77:
+797, 408
+vertex pair 78:
+798, 429
+vertex pair 79:
+799, 416
+vertex pair 80:
+800, 438
+vertex pair 81:
+801, 432
+vertex pair 82:
+802, 454
+vertex pair 83:
+803, 440
+vertex pair 84:
+804, 462
+vertex pair 85:
+805, 464
+vertex pair 86:
+806, 485
+vertex pair 87:
+807, 472
+vertex pair 88:
+808, 493
+vertex pair 89:
+809, 504
+vertex pair 90:
+810, 512
+vertex pair 91:
+811, 544
+vertex pair 92:
+812, 545
+vertex pair 93:
+813, 552
+vertex pair 94:
+814, 553
+vertex pair 95:
+815, 560
+vertex pair 96:
+816, 560
+vertex pair 97:
+816, 815
+vertex pair 98:
+817, 561
+vertex pair 99:
+818, 561
+vertex pair 100:
+818, 817
+vertex pair 101:
+819, 572
+vertex pair 102:
+820, 572
+vertex pair 103:
+820, 819
+vertex pair 104:
+821, 576
+vertex pair 105:
+822, 576
+vertex pair 106:
+822, 821
+vertex pair 107:
+823, 581
+vertex pair 108:
+824, 581
+vertex pair 109:
+824, 823
+vertex pair 110:
+825, 584
+vertex pair 111:
+826, 594
+vertex pair 112:
+827, 594
+vertex pair 113:
+827, 826
+vertex pair 114:
+828, 597
+vertex pair 115:
+829, 597
+vertex pair 116:
+829, 828
+vertex pair 117:
+830, 528
+vertex pair 118:
+831, 601
+vertex pair 119:
+832, 601
+vertex pair 120:
+832, 831
+vertex pair 121:
+833, 602
+vertex pair 122:
+834, 602
+vertex pair 123:
+834, 833
+vertex pair 124:
+835, 600
+vertex pair 125:
+836, 600
+vertex pair 126:
+836, 835
+vertex pair 127:
+837, 606
+vertex pair 128:
+838, 606
+vertex pair 129:
+838, 837
+vertex pair 130:
+839, 608
+vertex pair 131:
+840, 615
+vertex pair 132:
+841, 615
+vertex pair 133:
+841, 840
+vertex pair 134:
+842, 616
+vertex pair 135:
+843, 616
+vertex pair 136:
+843, 842
+vertex pair 137:
+844, 617
+vertex pair 138:
+845, 617
+vertex pair 139:
+845, 844
+vertex pair 140:
+846, 622
+vertex pair 141:
+847, 622
+vertex pair 142:
+847, 846
+vertex pair 143:
+848, 64
+vertex pair 144:
+849, 628
+vertex pair 145:
+850, 628
+vertex pair 146:
+850, 849
+vertex pair 147:
+851, 592
+vertex pair 148:
+852, 592
+vertex pair 149:
+852, 851
+vertex pair 150:
+853, 609
+vertex pair 151:
+854, 609
+vertex pair 152:
+854, 853
+vertex pair 153:
+855, 536
+vertex pair 154:
+856, 642
+vertex pair 155:
+857, 642
+vertex pair 156:
+857, 856
+vertex pair 157:
+858, 643
+vertex pair 158:
+859, 643
+vertex pair 159:
+859, 858
+vertex pair 160:
+860, 640
+vertex pair 161:
+861, 644
+vertex pair 162:
+862, 644
+vertex pair 163:
+862, 861
+vertex pair 164:
+863, 648
+vertex pair 165:
+864, 648
+vertex pair 166:
+864, 863
+vertex pair 167:
+865, 649
+vertex pair 168:
+866, 632
+vertex pair 169:
+867, 632
+vertex pair 170:
+867, 866
+vertex pair 171:
+868, 624
+vertex pair 172:
+869, 624
+vertex pair 173:
+869, 868
+vertex pair 174:
+870, 627
+vertex pair 175:
+871, 627
+vertex pair 176:
+871, 870
+vertex pair 177:
+872, 249
+vertex pair 178:
+873, 271
+vertex pair 179:
+874, 257
+vertex pair 180:
+875, 279
+vertex pair 181:
+876, 281
+vertex pair 182:
+877, 303
+vertex pair 183:
+878, 289
+vertex pair 184:
+879, 311
+vertex pair 185:
+880, 313
+vertex pair 186:
+881, 335
+vertex pair 187:
+882, 321
+vertex pair 188:
+883, 343
+vertex pair 189:
+884, 329
+vertex pair 190:
+885, 350
+vertex pair 191:
+886, 337
+vertex pair 192:
+887, 358
+vertex pair 193:
+888, 353
+vertex pair 194:
+889, 375
+vertex pair 195:
+890, 361
+vertex pair 196:
+891, 383
+vertex pair 197:
+892, 377
+vertex pair 198:
+893, 398
+vertex pair 199:
+894, 369
+vertex pair 200:
+895, 411
+vertex pair 201:
+896, 393
+vertex pair 202:
+897, 414
+vertex pair 203:
+898, 401
+vertex pair 204:
+899, 422
+vertex pair 205:
+900, 417
+vertex pair 206:
+901, 439
+vertex pair 207:
+902, 425
+vertex pair 208:
+903, 447
+vertex pair 209:
+904, 433
+vertex pair 210:
+905, 455
+vertex pair 211:
+906, 441
+vertex pair 212:
+907, 463
+vertex pair 213:
+908, 449
+vertex pair 214:
+909, 471
+vertex pair 215:
+910, 465
+vertex pair 216:
+911, 486
+vertex pair 217:
+912, 473
+vertex pair 218:
+913, 494
+vertex pair 219:
+914, 1
+vertex pair 220:
+915, 497
+vertex pair 221:
+916, 481
+vertex pair 222:
+917, 503
+vertex pair 223:
+918, 9
+vertex pair 224:
+919, 505
+vertex pair 225:
+920, 521
+vertex pair 226:
+921, 599
+vertex pair 227:
+922, 599
+vertex pair 228:
+922, 921
+vertex pair 229:
+923, 22
+vertex pair 230:
+924, 30
+vertex pair 231:
+925, 33
+vertex pair 232:
+926, 55
+vertex pair 233:
+927, 41
+vertex pair 234:
+928, 63
+vertex pair 235:
+929, 73
+vertex pair 236:
+930, 94
+vertex pair 237:
+931, 81
+vertex pair 238:
+932, 102
+vertex pair 239:
+933, 97
+vertex pair 240:
+934, 119
+vertex pair 241:
+935, 105
+vertex pair 242:
+936, 127
+vertex pair 243:
+937, 113
+vertex pair 244:
+938, 135
+vertex pair 245:
+939, 121
+vertex pair 246:
+940, 142
+vertex pair 247:
+941, 562
+vertex pair 248:
+942, 137
+vertex pair 249:
+943, 158
+vertex pair 250:
+944, 145
+vertex pair 251:
+945, 166
+vertex pair 252:
+946, 641
+vertex pair 253:
+947, 641
+vertex pair 254:
+947, 946
+vertex pair 255:
+948, 645
+vertex pair 256:
+949, 645
+vertex pair 257:
+949, 948
+vertex pair 258:
+950, 161
+vertex pair 259:
+951, 183
+vertex pair 260:
+952, 169
+vertex pair 261:
+953, 191
+vertex pair 262:
+954, 177
+vertex pair 263:
+955, 199
+vertex pair 264:
+956, 185
+vertex pair 265:
+957, 207
+vertex pair 266:
+958, 201
+vertex pair 267:
+959, 222
+vertex pair 268:
+960, 217
+vertex pair 269:
+961, 239
+vertex pair 270:
+962, 225
+vertex pair 271:
+963, 247
+vertex pair 272:
+964, 233
+vertex pair 273:
+965, 255
+vertex pair 274:
+966, 578
+vertex pair 275:
+967, 578
+vertex pair 276:
+967, 966
+vertex pair 277:
+968, 633
+vertex pair 278:
+969, 633
+vertex pair 279:
+969, 968
+vertex pair 280:
+970, 634
+vertex pair 281:
+971, 634
+vertex pair 282:
+971, 970
+vertex pair 283:
+972, 385
+vertex pair 284:
+973, 406
+vertex pair 285:
+974, 522
+vertex pair 286:
+975, 546
+vertex pair 287:
+976, 554
+vertex pair 288:
+977, 638
+vertex pair 289:
+978, 569
+vertex pair 290:
+979, 569
+vertex pair 291:
+979, 978
+vertex pair 292:
+980, 573
+vertex pair 293:
+981, 573
+vertex pair 294:
+981, 980
+vertex pair 295:
+982, 585
+vertex pair 296:
+983, 585
+vertex pair 297:
+983, 982
+vertex pair 298:
+984, 586
+vertex pair 299:
+985, 586
+vertex pair 300:
+985, 984
+vertex pair 301:
+986, 593
+vertex pair 302:
+987, 593
+vertex pair 303:
+987, 986
+vertex pair 304:
+988, 595
+vertex pair 305:
+989, 595
+vertex pair 306:
+989, 988
+vertex pair 307:
+990, 529
+vertex pair 308:
+991, 603
+vertex pair 309:
+992, 603
+vertex pair 310:
+992, 991
+vertex pair 311:
+993, 604
+vertex pair 312:
+994, 604
+vertex pair 313:
+994, 993
+vertex pair 314:
+995, 537
+vertex pair 315:
+996, 607
+vertex pair 316:
+997, 607
+vertex pair 317:
+997, 996
+vertex pair 318:
+998, 610
+vertex pair 319:
+999, 193
+vertex pair 320:
+1000, 618
+vertex pair 321:
+1001, 625
+vertex pair 322:
+1002, 625
+vertex pair 323:
+1002, 1001
+vertex pair 324:
+1003, 626
+vertex pair 325:
+1004, 129
+vertex pair 326:
+1005, 650
+vertex pair 327:
+1006, 650
+vertex pair 328:
+1006, 1005
+vertex pair 329:
+1007, 490
+vertex pair 330:
+1008, 18
+vertex pair 331:
+1009, 514
+vertex pair 332:
+1010, 538
+vertex pair 333:
+1011, 539
+vertex pair 334:
+1012, 547
+vertex pair 335:
+1013, 555
+vertex pair 336:
+1014, 559
+vertex pair 337:
+1015, 258
+vertex pair 338:
+1016, 564
+vertex pair 339:
+1017, 564
+vertex pair 340:
+1017, 1016
+vertex pair 341:
+1018, 530
+vertex pair 342:
+1019, 570
+vertex pair 343:
+1020, 570
+vertex pair 344:
+1020, 1019
+vertex pair 345:
+1021, 574
+vertex pair 346:
+1022, 574
+vertex pair 347:
+1022, 1021
+vertex pair 348:
+1023, 42
+vertex pair 349:
+1024, 582
+vertex pair 350:
+1025, 582
+vertex pair 351:
+1025, 1024
+vertex pair 352:
+1026, 588
+vertex pair 353:
+1027, 588
+vertex pair 354:
+1027, 1026
+vertex pair 355:
+1028, 605
+vertex pair 356:
+1029, 605
+vertex pair 357:
+1029, 1028
+vertex pair 358:
+1030, 611
+vertex pair 359:
+1031, 611
+vertex pair 360:
+1031, 1030
+vertex pair 361:
+1032, 620
+vertex pair 362:
+1033, 620
+vertex pair 363:
+1033, 1032
+vertex pair 364:
+1034, 636
+vertex pair 365:
+1035, 636
+vertex pair 366:
+1035, 1034
+vertex pair 367:
+1036, 614
+vertex pair 368:
+1037, 614
+vertex pair 369:
+1037, 1036
+vertex pair 370:
+1038, 647
+vertex pair 371:
+1039, 647
+vertex pair 372:
+1039, 1038
+vertex pair 373:
+1040, 2
+vertex pair 374:
+1041, 23
+vertex pair 375:
+1042, 10
+vertex pair 376:
+1043, 31
+vertex pair 377:
+1044, 39
+vertex pair 378:
+1045, 26
+vertex pair 379:
+1046, 34
+vertex pair 380:
+1047, 50
+vertex pair 381:
+1048, 66
+vertex pair 382:
+1049, 87
+vertex pair 383:
+1050, 74
+vertex pair 384:
+1051, 95
+vertex pair 385:
+1052, 98
+vertex pair 386:
+1053, 106
+vertex pair 387:
+1054, 138
+vertex pair 388:
+1055, 159
+vertex pair 389:
+1056, 162
+vertex pair 390:
+1057, 170
+vertex pair 391:
+1058, 202
+vertex pair 392:
+1059, 223
+vertex pair 393:
+1060, 210
+vertex pair 394:
+1061, 231
+vertex pair 395:
+1062, 226
+vertex pair 396:
+1063, 234
+vertex pair 397:
+1064, 242
+vertex pair 398:
+1065, 250
+vertex pair 399:
+1066, 266
+vertex pair 400:
+1067, 287
+vertex pair 401:
+1068, 282
+vertex pair 402:
+1069, 290
+vertex pair 403:
+1070, 298
+vertex pair 404:
+1071, 314
+vertex pair 405:
+1072, 322
+vertex pair 406:
+1073, 346
+vertex pair 407:
+1074, 354
+vertex pair 408:
+1075, 378
+vertex pair 409:
+1076, 399
+vertex pair 410:
+1077, 386
+vertex pair 411:
+1078, 407
+vertex pair 412:
+1079, 410
+vertex pair 413:
+1080, 418
+vertex pair 414:
+1081, 442
+vertex pair 415:
+1082, 450
+vertex pair 416:
+1083, 458
+vertex pair 417:
+1084, 479
+vertex pair 418:
+1085, 466
+vertex pair 419:
+1086, 487
+vertex pair 420:
+1087, 498
+vertex pair 421:
+1088, 482
+vertex pair 422:
+1089, 506
+vertex pair 423:
+1090, 571
+vertex pair 424:
+1091, 571
+vertex pair 425:
+1091, 1090
+vertex pair 426:
+1092, 575
+vertex pair 427:
+1093, 575
+vertex pair 428:
+1093, 1092
+vertex pair 429:
+1094, 523
+vertex pair 430:
+1095, 19
+vertex pair 431:
+1096, 515
+vertex pair 432:
+1097, 531
+vertex pair 433:
+1098, 532
+vertex pair 434:
+1099, 540
+vertex pair 435:
+1100, 548
+vertex pair 436:
+1101, 556
+vertex pair 437:
+1102, 563
+vertex pair 438:
+1103, 563
+vertex pair 439:
+1103, 1102
+vertex pair 440:
+1104, 323
+vertex pair 441:
+1105, 565
+vertex pair 442:
+1106, 565
+vertex pair 443:
+1106, 1105
+vertex pair 444:
+1107, 579
+vertex pair 445:
+1108, 579
+vertex pair 446:
+1108, 1107
+vertex pair 447:
+1109, 580
+vertex pair 448:
+1110, 587
+vertex pair 449:
+1111, 587
+vertex pair 450:
+1111, 1110
+vertex pair 451:
+1112, 598
+vertex pair 452:
+1113, 619
+vertex pair 453:
+1114, 619
+vertex pair 454:
+1114, 1113
+vertex pair 455:
+1115, 621
+vertex pair 456:
+1116, 621
+vertex pair 457:
+1116, 1115
+vertex pair 458:
+1117, 107
+vertex pair 459:
+1118, 631
+vertex pair 460:
+1119, 631
+vertex pair 461:
+1119, 1118
+vertex pair 462:
+1120, 171
+vertex pair 463:
+1121, 635
+vertex pair 464:
+1122, 635
+vertex pair 465:
+1122, 1121
+vertex pair 466:
+1123, 235
+vertex pair 467:
+1124, 267
+vertex pair 468:
+1125, 275
+vertex pair 469:
+1126, 291
+vertex pair 470:
+1127, 299
+vertex pair 471:
+1128, 307
+vertex pair 472:
+1129, 315
+vertex pair 473:
+1130, 331
+vertex pair 474:
+1131, 347
+vertex pair 475:
+1132, 355
+vertex pair 476:
+1133, 363
+vertex pair 477:
+1134, 379
+vertex pair 478:
+1135, 387
+vertex pair 479:
+1136, 395
+vertex pair 480:
+1137, 419
+vertex pair 481:
+1138, 427
+vertex pair 482:
+1139, 443
+vertex pair 483:
+1140, 451
+vertex pair 484:
+1141, 475
+vertex pair 485:
+1142, 483
+vertex pair 486:
+1143, 11
+vertex pair 487:
+1144, 507
+vertex pair 488:
+1145, 637
+vertex pair 489:
+1146, 51
+vertex pair 490:
+1147, 59
+vertex pair 491:
+1148, 67
+vertex pair 492:
+1149, 75
+vertex pair 493:
+1150, 83
+vertex pair 494:
+1151, 91
+vertex pair 495:
+1152, 99
+vertex pair 496:
+1153, 115
+vertex pair 497:
+1154, 131
+vertex pair 498:
+1155, 151
+vertex pair 499:
+1156, 139
+vertex pair 500:
+1157, 147
+vertex pair 501:
+1158, 155
+vertex pair 502:
+1159, 163
+vertex pair 503:
+1160, 179
+vertex pair 504:
+1161, 195
+vertex pair 505:
+1162, 203
+vertex pair 506:
+1163, 227
+vertex pair 507:
+1164, 12
+vertex pair 508:
+1165, 20
+vertex pair 509:
+1166, 28
+vertex pair 510:
+1167, 44
+vertex pair 511:
+1168, 52
+vertex pair 512:
+1169, 76
+vertex pair 513:
+1170, 84
+vertex pair 514:
+1171, 116
+vertex pair 515:
+1172, 124
+vertex pair 516:
+1173, 132
+vertex pair 517:
+1174, 140
+vertex pair 518:
+1175, 148
+vertex pair 519:
+1176, 180
+vertex pair 520:
+1177, 188
+vertex pair 521:
+1178, 196
+vertex pair 522:
+1179, 204
+vertex pair 523:
+1180, 212
+vertex pair 524:
+1181, 220
+vertex pair 525:
+1182, 228
+vertex pair 526:
+1183, 244
+vertex pair 527:
+1184, 260
+vertex pair 528:
+1185, 268
+vertex pair 529:
+1186, 292
+vertex pair 530:
+1187, 300
+vertex pair 531:
+1188, 332
+vertex pair 532:
+1189, 340
+vertex pair 533:
+1190, 356
+vertex pair 534:
+1191, 364
+vertex pair 535:
+1192, 372
+vertex pair 536:
+1193, 380
+vertex pair 537:
+1194, 396
+vertex pair 538:
+1195, 404
+vertex pair 539:
+1196, 420
+vertex pair 540:
+1197, 428
+vertex pair 541:
+1198, 436
+vertex pair 542:
+1199, 444
+vertex pair 543:
+1200, 460
+vertex pair 544:
+1201, 476
+vertex pair 545:
+1202, 484
+vertex pair 546:
+1203, 508
+vertex pair 547:
+1204, 492
+vertex pair 548:
+1205, 516
+vertex pair 549:
+1206, 541
+vertex pair 550:
+1207, 549
+vertex pair 551:
+1208, 557
+vertex pair 552:
+1209, 524
+vertex pair 553:
+1210, 388
+vertex pair 554:
+1211, 452
+vertex pair 555:
+1212, 589
+vertex pair 556:
+1213, 589
+vertex pair 557:
+1213, 1212
+vertex pair 558:
+1214, 596
+vertex pair 559:
+1215, 596
+vertex pair 560:
+1215, 1214
+vertex pair 561:
+1216, 612
+vertex pair 562:
+1217, 612
+vertex pair 563:
+1217, 1216
+vertex pair 564:
+1218, 613
+vertex pair 565:
+1219, 236
+vertex pair 566:
+1220, 629
+vertex pair 567:
+1221, 629
+vertex pair 568:
+1221, 1220
+vertex pair 569:
+1222, 245
+vertex pair 570:
+1223, 253
+vertex pair 571:
+1224, 261
+vertex pair 572:
+1225, 269
+vertex pair 573:
+1226, 301
+vertex pair 574:
+1227, 309
+vertex pair 575:
+1228, 325
+vertex pair 576:
+1229, 333
+vertex pair 577:
+1230, 461
+vertex pair 578:
+1231, 469
+vertex pair 579:
+1232, 5
+vertex pair 580:
+1233, 501
+vertex pair 581:
+1234, 550
+vertex pair 582:
+1235, 13
+vertex pair 583:
+1236, 509
+vertex pair 584:
+1237, 630
+vertex pair 585:
+1238, 45
+vertex pair 586:
+1239, 53
+vertex pair 587:
+1240, 61
+vertex pair 588:
+1241, 77
+vertex pair 589:
+1242, 85
+vertex pair 590:
+1243, 277
+vertex pair 591:
+1244, 109
+vertex pair 592:
+1245, 117
+vertex pair 593:
+1246, 173
+vertex pair 594:
+1247, 181
+vertex pair 595:
+1248, 205
+vertex pair 596:
+1249, 213
+vertex pair 597:
+1250, 533
+vertex pair 598:
+1251, 534
+vertex pair 599:
+1252, 542
+vertex pair 600:
+1253, 558
+vertex pair 601:
+1254, 566
+vertex pair 602:
+1255, 566
+vertex pair 603:
+1255, 1254
+vertex pair 604:
+1256, 590
+vertex pair 605:
+1257, 590
+vertex pair 606:
+1257, 1256
+vertex pair 607:
+1258, 517
+vertex pair 608:
+1259, 623
+vertex pair 609:
+1260, 623
+vertex pair 610:
+1260, 1259
+vertex pair 611:
+1261, 646
+vertex pair 612:
+1262, 518
+vertex pair 613:
+1263, 519
+vertex pair 614:
+1264, 543
+vertex pair 615:
+1265, 551
+vertex pair 616:
+1266, 366
+vertex pair 617:
+1267, 567
+vertex pair 618:
+1268, 567
+vertex pair 619:
+1268, 1267
+vertex pair 620:
+1269, 583
+vertex pair 621:
+1270, 583
+vertex pair 622:
+1270, 1269
+vertex pair 623:
+1271, 430
+vertex pair 624:
+1272, 591
+vertex pair 625:
+1273, 591
+vertex pair 626:
+1273, 1272
+vertex pair 627:
+1274, 495
+vertex pair 628:
+1275, 535
+vertex pair 629:
+1276, 639
+vertex pair 630:
+1277, 7
+num_independent_variables: 19485
+num_constraints: 336
+num_independent_variables + num_constraints :19821
+hessian invertible
+vertex_correspondence.size():
+630
+vertex_correspondence:
+vertex pair 1:
+723, 8
+vertex pair 2:
+724, 29
+vertex pair 3:
+725, 16
+vertex pair 4:
+726, 37
+vertex pair 5:
+727, 32
+vertex pair 6:
+728, 54
+vertex pair 7:
+729, 40
+vertex pair 8:
+730, 62
+vertex pair 9:
+731, 48
+vertex pair 10:
+732, 70
+vertex pair 11:
+733, 56
+vertex pair 12:
+734, 78
+vertex pair 13:
+735, 72
+vertex pair 14:
+736, 93
+vertex pair 15:
+737, 88
+vertex pair 16:
+738, 110
+vertex pair 17:
+739, 96
+vertex pair 18:
+740, 118
+vertex pair 19:
+741, 104
+vertex pair 20:
+742, 126
+vertex pair 21:
+743, 120
+vertex pair 22:
+744, 141
+vertex pair 23:
+745, 128
+vertex pair 24:
+746, 149
+vertex pair 25:
+747, 136
+vertex pair 26:
+748, 157
+vertex pair 27:
+749, 152
+vertex pair 28:
+750, 174
+vertex pair 29:
+751, 160
+vertex pair 30:
+752, 182
+vertex pair 31:
+753, 168
+vertex pair 32:
+754, 190
+vertex pair 33:
+755, 184
+vertex pair 34:
+756, 206
+vertex pair 35:
+757, 192
+vertex pair 36:
+758, 214
+vertex pair 37:
+759, 216
+vertex pair 38:
+760, 238
+vertex pair 39:
+761, 224
+vertex pair 40:
+762, 246
+vertex pair 41:
+763, 248
+vertex pair 42:
+764, 270
+vertex pair 43:
+765, 256
+vertex pair 44:
+766, 278
+vertex pair 45:
+767, 568
+vertex pair 46:
+768, 568
+vertex pair 47:
+768, 767
+vertex pair 48:
+769, 577
+vertex pair 49:
+770, 577
+vertex pair 50:
+770, 769
+vertex pair 51:
+771, 264
+vertex pair 52:
+772, 285
+vertex pair 53:
+773, 272
+vertex pair 54:
+774, 293
+vertex pair 55:
+775, 288
+vertex pair 56:
+776, 310
+vertex pair 57:
+777, 296
+vertex pair 58:
+778, 318
+vertex pair 59:
+779, 304
+vertex pair 60:
+780, 326
+vertex pair 61:
+781, 312
+vertex pair 62:
+782, 334
+vertex pair 63:
+783, 320
+vertex pair 64:
+784, 342
+vertex pair 65:
+785, 336
+vertex pair 66:
+786, 357
+vertex pair 67:
+787, 344
+vertex pair 68:
+788, 365
+vertex pair 69:
+789, 352
+vertex pair 70:
+790, 374
+vertex pair 71:
+791, 368
+vertex pair 72:
+792, 390
+vertex pair 73:
+793, 376
+vertex pair 74:
+794, 397
+vertex pair 75:
+795, 400
+vertex pair 76:
+796, 421
+vertex pair 77:
+797, 408
+vertex pair 78:
+798, 429
+vertex pair 79:
+799, 416
+vertex pair 80:
+800, 438
+vertex pair 81:
+801, 432
+vertex pair 82:
+802, 454
+vertex pair 83:
+803, 440
+vertex pair 84:
+804, 462
+vertex pair 85:
+805, 464
+vertex pair 86:
+806, 485
+vertex pair 87:
+807, 472
+vertex pair 88:
+808, 493
+vertex pair 89:
+809, 504
+vertex pair 90:
+810, 512
+vertex pair 91:
+811, 544
+vertex pair 92:
+812, 545
+vertex pair 93:
+813, 552
+vertex pair 94:
+814, 553
+vertex pair 95:
+815, 560
+vertex pair 96:
+816, 560
+vertex pair 97:
+816, 815
+vertex pair 98:
+817, 561
+vertex pair 99:
+818, 561
+vertex pair 100:
+818, 817
+vertex pair 101:
+819, 572
+vertex pair 102:
+820, 572
+vertex pair 103:
+820, 819
+vertex pair 104:
+821, 576
+vertex pair 105:
+822, 576
+vertex pair 106:
+822, 821
+vertex pair 107:
+823, 581
+vertex pair 108:
+824, 581
+vertex pair 109:
+824, 823
+vertex pair 110:
+825, 584
+vertex pair 111:
+826, 594
+vertex pair 112:
+827, 594
+vertex pair 113:
+827, 826
+vertex pair 114:
+828, 597
+vertex pair 115:
+829, 597
+vertex pair 116:
+829, 828
+vertex pair 117:
+830, 528
+vertex pair 118:
+831, 601
+vertex pair 119:
+832, 601
+vertex pair 120:
+832, 831
+vertex pair 121:
+833, 602
+vertex pair 122:
+834, 602
+vertex pair 123:
+834, 833
+vertex pair 124:
+835, 600
+vertex pair 125:
+836, 600
+vertex pair 126:
+836, 835
+vertex pair 127:
+837, 606
+vertex pair 128:
+838, 606
+vertex pair 129:
+838, 837
+vertex pair 130:
+839, 608
+vertex pair 131:
+840, 615
+vertex pair 132:
+841, 615
+vertex pair 133:
+841, 840
+vertex pair 134:
+842, 616
+vertex pair 135:
+843, 616
+vertex pair 136:
+843, 842
+vertex pair 137:
+844, 617
+vertex pair 138:
+845, 617
+vertex pair 139:
+845, 844
+vertex pair 140:
+846, 622
+vertex pair 141:
+847, 622
+vertex pair 142:
+847, 846
+vertex pair 143:
+848, 64
+vertex pair 144:
+849, 628
+vertex pair 145:
+850, 628
+vertex pair 146:
+850, 849
+vertex pair 147:
+851, 592
+vertex pair 148:
+852, 592
+vertex pair 149:
+852, 851
+vertex pair 150:
+853, 609
+vertex pair 151:
+854, 609
+vertex pair 152:
+854, 853
+vertex pair 153:
+855, 536
+vertex pair 154:
+856, 642
+vertex pair 155:
+857, 642
+vertex pair 156:
+857, 856
+vertex pair 157:
+858, 643
+vertex pair 158:
+859, 643
+vertex pair 159:
+859, 858
+vertex pair 160:
+860, 640
+vertex pair 161:
+861, 644
+vertex pair 162:
+862, 644
+vertex pair 163:
+862, 861
+vertex pair 164:
+863, 648
+vertex pair 165:
+864, 648
+vertex pair 166:
+864, 863
+vertex pair 167:
+865, 649
+vertex pair 168:
+866, 632
+vertex pair 169:
+867, 632
+vertex pair 170:
+867, 866
+vertex pair 171:
+868, 624
+vertex pair 172:
+869, 624
+vertex pair 173:
+869, 868
+vertex pair 174:
+870, 627
+vertex pair 175:
+871, 627
+vertex pair 176:
+871, 870
+vertex pair 177:
+872, 249
+vertex pair 178:
+873, 271
+vertex pair 179:
+874, 257
+vertex pair 180:
+875, 279
+vertex pair 181:
+876, 281
+vertex pair 182:
+877, 303
+vertex pair 183:
+878, 289
+vertex pair 184:
+879, 311
+vertex pair 185:
+880, 313
+vertex pair 186:
+881, 335
+vertex pair 187:
+882, 321
+vertex pair 188:
+883, 343
+vertex pair 189:
+884, 329
+vertex pair 190:
+885, 350
+vertex pair 191:
+886, 337
+vertex pair 192:
+887, 358
+vertex pair 193:
+888, 353
+vertex pair 194:
+889, 375
+vertex pair 195:
+890, 361
+vertex pair 196:
+891, 383
+vertex pair 197:
+892, 377
+vertex pair 198:
+893, 398
+vertex pair 199:
+894, 369
+vertex pair 200:
+895, 411
+vertex pair 201:
+896, 393
+vertex pair 202:
+897, 414
+vertex pair 203:
+898, 401
+vertex pair 204:
+899, 422
+vertex pair 205:
+900, 417
+vertex pair 206:
+901, 439
+vertex pair 207:
+902, 425
+vertex pair 208:
+903, 447
+vertex pair 209:
+904, 433
+vertex pair 210:
+905, 455
+vertex pair 211:
+906, 441
+vertex pair 212:
+907, 463
+vertex pair 213:
+908, 449
+vertex pair 214:
+909, 471
+vertex pair 215:
+910, 465
+vertex pair 216:
+911, 486
+vertex pair 217:
+912, 473
+vertex pair 218:
+913, 494
+vertex pair 219:
+914, 1
+vertex pair 220:
+915, 497
+vertex pair 221:
+916, 481
+vertex pair 222:
+917, 503
+vertex pair 223:
+918, 9
+vertex pair 224:
+919, 505
+vertex pair 225:
+920, 521
+vertex pair 226:
+921, 599
+vertex pair 227:
+922, 599
+vertex pair 228:
+922, 921
+vertex pair 229:
+923, 22
+vertex pair 230:
+924, 30
+vertex pair 231:
+925, 33
+vertex pair 232:
+926, 55
+vertex pair 233:
+927, 41
+vertex pair 234:
+928, 63
+vertex pair 235:
+929, 73
+vertex pair 236:
+930, 94
+vertex pair 237:
+931, 81
+vertex pair 238:
+932, 102
+vertex pair 239:
+933, 97
+vertex pair 240:
+934, 119
+vertex pair 241:
+935, 105
+vertex pair 242:
+936, 127
+vertex pair 243:
+937, 113
+vertex pair 244:
+938, 135
+vertex pair 245:
+939, 121
+vertex pair 246:
+940, 142
+vertex pair 247:
+941, 562
+vertex pair 248:
+942, 137
+vertex pair 249:
+943, 158
+vertex pair 250:
+944, 145
+vertex pair 251:
+945, 166
+vertex pair 252:
+946, 641
+vertex pair 253:
+947, 641
+vertex pair 254:
+947, 946
+vertex pair 255:
+948, 645
+vertex pair 256:
+949, 645
+vertex pair 257:
+949, 948
+vertex pair 258:
+950, 161
+vertex pair 259:
+951, 183
+vertex pair 260:
+952, 169
+vertex pair 261:
+953, 191
+vertex pair 262:
+954, 177
+vertex pair 263:
+955, 199
+vertex pair 264:
+956, 185
+vertex pair 265:
+957, 207
+vertex pair 266:
+958, 201
+vertex pair 267:
+959, 222
+vertex pair 268:
+960, 217
+vertex pair 269:
+961, 239
+vertex pair 270:
+962, 225
+vertex pair 271:
+963, 247
+vertex pair 272:
+964, 233
+vertex pair 273:
+965, 255
+vertex pair 274:
+966, 578
+vertex pair 275:
+967, 578
+vertex pair 276:
+967, 966
+vertex pair 277:
+968, 633
+vertex pair 278:
+969, 633
+vertex pair 279:
+969, 968
+vertex pair 280:
+970, 634
+vertex pair 281:
+971, 634
+vertex pair 282:
+971, 970
+vertex pair 283:
+972, 385
+vertex pair 284:
+973, 406
+vertex pair 285:
+974, 522
+vertex pair 286:
+975, 546
+vertex pair 287:
+976, 554
+vertex pair 288:
+977, 638
+vertex pair 289:
+978, 569
+vertex pair 290:
+979, 569
+vertex pair 291:
+979, 978
+vertex pair 292:
+980, 573
+vertex pair 293:
+981, 573
+vertex pair 294:
+981, 980
+vertex pair 295:
+982, 585
+vertex pair 296:
+983, 585
+vertex pair 297:
+983, 982
+vertex pair 298:
+984, 586
+vertex pair 299:
+985, 586
+vertex pair 300:
+985, 984
+vertex pair 301:
+986, 593
+vertex pair 302:
+987, 593
+vertex pair 303:
+987, 986
+vertex pair 304:
+988, 595
+vertex pair 305:
+989, 595
+vertex pair 306:
+989, 988
+vertex pair 307:
+990, 529
+vertex pair 308:
+991, 603
+vertex pair 309:
+992, 603
+vertex pair 310:
+992, 991
+vertex pair 311:
+993, 604
+vertex pair 312:
+994, 604
+vertex pair 313:
+994, 993
+vertex pair 314:
+995, 537
+vertex pair 315:
+996, 607
+vertex pair 316:
+997, 607
+vertex pair 317:
+997, 996
+vertex pair 318:
+998, 610
+vertex pair 319:
+999, 193
+vertex pair 320:
+1000, 618
+vertex pair 321:
+1001, 625
+vertex pair 322:
+1002, 625
+vertex pair 323:
+1002, 1001
+vertex pair 324:
+1003, 626
+vertex pair 325:
+1004, 129
+vertex pair 326:
+1005, 650
+vertex pair 327:
+1006, 650
+vertex pair 328:
+1006, 1005
+vertex pair 329:
+1007, 490
+vertex pair 330:
+1008, 18
+vertex pair 331:
+1009, 514
+vertex pair 332:
+1010, 538
+vertex pair 333:
+1011, 539
+vertex pair 334:
+1012, 547
+vertex pair 335:
+1013, 555
+vertex pair 336:
+1014, 559
+vertex pair 337:
+1015, 258
+vertex pair 338:
+1016, 564
+vertex pair 339:
+1017, 564
+vertex pair 340:
+1017, 1016
+vertex pair 341:
+1018, 530
+vertex pair 342:
+1019, 570
+vertex pair 343:
+1020, 570
+vertex pair 344:
+1020, 1019
+vertex pair 345:
+1021, 574
+vertex pair 346:
+1022, 574
+vertex pair 347:
+1022, 1021
+vertex pair 348:
+1023, 42
+vertex pair 349:
+1024, 582
+vertex pair 350:
+1025, 582
+vertex pair 351:
+1025, 1024
+vertex pair 352:
+1026, 588
+vertex pair 353:
+1027, 588
+vertex pair 354:
+1027, 1026
+vertex pair 355:
+1028, 605
+vertex pair 356:
+1029, 605
+vertex pair 357:
+1029, 1028
+vertex pair 358:
+1030, 611
+vertex pair 359:
+1031, 611
+vertex pair 360:
+1031, 1030
+vertex pair 361:
+1032, 620
+vertex pair 362:
+1033, 620
+vertex pair 363:
+1033, 1032
+vertex pair 364:
+1034, 636
+vertex pair 365:
+1035, 636
+vertex pair 366:
+1035, 1034
+vertex pair 367:
+1036, 614
+vertex pair 368:
+1037, 614
+vertex pair 369:
+1037, 1036
+vertex pair 370:
+1038, 647
+vertex pair 371:
+1039, 647
+vertex pair 372:
+1039, 1038
+vertex pair 373:
+1040, 2
+vertex pair 374:
+1041, 23
+vertex pair 375:
+1042, 10
+vertex pair 376:
+1043, 31
+vertex pair 377:
+1044, 39
+vertex pair 378:
+1045, 26
+vertex pair 379:
+1046, 34
+vertex pair 380:
+1047, 50
+vertex pair 381:
+1048, 66
+vertex pair 382:
+1049, 87
+vertex pair 383:
+1050, 74
+vertex pair 384:
+1051, 95
+vertex pair 385:
+1052, 98
+vertex pair 386:
+1053, 106
+vertex pair 387:
+1054, 138
+vertex pair 388:
+1055, 159
+vertex pair 389:
+1056, 162
+vertex pair 390:
+1057, 170
+vertex pair 391:
+1058, 202
+vertex pair 392:
+1059, 223
+vertex pair 393:
+1060, 210
+vertex pair 394:
+1061, 231
+vertex pair 395:
+1062, 226
+vertex pair 396:
+1063, 234
+vertex pair 397:
+1064, 242
+vertex pair 398:
+1065, 250
+vertex pair 399:
+1066, 266
+vertex pair 400:
+1067, 287
+vertex pair 401:
+1068, 282
+vertex pair 402:
+1069, 290
+vertex pair 403:
+1070, 298
+vertex pair 404:
+1071, 314
+vertex pair 405:
+1072, 322
+vertex pair 406:
+1073, 346
+vertex pair 407:
+1074, 354
+vertex pair 408:
+1075, 378
+vertex pair 409:
+1076, 399
+vertex pair 410:
+1077, 386
+vertex pair 411:
+1078, 407
+vertex pair 412:
+1079, 410
+vertex pair 413:
+1080, 418
+vertex pair 414:
+1081, 442
+vertex pair 415:
+1082, 450
+vertex pair 416:
+1083, 458
+vertex pair 417:
+1084, 479
+vertex pair 418:
+1085, 466
+vertex pair 419:
+1086, 487
+vertex pair 420:
+1087, 498
+vertex pair 421:
+1088, 482
+vertex pair 422:
+1089, 506
+vertex pair 423:
+1090, 571
+vertex pair 424:
+1091, 571
+vertex pair 425:
+1091, 1090
+vertex pair 426:
+1092, 575
+vertex pair 427:
+1093, 575
+vertex pair 428:
+1093, 1092
+vertex pair 429:
+1094, 523
+vertex pair 430:
+1095, 19
+vertex pair 431:
+1096, 515
+vertex pair 432:
+1097, 531
+vertex pair 433:
+1098, 532
+vertex pair 434:
+1099, 540
+vertex pair 435:
+1100, 548
+vertex pair 436:
+1101, 556
+vertex pair 437:
+1102, 563
+vertex pair 438:
+1103, 563
+vertex pair 439:
+1103, 1102
+vertex pair 440:
+1104, 323
+vertex pair 441:
+1105, 565
+vertex pair 442:
+1106, 565
+vertex pair 443:
+1106, 1105
+vertex pair 444:
+1107, 579
+vertex pair 445:
+1108, 579
+vertex pair 446:
+1108, 1107
+vertex pair 447:
+1109, 580
+vertex pair 448:
+1110, 587
+vertex pair 449:
+1111, 587
+vertex pair 450:
+1111, 1110
+vertex pair 451:
+1112, 598
+vertex pair 452:
+1113, 619
+vertex pair 453:
+1114, 619
+vertex pair 454:
+1114, 1113
+vertex pair 455:
+1115, 621
+vertex pair 456:
+1116, 621
+vertex pair 457:
+1116, 1115
+vertex pair 458:
+1117, 107
+vertex pair 459:
+1118, 631
+vertex pair 460:
+1119, 631
+vertex pair 461:
+1119, 1118
+vertex pair 462:
+1120, 171
+vertex pair 463:
+1121, 635
+vertex pair 464:
+1122, 635
+vertex pair 465:
+1122, 1121
+vertex pair 466:
+1123, 235
+vertex pair 467:
+1124, 267
+vertex pair 468:
+1125, 275
+vertex pair 469:
+1126, 291
+vertex pair 470:
+1127, 299
+vertex pair 471:
+1128, 307
+vertex pair 472:
+1129, 315
+vertex pair 473:
+1130, 331
+vertex pair 474:
+1131, 347
+vertex pair 475:
+1132, 355
+vertex pair 476:
+1133, 363
+vertex pair 477:
+1134, 379
+vertex pair 478:
+1135, 387
+vertex pair 479:
+1136, 395
+vertex pair 480:
+1137, 419
+vertex pair 481:
+1138, 427
+vertex pair 482:
+1139, 443
+vertex pair 483:
+1140, 451
+vertex pair 484:
+1141, 475
+vertex pair 485:
+1142, 483
+vertex pair 486:
+1143, 11
+vertex pair 487:
+1144, 507
+vertex pair 488:
+1145, 637
+vertex pair 489:
+1146, 51
+vertex pair 490:
+1147, 59
+vertex pair 491:
+1148, 67
+vertex pair 492:
+1149, 75
+vertex pair 493:
+1150, 83
+vertex pair 494:
+1151, 91
+vertex pair 495:
+1152, 99
+vertex pair 496:
+1153, 115
+vertex pair 497:
+1154, 131
+vertex pair 498:
+1155, 151
+vertex pair 499:
+1156, 139
+vertex pair 500:
+1157, 147
+vertex pair 501:
+1158, 155
+vertex pair 502:
+1159, 163
+vertex pair 503:
+1160, 179
+vertex pair 504:
+1161, 195
+vertex pair 505:
+1162, 203
+vertex pair 506:
+1163, 227
+vertex pair 507:
+1164, 12
+vertex pair 508:
+1165, 20
+vertex pair 509:
+1166, 28
+vertex pair 510:
+1167, 44
+vertex pair 511:
+1168, 52
+vertex pair 512:
+1169, 76
+vertex pair 513:
+1170, 84
+vertex pair 514:
+1171, 116
+vertex pair 515:
+1172, 124
+vertex pair 516:
+1173, 132
+vertex pair 517:
+1174, 140
+vertex pair 518:
+1175, 148
+vertex pair 519:
+1176, 180
+vertex pair 520:
+1177, 188
+vertex pair 521:
+1178, 196
+vertex pair 522:
+1179, 204
+vertex pair 523:
+1180, 212
+vertex pair 524:
+1181, 220
+vertex pair 525:
+1182, 228
+vertex pair 526:
+1183, 244
+vertex pair 527:
+1184, 260
+vertex pair 528:
+1185, 268
+vertex pair 529:
+1186, 292
+vertex pair 530:
+1187, 300
+vertex pair 531:
+1188, 332
+vertex pair 532:
+1189, 340
+vertex pair 533:
+1190, 356
+vertex pair 534:
+1191, 364
+vertex pair 535:
+1192, 372
+vertex pair 536:
+1193, 380
+vertex pair 537:
+1194, 396
+vertex pair 538:
+1195, 404
+vertex pair 539:
+1196, 420
+vertex pair 540:
+1197, 428
+vertex pair 541:
+1198, 436
+vertex pair 542:
+1199, 444
+vertex pair 543:
+1200, 460
+vertex pair 544:
+1201, 476
+vertex pair 545:
+1202, 484
+vertex pair 546:
+1203, 508
+vertex pair 547:
+1204, 492
+vertex pair 548:
+1205, 516
+vertex pair 549:
+1206, 541
+vertex pair 550:
+1207, 549
+vertex pair 551:
+1208, 557
+vertex pair 552:
+1209, 524
+vertex pair 553:
+1210, 388
+vertex pair 554:
+1211, 452
+vertex pair 555:
+1212, 589
+vertex pair 556:
+1213, 589
+vertex pair 557:
+1213, 1212
+vertex pair 558:
+1214, 596
+vertex pair 559:
+1215, 596
+vertex pair 560:
+1215, 1214
+vertex pair 561:
+1216, 612
+vertex pair 562:
+1217, 612
+vertex pair 563:
+1217, 1216
+vertex pair 564:
+1218, 613
+vertex pair 565:
+1219, 236
+vertex pair 566:
+1220, 629
+vertex pair 567:
+1221, 629
+vertex pair 568:
+1221, 1220
+vertex pair 569:
+1222, 245
+vertex pair 570:
+1223, 253
+vertex pair 571:
+1224, 261
+vertex pair 572:
+1225, 269
+vertex pair 573:
+1226, 301
+vertex pair 574:
+1227, 309
+vertex pair 575:
+1228, 325
+vertex pair 576:
+1229, 333
+vertex pair 577:
+1230, 461
+vertex pair 578:
+1231, 469
+vertex pair 579:
+1232, 5
+vertex pair 580:
+1233, 501
+vertex pair 581:
+1234, 550
+vertex pair 582:
+1235, 13
+vertex pair 583:
+1236, 509
+vertex pair 584:
+1237, 630
+vertex pair 585:
+1238, 45
+vertex pair 586:
+1239, 53
+vertex pair 587:
+1240, 61
+vertex pair 588:
+1241, 77
+vertex pair 589:
+1242, 85
+vertex pair 590:
+1243, 277
+vertex pair 591:
+1244, 109
+vertex pair 592:
+1245, 117
+vertex pair 593:
+1246, 173
+vertex pair 594:
+1247, 181
+vertex pair 595:
+1248, 205
+vertex pair 596:
+1249, 213
+vertex pair 597:
+1250, 533
+vertex pair 598:
+1251, 534
+vertex pair 599:
+1252, 542
+vertex pair 600:
+1253, 558
+vertex pair 601:
+1254, 566
+vertex pair 602:
+1255, 566
+vertex pair 603:
+1255, 1254
+vertex pair 604:
+1256, 590
+vertex pair 605:
+1257, 590
+vertex pair 606:
+1257, 1256
+vertex pair 607:
+1258, 517
+vertex pair 608:
+1259, 623
+vertex pair 609:
+1260, 623
+vertex pair 610:
+1260, 1259
+vertex pair 611:
+1261, 646
+vertex pair 612:
+1262, 518
+vertex pair 613:
+1263, 519
+vertex pair 614:
+1264, 543
+vertex pair 615:
+1265, 551
+vertex pair 616:
+1266, 366
+vertex pair 617:
+1267, 567
+vertex pair 618:
+1268, 567
+vertex pair 619:
+1268, 1267
+vertex pair 620:
+1269, 583
+vertex pair 621:
+1270, 583
+vertex pair 622:
+1270, 1269
+vertex pair 623:
+1271, 430
+vertex pair 624:
+1272, 591
+vertex pair 625:
+1273, 591
+vertex pair 626:
+1273, 1272
+vertex pair 627:
+1274, 495
+vertex pair 628:
+1275, 535
+vertex pair 629:
+1276, 639
+vertex pair 630:
+1277, 7
+num_independent_variables: 19485
+num_constraints: 336
+num_independent_variables + num_constraints :19821
+hessian invertible
+optimized_variable_values
+[polyscope] Backend: openGL3_glfw -- Loaded openGL version: 4.1 Metal - 83

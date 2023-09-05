@@ -1,0 +1,174 @@
+\doxysection{compute\+\_\+rational\+\_\+bezier\+\_\+curve\+\_\+intersection.\+h}
+\hypertarget{compute__rational__bezier__curve__intersection_8h_source}{}\label{compute__rational__bezier__curve__intersection_8h_source}\index{src/contour\_network/compute\_rational\_bezier\_curve\_intersection.h@{src/contour\_network/compute\_rational\_bezier\_curve\_intersection.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{typedef}\ Eigen::Vector3d\ Point;}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ TODO\ neeed\ to\ rewrite\ these\ classes,\ fake\ inheritance}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_interval__ink}{Interval\_ink}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \textcolor{keywordtype}{double}\ begin,\ end;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}()\ \{\}}
+\DoxyCodeLine{00017\ \ \ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b)}
+\DoxyCodeLine{00018\ \ \ \ \ :\ begin(a)}
+\DoxyCodeLine{00019\ \ \ \ \ ,\ end(b)}
+\DoxyCodeLine{00020\ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \}}
+\DoxyCodeLine{00022\ \ \ \textcolor{comment}{//\ Interval\_ink(const\ Interval\_ink\&\ I)\ =\ default;}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{double}\ extent()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ end\ -\/\ begin;\ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{double}\ max()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ end;\ \}}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{double}\ min()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ begin;\ \}}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{double}\ middle()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (begin\ +\ end)\ /\ 2;\ \}}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ setEnds(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b)}
+\DoxyCodeLine{00030\ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ <=\ b)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ begin\ =\ a;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ end\ =\ b;}
+\DoxyCodeLine{00034\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ begin\ =\ b;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ end\ =\ a;}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{double}\ valueAt(\textcolor{keywordtype}{double}\ t)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (1\ -\/\ t)\ *\ begin\ +\ t\ *\ end;\ \}}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_opt_interval}{OptInterval}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{double}\ begin,\ end;}
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{class_opt_interval}{OptInterval}}()\{\};}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{class_opt_interval}{OptInterval}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b)}
+\DoxyCodeLine{00049\ \ \ \ \ :\ begin(a)}
+\DoxyCodeLine{00050\ \ \ \ \ ,\ end(b)}
+\DoxyCodeLine{00051\ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \mbox{\hyperlink{class_opt_interval}{OptInterval}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\&\ I)}
+\DoxyCodeLine{00054\ \ \ \ \ :\ begin(I.begin)}
+\DoxyCodeLine{00055\ \ \ \ \ ,\ end(I.end)}
+\DoxyCodeLine{00056\ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{class_opt_interval}{OptInterval}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_opt_interval}{OptInterval}}\&\ I)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{double}\ max()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ end;\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{double}\ min()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ begin;\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{double}\ middle()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (begin\ +\ end)\ /\ 2;\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ setEnds(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b)}
+\DoxyCodeLine{00067\ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ <=\ b)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ begin\ =\ a;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ end\ =\ b;}
+\DoxyCodeLine{00071\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ begin\ =\ b;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ end\ =\ a;}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{double}\ valueAt(\textcolor{keywordtype}{double}\ t)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (1\ -\/\ t)\ *\ begin\ +\ t\ *\ end;\ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{double}\ extent()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ end\ -\/\ begin;\ \}}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ util\ functions}}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00084\ map\_to(\mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\&\ J,\ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\ \textcolor{keyword}{const}\&\ I);}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00086\ map\_to(\mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\&\ J,\ \mbox{\hyperlink{class_opt_interval}{OptInterval}}\ \textcolor{keyword}{const}\&\ I);}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00088\ float\_equal\_ink(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\&\ a,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\&\ b,\ \textcolor{keywordtype}{double}\ eps);}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00090\ Point\_equal(\textcolor{keyword}{const}\ Point\&\ a,\ \textcolor{keyword}{const}\ Point\&\ b,\ \textcolor{keywordtype}{double}\ eps);}
+\DoxyCodeLine{00091\ Point}
+\DoxyCodeLine{00092\ lerp(\textcolor{keywordtype}{double}\ t,\ Point\ \textcolor{keyword}{const}\&\ a,\ Point\ \textcolor{keyword}{const}\&\ b);}
+\DoxyCodeLine{00093\ Point}
+\DoxyCodeLine{00094\ middle\_point(Point\ \textcolor{keyword}{const}\&\ p1,\ Point\ \textcolor{keyword}{const}\&\ p2);}
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00096\ get\_precision(\mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\ \textcolor{keyword}{const}\&\ I);}
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00098\ is\_constant(std::vector<Point>\ \textcolor{keyword}{const}\&\ A,\ \textcolor{keywordtype}{double}\ precision);}
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00100\ is\_constant(\textcolor{keywordtype}{double}\ P[5][3]);}
+\DoxyCodeLine{00101\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00102\ left\_portion(\textcolor{keywordtype}{double}\ t,\ std::vector<Point>\&\ B);}
+\DoxyCodeLine{00103\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00104\ right\_portion(\textcolor{keywordtype}{double}\ t,\ std::vector<Point>\&\ B);}
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00106\ portion(std::vector<Point>\&\ B,\ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\ \textcolor{keyword}{const}\&\ I);}
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00108\ portion(std::vector<Point>\&\ B,\ \mbox{\hyperlink{class_opt_interval}{OptInterval}}\ \textcolor{keyword}{const}\&\ I);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ clip\ fatline}}
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00112\ dot3(\textcolor{keywordtype}{double}\ v[3],\ \textcolor{keywordtype}{double}\ w[3]);}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00114\ cross3(\textcolor{keywordtype}{double}\ v[3],\ \textcolor{keywordtype}{double}\ w[3],\ \textcolor{keywordtype}{double}\ res[3]);}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00116\ fatline(\textcolor{keywordtype}{double}\ Q[5][3],\ \textcolor{keywordtype}{double}\ Lmin[3],\ \textcolor{keywordtype}{double}\ Lmax[3]);}
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00118\ clipline(\textcolor{keywordtype}{double}\ P[5][3],\ \textcolor{keywordtype}{double}\ L[3],\ \textcolor{keywordtype}{double}\ clip\_range[2]);}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00120\ clipfatline(\textcolor{keywordtype}{double}\ P[5][3],\ \textcolor{keywordtype}{double}\ Q[5][3],\ \textcolor{keywordtype}{double}\ clip\_range[2]);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ constants\ for\ inkscope\ code}}
+\DoxyCodeLine{00123\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ MAX\_PRECISION\ =\ 1e-\/8;}
+\DoxyCodeLine{00124\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ MIN\_CLIPPED\_SIZE\_THRESHOLD\ =\ 0.8;}
+\DoxyCodeLine{00125\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\ UNIT\_INTERVAL(0,\ 1);}
+\DoxyCodeLine{00126\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_opt_interval}{OptInterval}}\ EMPTY\_INTERVAL;}
+\DoxyCodeLine{00127\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\ H1\_INTERVAL(0,\ 0.5);}
+\DoxyCodeLine{00128\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\ H2\_INTERVAL(nextafter(0.5,\ 1.0),\ 1.0);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ inkscope\ code}}
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00132\ iterate(std::vector<Interval\_ink>\&\ domsA,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ std::vector<Interval\_ink>\&\ domsB,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ std::vector<Point>\ \textcolor{keyword}{const}\&\ A,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ std::vector<Point>\ \textcolor{keyword}{const}\&\ B,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\ \textcolor{keyword}{const}\&\ domA,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interval__ink}{Interval\_ink}}\ \textcolor{keyword}{const}\&\ domB,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ precision);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00141\ get\_solutions(std::vector<std::pair<double,\ double>>\&\ xs,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Point>\ \textcolor{keyword}{const}\&\ A,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Point>\ \textcolor{keyword}{const}\&\ B,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ precision);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00147\ find\_intersections\_bezier\_clipping(std::vector<std::pair<double,\ double>>\&\ xs,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Point>\ \textcolor{keyword}{const}\&\ A,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Point>\ \textcolor{keyword}{const}\&\ B,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ precision);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{comment}{//\ split\ rational\ bezier\ curves\ into\ 2}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00155\ check\_split\_criteria(Point\ q[5]);}
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00157\ split\_bezier\_curve(Point\ p[5],\ Point\ q[5],\ Point\ r[5],\ \textcolor{keywordtype}{double}\ t);}
+\DoxyCodeLine{00158\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00159\ split\_bezier\_curve\_no\_self\_intersection(}
+\DoxyCodeLine{00160\ \ \ Point\ p[5],}
+\DoxyCodeLine{00161\ \ \ std::vector<std::array<Point,\ 5>>\&\ result);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00164\ split\_bezier\_curve\_no\_self\_intersection(}
+\DoxyCodeLine{00165\ \ \ Point\ p[5],}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{double}\ start,}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{double}\ end,}
+\DoxyCodeLine{00168\ \ \ std::vector<double>\&\ split\_point\_params);}
+
+\end{DoxyCode}

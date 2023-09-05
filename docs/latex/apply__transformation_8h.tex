@@ -1,0 +1,204 @@
+\doxysection{src/core/apply\+\_\+transformation.h File Reference}
+\hypertarget{apply__transformation_8h}{}\label{apply__transformation_8h}\index{src/core/apply\_transformation.h@{src/core/apply\_transformation.h}}
+{\ttfamily \#include \"{}spdlog/fmt/ostr.\+h\"{}}\newline
+{\ttfamily \#include \"{}spdlog/spdlog.\+h\"{}}\newline
+{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
+{\ttfamily \#include $<$Eigen/\+LU$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}generate\+\_\+transformation.\+h\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_transformation_parameters}{Transformation\+Parameters}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{apply__transformation_8h_a1397b731214b6104dad9786acc386b16}\label{apply__transformation_8h_a1397b731214b6104dad9786acc386b16} 
+void {\bfseries convert\+\_\+point\+\_\+to\+\_\+homogeneous\+\_\+coords} (const Spatial\+Vector \&point, Eigen\+::\+Matrix$<$ double, 4, 1 $>$ \&homogeneous\+\_\+coords)
+\item 
+\Hypertarget{apply__transformation_8h_ab9877b0d24d9dc55b92a892e7b641f4e}\label{apply__transformation_8h_ab9877b0d24d9dc55b92a892e7b641f4e} 
+void {\bfseries convert\+\_\+homogeneous\+\_\+coords\+\_\+to\+\_\+point} (const Eigen\+::\+Matrix$<$ double, 4, 1 $>$ \&homogeneous\+\_\+coords, Spatial\+Vector \&point)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_af9367c5de4c88810bd26a5e45ac479f8}{apply\+\_\+transformation\+\_\+to\+\_\+point}} (const Spatial\+Vector \&point, const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&projective\+\_\+transformation, Spatial\+Vector \&transformed\+\_\+point)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_a9047960aa39a93f458b37d4c0ff68ad3}{apply\+\_\+transformation\+\_\+to\+\_\+points}} (const std\+::vector$<$ Spatial\+Vector $>$ \&points, const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&projective\+\_\+transformation, std\+::vector$<$ Spatial\+Vector $>$ \&transformed\+\_\+points)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_afa2d5564944213c126826f4bd65f392e}{apply\+\_\+transformation\+\_\+to\+\_\+points\+\_\+in\+\_\+place}} (std\+::vector$<$ Spatial\+Vector $>$ \&points, const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&projective\+\_\+transformation)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_ab5ae240d38f67740dbff86f5ed6586f0}{apply\+\_\+transformation\+\_\+to\+\_\+control\+\_\+points}} (const std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&input\+\_\+control\+\_\+point\+\_\+grid, const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&projective\+\_\+transformation, std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&output\+\_\+control\+\_\+point\+\_\+grid)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_afa7d597d3a35712f99717d5b93356edd}{apply\+\_\+transformation\+\_\+to\+\_\+control\+\_\+points\+\_\+in\+\_\+place}} (std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&control\+\_\+point\+\_\+grid, const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&projective\+\_\+transformation)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_a68bb4101f33004c244fdadc7d66828ff}{apply\+\_\+transformation\+\_\+to\+\_\+vertices}} (const Matrix\+Xr \&input\+\_\+V, const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&projective\+\_\+transformation, Matrix\+Xr \&output\+\_\+V)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_ab3f92f2e95666b27c5fdc8a61daaee9a}{apply\+\_\+transformation\+\_\+to\+\_\+vertices\+\_\+in\+\_\+place}} (Matrix\+Xr \&V, const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&projective\+\_\+transformation)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_adbc68a021ad8ac44ed1c277bf4405e2e}{initialize\+\_\+control\+\_\+points}} (const std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&input\+\_\+control\+\_\+point\+\_\+grid, const Matrix3x3r \&input\+\_\+frame, const \mbox{\hyperlink{struct_transformation_parameters}{Transformation\+Parameters}} \&transformation\+\_\+params, std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&output\+\_\+control\+\_\+point\+\_\+grid, Matrix3x3r \&output\+\_\+frame)
+\item 
+void \mbox{\hyperlink{apply__transformation_8h_a0afd9148df5505abf225b1f92210efb8}{apply\+\_\+camera\+\_\+frame\+\_\+transformation\+\_\+to\+\_\+vertices}} (const Matrix\+Xr \&input\+\_\+V, const Matrix3x3r \&frame, Eigen\+::\+Matrix\+Xd \&output\+\_\+V, bool orthographic=true, bool recenter\+\_\+mesh=false)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to apply projective transformation matrices to various point data types. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{apply__transformation_8h_a0afd9148df5505abf225b1f92210efb8}\label{apply__transformation_8h_a0afd9148df5505abf225b1f92210efb8} 
+\index{apply\_transformation.h@{apply\_transformation.h}!apply\_camera\_frame\_transformation\_to\_vertices@{apply\_camera\_frame\_transformation\_to\_vertices}}
+\index{apply\_camera\_frame\_transformation\_to\_vertices@{apply\_camera\_frame\_transformation\_to\_vertices}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{apply\_camera\_frame\_transformation\_to\_vertices()}{apply\_camera\_frame\_transformation\_to\_vertices()}}
+{\footnotesize\ttfamily void apply\+\_\+camera\+\_\+frame\+\_\+transformation\+\_\+to\+\_\+vertices (\begin{DoxyParamCaption}\item[{const Matrix\+Xr \&}]{input\+\_\+V,  }\item[{const Matrix3x3r \&}]{frame,  }\item[{Eigen\+::\+Matrix\+Xd \&}]{output\+\_\+V,  }\item[{bool}]{orthographic = {\ttfamily true},  }\item[{bool}]{recenter\+\_\+mesh = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Apply transformations to a mesh to set the initial camera view direction with optional conversion to an orthographic perspective
+
+The vertices are optimally first normalized to be in a bounding box of diagonal 1 at the origin.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em input\+\_\+V} & mesh vertices before the transformation \\
+\hline
+\mbox{\texttt{ in}}  & {\em camera\+\_\+direction} & view direction for the mesh \\
+\hline
+\mbox{\texttt{ out}}  & {\em output\+\_\+V} & mesh vertices after transformation \\
+\hline
+\mbox{\texttt{ in}}  & {\em orthographic} & project camera to infinity if true \\
+\hline
+\mbox{\texttt{ in}}  & {\em normalize\+\_\+initial\+\_\+positions} & normalize the initial vertices to a bounding box if true \\
+\hline
+\end{DoxyParams}
+\Hypertarget{apply__transformation_8h_ab5ae240d38f67740dbff86f5ed6586f0}\label{apply__transformation_8h_ab5ae240d38f67740dbff86f5ed6586f0} 
+\index{apply\_transformation.h@{apply\_transformation.h}!apply\_transformation\_to\_control\_points@{apply\_transformation\_to\_control\_points}}
+\index{apply\_transformation\_to\_control\_points@{apply\_transformation\_to\_control\_points}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{apply\_transformation\_to\_control\_points()}{apply\_transformation\_to\_control\_points()}}
+{\footnotesize\ttfamily void apply\+\_\+transformation\+\_\+to\+\_\+control\+\_\+points (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&}]{input\+\_\+control\+\_\+point\+\_\+grid,  }\item[{const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&}]{projective\+\_\+transformation,  }\item[{std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&}]{output\+\_\+control\+\_\+point\+\_\+grid }\end{DoxyParamCaption})}
+
+Apply projective transformation to a grid of control points.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em input\+\_\+control\+\_\+point\+\_\+grid} & control point grid to transform \\
+\hline
+\mbox{\texttt{ in}}  & {\em projective\+\_\+transformation} & transformation to apply to the vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em output\+\_\+control\+\_\+point\+\_\+grid} & transformed control point grid \\
+\hline
+\end{DoxyParams}
+\Hypertarget{apply__transformation_8h_afa7d597d3a35712f99717d5b93356edd}\label{apply__transformation_8h_afa7d597d3a35712f99717d5b93356edd} 
+\index{apply\_transformation.h@{apply\_transformation.h}!apply\_transformation\_to\_control\_points\_in\_place@{apply\_transformation\_to\_control\_points\_in\_place}}
+\index{apply\_transformation\_to\_control\_points\_in\_place@{apply\_transformation\_to\_control\_points\_in\_place}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{apply\_transformation\_to\_control\_points\_in\_place()}{apply\_transformation\_to\_control\_points\_in\_place()}}
+{\footnotesize\ttfamily void apply\+\_\+transformation\+\_\+to\+\_\+control\+\_\+points\+\_\+in\+\_\+place (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&}]{control\+\_\+point\+\_\+grid,  }\item[{const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&}]{projective\+\_\+transformation }\end{DoxyParamCaption})}
+
+Apply projective transformation to a grid of control points in place.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em control\+\_\+point\+\_\+grid} & control point grid to transform \\
+\hline
+\mbox{\texttt{ in}}  & {\em projective\+\_\+transformation} & transformation to apply to the vector \\
+\hline
+\end{DoxyParams}
+\Hypertarget{apply__transformation_8h_af9367c5de4c88810bd26a5e45ac479f8}\label{apply__transformation_8h_af9367c5de4c88810bd26a5e45ac479f8} 
+\index{apply\_transformation.h@{apply\_transformation.h}!apply\_transformation\_to\_point@{apply\_transformation\_to\_point}}
+\index{apply\_transformation\_to\_point@{apply\_transformation\_to\_point}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{apply\_transformation\_to\_point()}{apply\_transformation\_to\_point()}}
+{\footnotesize\ttfamily void apply\+\_\+transformation\+\_\+to\+\_\+point (\begin{DoxyParamCaption}\item[{const Spatial\+Vector \&}]{point,  }\item[{const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&}]{projective\+\_\+transformation,  }\item[{Spatial\+Vector \&}]{transformed\+\_\+point }\end{DoxyParamCaption})}
+
+Apply projective transformation to a single point
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em point} & point to transform \\
+\hline
+\mbox{\texttt{ in}}  & {\em projective\+\_\+transformation} & transformation to apply to the point \\
+\hline
+\mbox{\texttt{ out}}  & {\em transformed\+\_\+point} & point after transformation \\
+\hline
+\end{DoxyParams}
+\Hypertarget{apply__transformation_8h_a9047960aa39a93f458b37d4c0ff68ad3}\label{apply__transformation_8h_a9047960aa39a93f458b37d4c0ff68ad3} 
+\index{apply\_transformation.h@{apply\_transformation.h}!apply\_transformation\_to\_points@{apply\_transformation\_to\_points}}
+\index{apply\_transformation\_to\_points@{apply\_transformation\_to\_points}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{apply\_transformation\_to\_points()}{apply\_transformation\_to\_points()}}
+{\footnotesize\ttfamily void apply\+\_\+transformation\+\_\+to\+\_\+points (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Spatial\+Vector $>$ \&}]{points,  }\item[{const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&}]{projective\+\_\+transformation,  }\item[{std\+::vector$<$ Spatial\+Vector $>$ \&}]{transformed\+\_\+points }\end{DoxyParamCaption})}
+
+Apply projective transformation to a vector of points.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em points} & points to transform \\
+\hline
+\mbox{\texttt{ in}}  & {\em projective\+\_\+transformation} & transformation to apply to the vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em transformed\+\_\+points} & transformed points \\
+\hline
+\end{DoxyParams}
+\Hypertarget{apply__transformation_8h_afa2d5564944213c126826f4bd65f392e}\label{apply__transformation_8h_afa2d5564944213c126826f4bd65f392e} 
+\index{apply\_transformation.h@{apply\_transformation.h}!apply\_transformation\_to\_points\_in\_place@{apply\_transformation\_to\_points\_in\_place}}
+\index{apply\_transformation\_to\_points\_in\_place@{apply\_transformation\_to\_points\_in\_place}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{apply\_transformation\_to\_points\_in\_place()}{apply\_transformation\_to\_points\_in\_place()}}
+{\footnotesize\ttfamily void apply\+\_\+transformation\+\_\+to\+\_\+points\+\_\+in\+\_\+place (\begin{DoxyParamCaption}\item[{std\+::vector$<$ Spatial\+Vector $>$ \&}]{points,  }\item[{const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&}]{projective\+\_\+transformation }\end{DoxyParamCaption})}
+
+Apply projective transformation to a vector of points in place.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em points} & points to transform \\
+\hline
+\mbox{\texttt{ in}}  & {\em projective\+\_\+transformation} & transformation to apply to the vector \\
+\hline
+\end{DoxyParams}
+\Hypertarget{apply__transformation_8h_a68bb4101f33004c244fdadc7d66828ff}\label{apply__transformation_8h_a68bb4101f33004c244fdadc7d66828ff} 
+\index{apply\_transformation.h@{apply\_transformation.h}!apply\_transformation\_to\_vertices@{apply\_transformation\_to\_vertices}}
+\index{apply\_transformation\_to\_vertices@{apply\_transformation\_to\_vertices}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{apply\_transformation\_to\_vertices()}{apply\_transformation\_to\_vertices()}}
+{\footnotesize\ttfamily void apply\+\_\+transformation\+\_\+to\+\_\+vertices (\begin{DoxyParamCaption}\item[{const Matrix\+Xr \&}]{input\+\_\+V,  }\item[{const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&}]{projective\+\_\+transformation,  }\item[{Matrix\+Xr \&}]{output\+\_\+V }\end{DoxyParamCaption})}
+
+Apply projective transformation to a matrix of vertices.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em input\+\_\+V} & vertex matrix to transform \\
+\hline
+\mbox{\texttt{ in}}  & {\em projective\+\_\+transformation} & transformation to apply to the vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em output\+\_\+V} & transformed vertex matrix \\
+\hline
+\end{DoxyParams}
+\Hypertarget{apply__transformation_8h_ab3f92f2e95666b27c5fdc8a61daaee9a}\label{apply__transformation_8h_ab3f92f2e95666b27c5fdc8a61daaee9a} 
+\index{apply\_transformation.h@{apply\_transformation.h}!apply\_transformation\_to\_vertices\_in\_place@{apply\_transformation\_to\_vertices\_in\_place}}
+\index{apply\_transformation\_to\_vertices\_in\_place@{apply\_transformation\_to\_vertices\_in\_place}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{apply\_transformation\_to\_vertices\_in\_place()}{apply\_transformation\_to\_vertices\_in\_place()}}
+{\footnotesize\ttfamily void apply\+\_\+transformation\+\_\+to\+\_\+vertices\+\_\+in\+\_\+place (\begin{DoxyParamCaption}\item[{Matrix\+Xr \&}]{V,  }\item[{const Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \&}]{projective\+\_\+transformation }\end{DoxyParamCaption})}
+
+Apply projective transformation to a matrix of vertices in place.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em V} & vertex matrix to transform \\
+\hline
+\mbox{\texttt{ in}}  & {\em projective\+\_\+transformation} & transformation to apply to the vector \\
+\hline
+\end{DoxyParams}
+\Hypertarget{apply__transformation_8h_adbc68a021ad8ac44ed1c277bf4405e2e}\label{apply__transformation_8h_adbc68a021ad8ac44ed1c277bf4405e2e} 
+\index{apply\_transformation.h@{apply\_transformation.h}!initialize\_control\_points@{initialize\_control\_points}}
+\index{initialize\_control\_points@{initialize\_control\_points}!apply\_transformation.h@{apply\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{initialize\_control\_points()}{initialize\_control\_points()}}
+{\footnotesize\ttfamily void initialize\+\_\+control\+\_\+points (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&}]{input\+\_\+control\+\_\+point\+\_\+grid,  }\item[{const Matrix3x3r \&}]{input\+\_\+frame,  }\item[{const \mbox{\hyperlink{struct_transformation_parameters}{Transformation\+Parameters}} \&}]{transformation\+\_\+params,  }\item[{std\+::vector$<$ std\+::vector$<$ Spatial\+Vector $>$ $>$ \&}]{output\+\_\+control\+\_\+point\+\_\+grid,  }\item[{Matrix3x3r \&}]{output\+\_\+frame }\end{DoxyParamCaption})}
+
+Apply transformations to the control point grid and frame to align the view direction with the z axis, set viewing distances and angles, and send the camera to infinity.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em input\+\_\+control\+\_\+point\+\_\+grid} & control points defining surface before transformation \\
+\hline
+\mbox{\texttt{ in}}  & {\em input\+\_\+frame} & frame defining the contour view direction before transformation \\
+\hline
+\mbox{\texttt{ in}}  & {\em transformation\+\_\+params} & parameters for the transformation to apply \\
+\hline
+\mbox{\texttt{ out}}  & {\em output\+\_\+control\+\_\+point\+\_\+grid} & control points defining surface after transformation \\
+\hline
+\mbox{\texttt{ out}}  & {\em output\+\_\+frame} & frame defining the contour view direction after transformation \\
+\hline
+\end{DoxyParams}

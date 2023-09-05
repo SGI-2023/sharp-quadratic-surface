@@ -1,0 +1,83 @@
+\doxysection{Intersection\+Data Struct Reference}
+\hypertarget{struct_intersection_data}{}\label{struct_intersection_data}\index{IntersectionData@{IntersectionData}}
+
+
+Data for intersections.  
+
+
+
+
+{\ttfamily \#include $<$intersection\+\_\+data.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{struct_intersection_data_a61bb511e378e66afabf644b7e62429ed}{check\+\_\+if\+\_\+tip}} (const \mbox{\hyperlink{class_interval}{Interval}} \&domain, double eps)
+\item 
+void \mbox{\hyperlink{struct_intersection_data_ab066dedc520efa1f1e2f85e6b0842972}{check\+\_\+if\+\_\+base}} (const \mbox{\hyperlink{class_interval}{Interval}} \&domain, double eps)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_intersection_data_aed64824fbf71284e4f84a31a2a086a09}\label{struct_intersection_data_aed64824fbf71284e4f84a31a2a086a09} 
+double {\bfseries knot}
+\item 
+\Hypertarget{struct_intersection_data_a44e426936625635881e2a1dc4ffb16c0}\label{struct_intersection_data_a44e426936625635881e2a1dc4ffb16c0} 
+size\+\_\+t {\bfseries intersection\+\_\+index}
+\item 
+\Hypertarget{struct_intersection_data_acaa3f3cf6655b0828202b42feb345819}\label{struct_intersection_data_acaa3f3cf6655b0828202b42feb345819} 
+double {\bfseries intersection\+\_\+knot}
+\item 
+\Hypertarget{struct_intersection_data_ae5f67f7579d597e1d05373065f9baad6}\label{struct_intersection_data_ae5f67f7579d597e1d05373065f9baad6} 
+bool {\bfseries is\+\_\+base} = false
+\item 
+\Hypertarget{struct_intersection_data_ae42258cdca5186e2c31ed07c143aeaed}\label{struct_intersection_data_ae42258cdca5186e2c31ed07c143aeaed} 
+bool {\bfseries is\+\_\+tip} = false
+\item 
+\Hypertarget{struct_intersection_data_a07c98ffc2c252049a864290038bd68ba}\label{struct_intersection_data_a07c98ffc2c252049a864290038bd68ba} 
+int {\bfseries id}
+\item 
+\Hypertarget{struct_intersection_data_a6e0edfa4176d74738edbb5d80fabc4ce}\label{struct_intersection_data_a6e0edfa4176d74738edbb5d80fabc4ce} 
+bool {\bfseries is\+\_\+redundant} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Data for intersections. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_intersection_data_ab066dedc520efa1f1e2f85e6b0842972}\label{struct_intersection_data_ab066dedc520efa1f1e2f85e6b0842972} 
+\index{IntersectionData@{IntersectionData}!check\_if\_base@{check\_if\_base}}
+\index{check\_if\_base@{check\_if\_base}!IntersectionData@{IntersectionData}}
+\doxysubsubsection{\texorpdfstring{check\_if\_base()}{check\_if\_base()}}
+{\footnotesize\ttfamily void Intersection\+Data\+::check\+\_\+if\+\_\+base (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_interval}{Interval}} \&}]{domain,  }\item[{double}]{eps }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Check if the knot is the base of an oriented curve
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em domain} & domain for the curve \\
+\hline
+\mbox{\texttt{ in}}  & {\em eps} & epsilon tolerance for the check \\
+\hline
+\end{DoxyParams}
+\Hypertarget{struct_intersection_data_a61bb511e378e66afabf644b7e62429ed}\label{struct_intersection_data_a61bb511e378e66afabf644b7e62429ed} 
+\index{IntersectionData@{IntersectionData}!check\_if\_tip@{check\_if\_tip}}
+\index{check\_if\_tip@{check\_if\_tip}!IntersectionData@{IntersectionData}}
+\doxysubsubsection{\texorpdfstring{check\_if\_tip()}{check\_if\_tip()}}
+{\footnotesize\ttfamily void Intersection\+Data\+::check\+\_\+if\+\_\+tip (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_interval}{Interval}} \&}]{domain,  }\item[{double}]{eps }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Check if the knot is the tip of an oriented curve
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em domain} & domain for the curve \\
+\hline
+\mbox{\texttt{ in}}  & {\em eps} & epsilon tolerance for the check \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/contour\+\_\+network/intersection\+\_\+data.\+h\end{DoxyCompactItemize}

@@ -66,7 +66,7 @@ build_twelve_split_spline_energy_system(
   double& energy,
   VectorXr& derivatives,
   Eigen::SparseMatrix<double>& hessian,
-  Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>& hessian_inverse);
+  MatrixInverse& hessian_inverse);
 
 /// Compute the optimal per triangle position data for given vertex positions.
 ///
@@ -81,7 +81,7 @@ generate_optimized_twelve_split_position_data(
   const Eigen::MatrixXd& V,
   const AffineManifold& affine_manifold,
   const Eigen::SparseMatrix<double>& fit_matrix,
-  const Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>&
+  const MatrixInverse&
     hessian_inverse,
   std::vector<std::array<TriangleCornerFunctionData, 3>>& corner_data,
   std::vector<std::array<TriangleMidpointFunctionData, 3>>& midpoint_data);
@@ -136,4 +136,13 @@ convert_reduced_edge_gradients_to_full(
 std::vector<std::pair<int, int>>
 compute_split_vertex_correspondence(
   const std::vector<SpatialVector>& vertex_positions
+);
+
+/// @brief Given a <double> triplet, returns a triplet with the same value
+/// but swapped rows and columns
+/// @param triplet A <double> triplet.
+/// @return A triplet with the same value but swapped rows and columns
+Eigen::Triplet<double>
+transpose_triplet(
+  const Eigen::Triplet<double>& triplet
 );

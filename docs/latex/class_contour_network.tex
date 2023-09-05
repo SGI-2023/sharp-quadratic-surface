@@ -1,0 +1,327 @@
+\doxysection{Contour\+Network Class Reference}
+\hypertarget{class_contour_network}{}\label{class_contour_network}\index{ContourNetwork@{ContourNetwork}}
+
+
+Class to compute the projected contours of a quadratic spline surface and represent them as a curve network. Also computes the quantitative invisibility for the contours.  
+
+
+
+
+{\ttfamily \#include $<$contour\+\_\+network.\+h$>$}
+
+Inheritance diagram for Contour\+Network\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_contour_network}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_contour_network_a7b0a3a79ac036a732349cb9b07e20384}\label{class_contour_network_a7b0a3a79ac036a732349cb9b07e20384} 
+{\bfseries Contour\+Network} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_contour_network_a95f88f32eed448057dd2c63501087529}{Contour\+Network}} (const \mbox{\hyperlink{class_quadratic_spline_surface}{Quadratic\+Spline\+Surface}} \&spline\+\_\+surface, const \mbox{\hyperlink{struct_intersection_parameters}{Intersection\+Parameters}} \&intersect\+\_\+params, const \mbox{\hyperlink{struct_invisibility_parameters}{Invisibility\+Parameters}} \&invisibility\+\_\+params, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ patch\+\_\+boundary\+\_\+edges=std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$(0))
+\item 
+\Hypertarget{class_contour_network_abb870e967d76783b494f828b7d70f5ca}\label{class_contour_network_abb870e967d76783b494f828b7d70f5ca} 
+void {\bfseries clear} ()
+\begin{DoxyCompactList}\small\item\em Reset contour network to a default state. \end{DoxyCompactList}\item 
+\Hypertarget{class_contour_network_accb38f972be545a027d44b8fbb54275a}\label{class_contour_network_accb38f972be545a027d44b8fbb54275a} 
+void {\bfseries add\+\_\+contour\+\_\+network\+\_\+to\+\_\+viewer} () const
+\begin{DoxyCompactList}\small\item\em Add the spatial network to the viewer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_contour_network_a57744b103cba8c819d442a3970c1b0fb}{view}} (const \mbox{\hyperlink{class_quadratic_spline_surface}{Quadratic\+Spline\+Surface}} \&spline\+\_\+surface) const
+\item 
+\Hypertarget{class_contour_network_a761897ebd8ed5862572cc34d998e4ada}\label{class_contour_network_a761897ebd8ed5862572cc34d998e4ada} 
+void {\bfseries view\+\_\+contours} () const
+\begin{DoxyCompactList}\small\item\em View the contour network without the underlying surface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_contour_network_ac363deae49cb1751f2259a3c629f0575}{screenshot}} (const std\+::string \&filename, const \mbox{\hyperlink{class_quadratic_spline_surface}{Quadratic\+Spline\+Surface}} \&spline\+\_\+surface, Spatial\+Vector camera\+\_\+position=Spatial\+Vector(0, 0, 2), Spatial\+Vector camera\+\_\+target=Spatial\+Vector(0, 0, 0), bool use\+\_\+orthographic=false) const
+\item 
+void \mbox{\hyperlink{class_contour_network_a8593efbda0dadd648a028a854cfda1f3}{write\+\_\+rasterized\+\_\+contours}} (const std\+::string \&filename, Spatial\+Vector camera\+\_\+position=Spatial\+Vector(0, 0, 2), Spatial\+Vector camera\+\_\+target=Spatial\+Vector(0, 0, 0)) const
+\item 
+\Hypertarget{class_contour_network_a968f129649f89c399c644f14ce2f3936}\label{class_contour_network_a968f129649f89c399c644f14ce2f3936} 
+void {\bfseries reset\+\_\+counter} ()
+\begin{DoxyCompactList}\small\item\em Reset timing information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_projected_curve_network}{Projected\+Curve\+Network}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Projected\+Curve\+Network} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_projected_curve_network_a67a2a3426bf77a6efd7f005d93e82f63}{Projected\+Curve\+Network}} (const std\+::vector$<$ \mbox{\hyperlink{class_conic}{Conic}} $>$ \&parameter\+\_\+segments, const std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$ $>$ \&spatial\+\_\+segments, const std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ $>$ \&planar\+\_\+segments, const std\+::vector$<$ std\+::map$<$ std\+::string, int $>$ $>$ \&segment\+\_\+labels, const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&chains, const std\+::vector$<$ int $>$ \&chain\+\_\+labels, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ interior\+\_\+cusps, const std\+::vector$<$ bool $>$ \&has\+\_\+cusp\+\_\+at\+\_\+base, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&intersections, const std\+::vector$<$ std\+::vector$<$ size\+\_\+t $>$ $>$ \&intersection\+\_\+indices, std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_intersection_data}{Intersection\+Data}} $>$ $>$ \&intersection\+\_\+data, int num\+\_\+intersections)
+\item 
+Abstract\+Curve\+Network\+::\+Segment\+Index {\bfseries num\+\_\+segments} () const
+\item 
+Abstract\+Curve\+Network\+::\+Node\+Index {\bfseries num\+\_\+nodes} () const
+\item 
+\mbox{\hyperlink{class_conic}{Conic}} const \& {\bfseries segment\+\_\+parameter\+\_\+curve} (Segment\+Index segment\+\_\+index) const
+\item 
+\mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ const \& {\bfseries segment\+\_\+planar\+\_\+curve} (Segment\+Index segment\+\_\+index) const
+\item 
+\mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$ const \& {\bfseries segment\+\_\+spatial\+\_\+curve} (Segment\+Index segment\+\_\+index) const
+\item 
+int {\bfseries get\+\_\+segment\+\_\+label} (Segment\+Index segment\+\_\+index, const std\+::string \&label\+\_\+name) const
+\item 
+int {\bfseries get\+\_\+segment\+\_\+quantitative\+\_\+invisibility} (Segment\+Index segment\+\_\+index) const
+\item 
+void {\bfseries set\+\_\+segment\+\_\+quantitative\+\_\+invisibility} (Segment\+Index segment\+\_\+index, int new\+\_\+quantitative\+\_\+invisibility)
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_abbd6f139415155f8eb1e3789a16f78b6}{enumerate\+\_\+parameter\+\_\+curves}} (std\+::vector$<$ \mbox{\hyperlink{class_conic}{Conic}} $>$ \&parameter\+\_\+curves) const
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_a9d2d6ba763ae0b708e411df733a5af60}{enumerate\+\_\+spatial\+\_\+curves}} (std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$ $>$ \&spatial\+\_\+curves) const
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_a407dd34d486947157e9868cf8bc389c9}{enumerate\+\_\+planar\+\_\+curves}} (std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ $>$ \&planar\+\_\+curves) const
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_a47e81d2abba8eccdb89851dbd76a28d7}{enumerate\+\_\+spatial\+\_\+nodes}} (std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+knot\+\_\+nodes, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+marked\+\_\+knot\+\_\+nodes, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+intersection\+\_\+nodes, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+interior\+\_\+cusp\+\_\+nodes, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+boundary\+\_\+cusp\+\_\+nodes, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+path\+\_\+start\+\_\+nodes, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+path\+\_\+end\+\_\+nodes) const
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_a4a3349e5459135138380bf1d8c754841}{enumerate\+\_\+planar\+\_\+nodes}} (std\+::vector$<$ Planar\+Point $>$ \&planar\+\_\+knot\+\_\+nodes, std\+::vector$<$ Planar\+Point $>$ \&planar\+\_\+marked\+\_\+knot\+\_\+nodes, std\+::vector$<$ Planar\+Point $>$ \&planar\+\_\+intersection\+\_\+nodes, std\+::vector$<$ Planar\+Point $>$ \&planar\+\_\+interior\+\_\+cusp\+\_\+nodes, std\+::vector$<$ Planar\+Point $>$ \&planar\+\_\+boundary\+\_\+cusp\+\_\+nodes, std\+::vector$<$ Planar\+Point $>$ \&planar\+\_\+path\+\_\+start\+\_\+nodes, std\+::vector$<$ Planar\+Point $>$ \&planar\+\_\+path\+\_\+end\+\_\+nodes) const
+\item 
+void {\bfseries enumerate\+\_\+cusp\+\_\+spatial\+\_\+tangents} (std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+interior\+\_\+cusp\+\_\+in\+\_\+tangents, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+interior\+\_\+cusp\+\_\+out\+\_\+tangents, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+boundary\+\_\+cusp\+\_\+in\+\_\+tangents, std\+::vector$<$ Spatial\+Vector $>$ \&spatial\+\_\+boundary\+\_\+cusp\+\_\+out\+\_\+tangents) const
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_a7a32429fb4760c8477277c82571b6a65}{enumerate\+\_\+quantitative\+\_\+invisibility}} (std\+::vector$<$ int $>$ \&quantitative\+\_\+invisibility) const
+\item 
+std\+::vector$<$ int $>$ const \& \mbox{\hyperlink{class_projected_curve_network_a1ebb2cc149008923b4721cac27569e3c}{get\+\_\+chain\+\_\+start\+\_\+nodes}} () const
+\item 
+bool {\bfseries is\+\_\+knot\+\_\+node} (Node\+Index node\+\_\+index) const
+\item 
+bool {\bfseries is\+\_\+marked\+\_\+knot\+\_\+node} (Node\+Index node\+\_\+index) const
+\item 
+bool {\bfseries is\+\_\+intersection\+\_\+node} (Node\+Index node\+\_\+index) const
+\item 
+bool {\bfseries is\+\_\+interior\+\_\+cusp\+\_\+node} (Node\+Index node\+\_\+index) const
+\item 
+bool {\bfseries is\+\_\+boundary\+\_\+cusp\+\_\+node} (Node\+Index node\+\_\+index) const
+\item 
+bool {\bfseries is\+\_\+path\+\_\+start\+\_\+node} (Node\+Index node\+\_\+index) const
+\item 
+bool {\bfseries is\+\_\+path\+\_\+end\+\_\+node} (Node\+Index node\+\_\+index) const
+\item 
+Planar\+Point {\bfseries node\+\_\+planar\+\_\+point} (Node\+Index node\+\_\+index) const
+\item 
+Spatial\+Vector {\bfseries node\+\_\+spatial\+\_\+point} (Node\+Index node\+\_\+index) const
+\item 
+Spatial\+Vector {\bfseries node\+\_\+spatial\+\_\+in\+\_\+tangent} (Node\+Index node\+\_\+index) const
+\item 
+Spatial\+Vector {\bfseries node\+\_\+spatial\+\_\+out\+\_\+tangent} (Node\+Index node\+\_\+index) const
+\item 
+Spatial\+Vector {\bfseries node\+\_\+spatial\+\_\+tangent} (Node\+Index node\+\_\+index) const
+\item 
+Planar\+Point {\bfseries node\+\_\+planar\+\_\+in\+\_\+tangent} (Node\+Index node\+\_\+index) const
+\item 
+Planar\+Point {\bfseries node\+\_\+planar\+\_\+out\+\_\+tangent} (Node\+Index node\+\_\+index) const
+\item 
+Planar\+Point {\bfseries node\+\_\+planar\+\_\+tangent} (Node\+Index node\+\_\+index) const
+\item 
+int {\bfseries get\+\_\+node\+\_\+quantitative\+\_\+invisibility} (Node\+Index node\+\_\+index) const
+\item 
+void {\bfseries set\+\_\+node\+\_\+quantitative\+\_\+invisibility} (Node\+Index node\+\_\+index, int new\+\_\+quantitative\+\_\+invisibility)
+\item 
+bool {\bfseries node\+\_\+quantitative\+\_\+invisibility\+\_\+is\+\_\+set} (Node\+Index node\+\_\+index) const
+\item 
+void {\bfseries mark\+\_\+node\+\_\+quantitative\+\_\+invisibility\+\_\+as\+\_\+set} (Node\+Index node\+\_\+index)
+\item 
+\mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{Segment\+Chain\+Iterator}} \mbox{\hyperlink{class_projected_curve_network_adaacd39da0621fcef2a69a33759f0ea5}{get\+\_\+segment\+\_\+chain\+\_\+iterator}} (Segment\+Index segment\+\_\+index) const
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_aeabfaa3f7f1845891049733ebc12cd9d}{write}} (const std\+::string \&output\+\_\+path, SVGOutput\+Mode color\+\_\+mode=SVGOutput\+Mode\+::uniform\+\_\+visible\+\_\+chains, bool show\+\_\+nodes=false) const
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_afcdbe4d50577a447201f0c8cbcc1d41b}{serialize\+\_\+closed\+\_\+curves}} (const std\+::string \&filename) const
+\item 
+void {\bfseries clear} ()
+\begin{DoxyCompactList}\small\item\em Clear all topology and geometry data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_projected_curve_network_a2df2ade0ea7872e0e957352eb2722fa9}{add\+\_\+spatial\+\_\+network\+\_\+to\+\_\+viewer}} () const
+\item 
+void {\bfseries spatial\+\_\+network\+\_\+viewer} () const
+\begin{DoxyCompactList}\small\item\em View spatial curve network segments and annotated nodes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_projected_curve_network_abf614f1c97ccdb9b4985aa3a15ce0306}{get\+\_\+closed\+\_\+curves}} (std\+::vector$<$ Node\+Index $>$ \&closed\+\_\+curve\+\_\+start\+\_\+nodes, std\+::vector$<$ Node\+Index $>$ \&closed\+\_\+curve\+\_\+end\+\_\+nodes) const
+\item 
+void \mbox{\hyperlink{class_projected_curve_network_a34cbb54c35c6a2bb494a25a00090d92d}{get\+\_\+visible\+\_\+curves}} (std\+::vector$<$ Node\+Index $>$ \&visible\+\_\+curve\+\_\+start\+\_\+nodes, std\+::vector$<$ Node\+Index $>$ \&visible\+\_\+curve\+\_\+end\+\_\+nodes) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_abstract_curve_network}{Abstract\+Curve\+Network}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Abstract\+Curve\+Network} ()
+\begin{DoxyCompactList}\small\item\em Default empty constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_abstract_curve_network_a07e8e654cdf50f1bc88723eb7782f3bb}{Abstract\+Curve\+Network}} (const std\+::vector$<$ Node\+Index $>$ \&to\+\_\+array, const std\+::vector$<$ Segment\+Index $>$ \&out\+\_\+array, const std\+::vector$<$ Node\+Index $>$ \&intersection\+\_\+array)
+\item 
+void \mbox{\hyperlink{class_abstract_curve_network_a7e8741d401384ca465f1f5cde649afc4}{update\+\_\+topology}} (const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Node\+Index $>$ \&to\+\_\+array, const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Segment\+Index $>$ \&out\+\_\+array, const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Node\+Index $>$ \&intersection\+\_\+array)
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_a46642315debba667c3daca7d3f716d86}{get\+\_\+num\+\_\+segments}} () const
+\item 
+Node\+Index \mbox{\hyperlink{class_abstract_curve_network_abd50713ddd09c886c6305f010e158a38}{get\+\_\+num\+\_\+nodes}} () const
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_ac34af3870a4118a4a4b83b4e969fb637}{next}} (Segment\+Index segment\+\_\+index) const
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_ae70dbeea019f3846b1cc81cee2262d35}{prev}} (Segment\+Index segment\+\_\+index) const
+\item 
+Node\+Index \mbox{\hyperlink{class_abstract_curve_network_aa3d30a52421c5086834ea7a02065bc84}{to}} (Segment\+Index segment\+\_\+index) const
+\item 
+Node\+Index \mbox{\hyperlink{class_abstract_curve_network_a41421a1d2354e59c511a150954c50633}{from}} (Segment\+Index segment\+\_\+index) const
+\item 
+Node\+Index \mbox{\hyperlink{class_abstract_curve_network_a7d0ce0f1b760b4097c00f67529f50412}{intersection}} (Node\+Index node\+\_\+index) const
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_a66febb681023290dc003814cdfd14353}{out}} (Node\+Index node\+\_\+index) const
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_a1a401328ed8092f97e1d7d0f337a0397}{in}} (Node\+Index node\+\_\+index) const
+\item 
+bool \mbox{\hyperlink{class_abstract_curve_network_a3c172f3ac6e2daeef50671383613db96}{is\+\_\+boundary\+\_\+node}} (Node\+Index node\+\_\+index) const
+\item 
+bool \mbox{\hyperlink{class_abstract_curve_network_aa4990c668e4335a0221ce075ad041306}{has\+\_\+intersection\+\_\+node}} (Node\+Index node\+\_\+index) const
+\item 
+bool \mbox{\hyperlink{class_abstract_curve_network_a645a0803586694d7ff1aa808cfae0cdf}{is\+\_\+tnode}} (Node\+Index node\+\_\+index) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_contour_network_a2939c5e90034c6c94cab3883d0563df8}\label{class_contour_network_a2939c5e90034c6c94cab3883d0563df8} 
+long long {\bfseries ray\+\_\+intersection\+\_\+call} = 0
+\item 
+\Hypertarget{class_contour_network_a29c39c4632eeda6b3409079e87748da2}\label{class_contour_network_a29c39c4632eeda6b3409079e87748da2} 
+long long {\bfseries ray\+\_\+bounding\+\_\+box\+\_\+call} = 0
+\item 
+\Hypertarget{class_contour_network_ab476929373ce73fdea7ed9741168993d}\label{class_contour_network_ab476929373ce73fdea7ed9741168993d} 
+long long {\bfseries ray\+\_\+number} = 0
+\item 
+\Hypertarget{class_contour_network_a741c4378413794748f5eab418de1e9cc}\label{class_contour_network_a741c4378413794748f5eab418de1e9cc} 
+long long {\bfseries chain\+\_\+number} = 0
+\item 
+\Hypertarget{class_contour_network_ab2bdc1c298cb3707e2f99f94e152a1d0}\label{class_contour_network_ab2bdc1c298cb3707e2f99f94e152a1d0} 
+long long {\bfseries segment\+\_\+number} = 0
+\item 
+\Hypertarget{class_contour_network_a0a2eeb3a520972a8d59f686729ff001e}\label{class_contour_network_a0a2eeb3a520972a8d59f686729ff001e} 
+long long {\bfseries interior\+\_\+cusp\+\_\+number} = 0
+\item 
+\Hypertarget{class_contour_network_a87b3d30b3f51377bb44491103d13514b}\label{class_contour_network_a87b3d30b3f51377bb44491103d13514b} 
+long long {\bfseries boundary\+\_\+cusp\+\_\+number} = 0
+\item 
+\Hypertarget{class_contour_network_a6d7f8ba27c16946e002deb45bcad878e}\label{class_contour_network_a6d7f8ba27c16946e002deb45bcad878e} 
+long long {\bfseries intersection\+\_\+call} = 0
+\item 
+\Hypertarget{class_contour_network_a8dab0331d66ab2fd4cf319127cbe1a8b}\label{class_contour_network_a8dab0331d66ab2fd4cf319127cbe1a8b} 
+double {\bfseries surface\+\_\+update\+\_\+position\+\_\+time} = 0
+\item 
+\Hypertarget{class_contour_network_a1d75ec8c7a64d43ed4f36d2aedb59b7e}\label{class_contour_network_a1d75ec8c7a64d43ed4f36d2aedb59b7e} 
+double {\bfseries compute\+\_\+contour\+\_\+time} = 0
+\item 
+\Hypertarget{class_contour_network_a96dca6ce6798fabf733349b74dfcfdae}\label{class_contour_network_a96dca6ce6798fabf733349b74dfcfdae} 
+double {\bfseries compute\+\_\+cusp\+\_\+time} = 0
+\item 
+\Hypertarget{class_contour_network_ad0a257dd8903d4bc74f125724112cfae}\label{class_contour_network_ad0a257dd8903d4bc74f125724112cfae} 
+double {\bfseries compute\+\_\+intersection\+\_\+time} = 0
+\item 
+\Hypertarget{class_contour_network_af7ac3dcaf36452e34439801250431949}\label{class_contour_network_af7ac3dcaf36452e34439801250431949} 
+double {\bfseries compute\+\_\+visibility\+\_\+time} = 0
+\item 
+\Hypertarget{class_contour_network_a7244214576eb3035c817ada4549eac4b}\label{class_contour_network_a7244214576eb3035c817ada4549eac4b} 
+double {\bfseries compute\+\_\+projected\+\_\+time} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_abstract_curve_network}{Abstract\+Curve\+Network}}}
+\begin{DoxyCompactItemize}
+\item 
+typedef int {\bfseries Node\+Index}
+\item 
+typedef int {\bfseries Segment\+Index}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_projected_curve_network}{Projected\+Curve\+Network}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries init\+\_\+projected\+\_\+curve\+\_\+network} (const std\+::vector$<$ \mbox{\hyperlink{class_conic}{Conic}} $>$ \&parameter\+\_\+segments, const std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$ $>$ \&spatial\+\_\+segments, const std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ $>$ \&planar\+\_\+segments, const std\+::vector$<$ std\+::map$<$ std\+::string, int $>$ $>$ \&segment\+\_\+labels, const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&chains, const std\+::vector$<$ int $>$ \&chain\+\_\+labels, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ interior\+\_\+cusps, const std\+::vector$<$ bool $>$ \&has\+\_\+cusp\+\_\+at\+\_\+base, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&intersections, const std\+::vector$<$ std\+::vector$<$ size\+\_\+t $>$ $>$ \&intersection\+\_\+indices, std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_intersection_data}{Intersection\+Data}} $>$ $>$ \&intersection\+\_\+data, int num\+\_\+intersections)
+\item 
+bool {\bfseries is\+\_\+valid\+\_\+projected\+\_\+curve\+\_\+network} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_abstract_curve_network}{Abstract\+Curve\+Network}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries init\+\_\+abstract\+\_\+curve\+\_\+network} ()
+\item 
+bool {\bfseries is\+\_\+valid\+\_\+segment\+\_\+index} (Segment\+Index segment\+\_\+index) const
+\item 
+bool {\bfseries is\+\_\+valid\+\_\+node\+\_\+index} (Node\+Index node\+\_\+index) const
+\item 
+bool {\bfseries is\+\_\+valid\+\_\+abstract\+\_\+curve\+\_\+network} () const
+\item 
+void {\bfseries clear\+\_\+topology} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to compute the projected contours of a quadratic spline surface and represent them as a curve network. Also computes the quantitative invisibility for the contours. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_contour_network_a95f88f32eed448057dd2c63501087529}\label{class_contour_network_a95f88f32eed448057dd2c63501087529} 
+\index{ContourNetwork@{ContourNetwork}!ContourNetwork@{ContourNetwork}}
+\index{ContourNetwork@{ContourNetwork}!ContourNetwork@{ContourNetwork}}
+\doxysubsubsection{\texorpdfstring{ContourNetwork()}{ContourNetwork()}}
+{\footnotesize\ttfamily Contour\+Network\+::\+Contour\+Network (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_quadratic_spline_surface}{Quadratic\+Spline\+Surface}} \&}]{spline\+\_\+surface,  }\item[{const \mbox{\hyperlink{struct_intersection_parameters}{Intersection\+Parameters}} \&}]{intersect\+\_\+params,  }\item[{const \mbox{\hyperlink{struct_invisibility_parameters}{Invisibility\+Parameters}} \&}]{invisibility\+\_\+params,  }\item[{std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$}]{patch\+\_\+boundary\+\_\+edges = {\ttfamily std\+:\+:vector$<$std\+:\+:pair$<$int,~int$>$$>$(0)} }\end{DoxyParamCaption})}
+
+Constructor that takes a spline surface and computes the full projected contour curve network with standard viewing frame along the z axis.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em spline\+\_\+surface} & quadratic spline surface to build contours for \\
+\hline
+\mbox{\texttt{ in}}  & {\em intersect\+\_\+params} & parameters for the intersection methods \\
+\hline
+\mbox{\texttt{ in}}  & {\em intersect\+\_\+params} & parameters for the invisibility methods \\
+\hline
+\mbox{\texttt{ in}}  & {\em patch\+\_\+boundary\+\_\+edges} & patch boundary edge indices (default none) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_contour_network_ac363deae49cb1751f2259a3c629f0575}\label{class_contour_network_ac363deae49cb1751f2259a3c629f0575} 
+\index{ContourNetwork@{ContourNetwork}!screenshot@{screenshot}}
+\index{screenshot@{screenshot}!ContourNetwork@{ContourNetwork}}
+\doxysubsubsection{\texorpdfstring{screenshot()}{screenshot()}}
+{\footnotesize\ttfamily void Contour\+Network\+::screenshot (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{const \mbox{\hyperlink{class_quadratic_spline_surface}{Quadratic\+Spline\+Surface}} \&}]{spline\+\_\+surface,  }\item[{Spatial\+Vector}]{camera\+\_\+position = {\ttfamily SpatialVector(0,~0,~2)},  }\item[{Spatial\+Vector}]{camera\+\_\+target = {\ttfamily SpatialVector(0,~0,~0)},  }\item[{bool}]{use\+\_\+orthographic = {\ttfamily false} }\end{DoxyParamCaption}) const}
+
+Save a screenshot of the contour network to file
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em filename} & file to save the screenshot to \\
+\hline
+\mbox{\texttt{ in}}  & {\em spline\+\_\+surface} & underlying quadratic spline surface \\
+\hline
+\mbox{\texttt{ in}}  & {\em camera\+\_\+position} & camera position for the screenshot \\
+\hline
+\mbox{\texttt{ in}}  & {\em camera\+\_\+target} & camera target for the screenshot \\
+\hline
+\mbox{\texttt{ in}}  & {\em use\+\_\+orthographic} & use orthographic perspective if true \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_contour_network_a57744b103cba8c819d442a3970c1b0fb}\label{class_contour_network_a57744b103cba8c819d442a3970c1b0fb} 
+\index{ContourNetwork@{ContourNetwork}!view@{view}}
+\index{view@{view}!ContourNetwork@{ContourNetwork}}
+\doxysubsubsection{\texorpdfstring{view()}{view()}}
+{\footnotesize\ttfamily void Contour\+Network\+::view (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_quadratic_spline_surface}{Quadratic\+Spline\+Surface}} \&}]{spline\+\_\+surface }\end{DoxyParamCaption}) const}
+
+View the contour network surface and spatial network
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em spline\+\_\+surface} & underlying quadratic spline surface \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_contour_network_a8593efbda0dadd648a028a854cfda1f3}\label{class_contour_network_a8593efbda0dadd648a028a854cfda1f3} 
+\index{ContourNetwork@{ContourNetwork}!write\_rasterized\_contours@{write\_rasterized\_contours}}
+\index{write\_rasterized\_contours@{write\_rasterized\_contours}!ContourNetwork@{ContourNetwork}}
+\doxysubsubsection{\texorpdfstring{write\_rasterized\_contours()}{write\_rasterized\_contours()}}
+{\footnotesize\ttfamily void Contour\+Network\+::write\+\_\+rasterized\+\_\+contours (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{Spatial\+Vector}]{camera\+\_\+position = {\ttfamily SpatialVector(0,~0,~2)},  }\item[{Spatial\+Vector}]{camera\+\_\+target = {\ttfamily SpatialVector(0,~0,~0)} }\end{DoxyParamCaption}) const}
+
+Save a screenshot of just the contours to file
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em filename} & file to save the screenshot to \\
+\hline
+\mbox{\texttt{ in}}  & {\em camera\+\_\+position} & camera position for the screenshot \\
+\hline
+\mbox{\texttt{ in}}  & {\em camera\+\_\+target} & camera target for the screenshot \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/contour\+\_\+network/\mbox{\hyperlink{contour__network_8h}{contour\+\_\+network.\+h}}\item 
+src/contour\+\_\+network/contour\+\_\+network.\+cpp\end{DoxyCompactItemize}

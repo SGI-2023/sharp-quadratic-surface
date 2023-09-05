@@ -1,0 +1,103 @@
+\doxysection{apply\+\_\+transformation.\+h}
+\hypertarget{apply__transformation_8h_source}{}\label{apply__transformation_8h_source}\index{src/core/apply\_transformation.h@{src/core/apply\_transformation.h}}
+\mbox{\hyperlink{apply__transformation_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}spdlog/fmt/ostr.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}spdlog/spdlog.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <Eigen/Core>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <Eigen/LU>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{generate__transformation_8h}{generate\_transformation.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_transformation_parameters}{TransformationParameters}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \textcolor{comment}{//\ Distance\ from\ the\ camera\ to\ the\ view\ plane}}
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{double}\ camera\_to\_plane\_distance\ =\ 1;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \textcolor{comment}{//\ Translation\ to\ apply\ to\ the\ surface}}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{double}\ translation\ =\ 1;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{comment}{//\ Rotation\ parameters\ to\ apply\ to\ the\ surface}}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{double}\ x\_rotation\ =\ 0;}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{double}\ y\_rotation\ =\ 0;}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{double}\ z\_rotation\ =\ 0;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \textcolor{comment}{//\ If\ true,\ apply\ a\ projective\ transformation\ to\ send\ the\ camera\ at\ the\ origin}}
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ to\ infinity}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{bool}\ send\_camera\_to\_infinity\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00039\ convert\_point\_to\_homogeneous\_coords(}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{const}\ SpatialVector\&\ point,}
+\DoxyCodeLine{00041\ \ \ Eigen::Matrix<double,\ 4,\ 1>\&\ homogeneous\_coords);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ Convert\ homogeneous\ coordinates\ to\ a\ point}}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00045\ convert\_homogeneous\_coords\_to\_point(}
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 4,\ 1>\&\ homogeneous\_coords,}
+\DoxyCodeLine{00047\ \ \ SpatialVector\&\ point);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00055\ \mbox{\hyperlink{apply__transformation_8h_af9367c5de4c88810bd26a5e45ac479f8}{apply\_transformation\_to\_point}}(}
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{const}\ SpatialVector\&\ point,}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 4,\ 4>\&\ projective\_transformation,}
+\DoxyCodeLine{00058\ \ \ SpatialVector\&\ transformed\_point);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00066\ \mbox{\hyperlink{apply__transformation_8h_a9047960aa39a93f458b37d4c0ff68ad3}{apply\_transformation\_to\_points}}(}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{const}\ std::vector<SpatialVector>\&\ points,}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 4,\ 4>\&\ projective\_transformation,}
+\DoxyCodeLine{00069\ \ \ std::vector<SpatialVector>\&\ transformed\_points);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00076\ \mbox{\hyperlink{apply__transformation_8h_afa2d5564944213c126826f4bd65f392e}{apply\_transformation\_to\_points\_in\_place}}(}
+\DoxyCodeLine{00077\ \ \ std::vector<SpatialVector>\&\ points,}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 4,\ 4>\&\ projective\_transformation);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00086\ \mbox{\hyperlink{apply__transformation_8h_ab5ae240d38f67740dbff86f5ed6586f0}{apply\_transformation\_to\_control\_points}}(}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<SpatialVector>>\&\ input\_control\_point\_grid,}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 4,\ 4>\&\ projective\_transformation,}
+\DoxyCodeLine{00089\ \ \ std::vector<std::vector<SpatialVector>>\&\ output\_control\_point\_grid);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00096\ \mbox{\hyperlink{apply__transformation_8h_afa7d597d3a35712f99717d5b93356edd}{apply\_transformation\_to\_control\_points\_in\_place}}(}
+\DoxyCodeLine{00097\ \ \ std::vector<std::vector<SpatialVector>>\&\ control\_point\_grid,}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 4,\ 4>\&\ projective\_transformation);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00106\ \mbox{\hyperlink{apply__transformation_8h_a68bb4101f33004c244fdadc7d66828ff}{apply\_transformation\_to\_vertices}}(}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{const}\ MatrixXr\&\ input\_V,}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 4,\ 4>\&\ projective\_transformation,}
+\DoxyCodeLine{00109\ \ \ MatrixXr\&\ output\_V);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00116\ \mbox{\hyperlink{apply__transformation_8h_ab3f92f2e95666b27c5fdc8a61daaee9a}{apply\_transformation\_to\_vertices\_in\_place}}(}
+\DoxyCodeLine{00117\ \ \ MatrixXr\&\ V,}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 4,\ 4>\&\ projective\_transformation);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00133\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00134\ \mbox{\hyperlink{apply__transformation_8h_adbc68a021ad8ac44ed1c277bf4405e2e}{initialize\_control\_points}}(}
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<SpatialVector>>\&\ input\_control\_point\_grid,}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ input\_frame,}
+\DoxyCodeLine{00137\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_transformation_parameters}{TransformationParameters}}\&\ transformation\_params,}
+\DoxyCodeLine{00138\ \ \ std::vector<std::vector<SpatialVector>>\&\ output\_control\_point\_grid,}
+\DoxyCodeLine{00139\ \ \ Matrix3x3r\&\ output\_frame);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00154\ \mbox{\hyperlink{apply__transformation_8h_a0afd9148df5505abf225b1f92210efb8}{apply\_camera\_frame\_transformation\_to\_vertices}}(\textcolor{keyword}{const}\ MatrixXr\&\ input\_V,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\&\ output\_V,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ orthographic\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ recenter\_mesh\ =\ \textcolor{keyword}{false});}
+
+\end{DoxyCode}

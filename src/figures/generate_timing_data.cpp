@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
   std::vector<int> patch_to_face_indices;
   Eigen::SparseMatrix<double> fit_matrix;
   Eigen::SparseMatrix<double> energy_hessian;
-  Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>
+  MatrixInverse
       energy_hessian_inverse;
   AffineManifold affine_manifold(F, uv, FT);
   TwelveSplitSplineSurface spline_surface(

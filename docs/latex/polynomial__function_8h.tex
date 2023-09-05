@@ -1,0 +1,374 @@
+\doxysection{src/core/polynomial\+\_\+function.h File Reference}
+\hypertarget{polynomial__function_8h}{}\label{polynomial__function_8h}\index{src/core/polynomial\_function.h@{src/core/polynomial\_function.h}}
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include $<$unsupported/\+Eigen/\+Polynomials$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$int degree$>$ }\\void \mbox{\hyperlink{polynomial__function_8h_a03864f4a1874e1dbabaf545a98a9fa4d}{generate\+\_\+monomials}} (double t, Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, 1, degree+1 $>$ $>$ T)
+\begin{DoxyCompactList}\small\item\em Generate the row vector T of n + 1 monomials 1, t, ... , t\texorpdfstring{$^\wedge$}{\string^}n. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int degree$>$ }\\double \mbox{\hyperlink{polynomial__function_8h_a0a3ddece99ff080997194d85add00a70}{evaluate\+\_\+polynomial}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, degree+1, 1 $>$ $>$ \&polynomial\+\_\+coeffs, double t)
+\begin{DoxyCompactList}\small\item\em Evaluate the polynomial with given coefficients at t. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int degree, int dimension$>$ }\\void \mbox{\hyperlink{polynomial__function_8h_a54ae2d44a2d009070160bd45ba66cfef}{evaluate\+\_\+polynomial\+\_\+mapping}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ $>$ \&polynomial\+\_\+coeffs, double t, Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, 1, dimension $>$ $>$ polynomial\+\_\+evaluation)
+\begin{DoxyCompactList}\small\item\em Evaluate the polynomial with given coefficients at t. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int first\+\_\+degree, int second\+\_\+degree, int dimension$>$ }\\void \mbox{\hyperlink{polynomial__function_8h_a182bf2ffada50842609b1bd1cf9beecf}{compute\+\_\+polynomial\+\_\+mapping\+\_\+product}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, first\+\_\+degree+1, dimension $>$ $>$ \&first\+\_\+polynomial\+\_\+coeffs, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, second\+\_\+degree+1, dimension $>$ $>$ \&second\+\_\+polynomial\+\_\+coeffs, Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, first\+\_\+degree+second\+\_\+degree+1, dimension $>$ $>$ product\+\_\+polynomial\+\_\+coeffs)
+\begin{DoxyCompactList}\small\item\em Generate the polynomial coefficients for the kronecker product of two polynomials of the same dimension. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int first\+\_\+degree, int second\+\_\+degree, int dimension$>$ }\\void \mbox{\hyperlink{polynomial__function_8h_aaeb94797826a19f55ed10ed50b595c94}{compute\+\_\+polynomial\+\_\+mapping\+\_\+scalar\+\_\+product}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, first\+\_\+degree+1, 1 $>$ $>$ \&scalar\+\_\+polynomial\+\_\+coeffs, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, second\+\_\+degree+1, dimension $>$ $>$ \&polynomial\+\_\+coeffs, Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, first\+\_\+degree+second\+\_\+degree+1, dimension $>$ $>$ product\+\_\+polynomial\+\_\+coeffs)
+\begin{DoxyCompactList}\small\item\em Generate the polynomial coefficients for the product of a scalar polynomial and a vector valued polynomial mapping. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int first\+\_\+degree, int second\+\_\+degree$>$ }\\void \mbox{\hyperlink{polynomial__function_8h_a86448e55bbcf7a7047b858a62362c629}{compute\+\_\+polynomial\+\_\+mapping\+\_\+cross\+\_\+product}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, first\+\_\+degree+1, 3 $>$ $>$ \&first\+\_\+polynomial\+\_\+coeffs, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, second\+\_\+degree+1, 3 $>$ $>$ \&second\+\_\+polynomial\+\_\+coeffs, Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, first\+\_\+degree+second\+\_\+degree+1, 3 $>$ $>$ product\+\_\+polynomial\+\_\+coeffs)
+\begin{DoxyCompactList}\small\item\em Generate the polynomial coefficients for the cross product of two vector valued polynomial mappings with range R\texorpdfstring{$^\wedge$}{\string^}3. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int first\+\_\+degree, int second\+\_\+degree, int dimension$>$ }\\void \mbox{\hyperlink{polynomial__function_8h_a4828c4b39386df6725e799def1faff5b}{compute\+\_\+polynomial\+\_\+mapping\+\_\+dot\+\_\+product}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, first\+\_\+degree+1, dimension $>$ $>$ \&first\+\_\+polynomial\+\_\+coeffs, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, second\+\_\+degree+1, dimension $>$ $>$ \&second\+\_\+polynomial\+\_\+coeffs, Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, first\+\_\+degree+second\+\_\+degree+1, 1 $>$ $>$ product\+\_\+polynomial\+\_\+coeffs)
+\begin{DoxyCompactList}\small\item\em Generate the polynomial coefficients for the cross product of two vector valued polynomial mappings with the same range. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int degree, int dimension$>$ }\\void \mbox{\hyperlink{polynomial__function_8h_adc2fb786f4328cb94349deb2e9f78208}{compute\+\_\+polynomial\+\_\+mapping\+\_\+derivative}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ $>$ \&polynomial\+\_\+coeffs, Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, degree, dimension $>$ $>$ derivative\+\_\+polynomial\+\_\+coeffs)
+\begin{DoxyCompactList}\small\item\em Generate the polynomial coefficients for the derivative of a polynomial mapping. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{polynomial__function_8h_a34abe4ce2bec1322489038c9518261d7}{quadratic\+\_\+real\+\_\+roots}} (const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&quadratic\+\_\+coeffs, std\+::array$<$ double, 2 $>$ \&solutions, int \&num\+\_\+solutions, double eps=1e-\/10)
+\begin{DoxyCompactList}\small\item\em Compute the real roots of a quadratic polynomial. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{polynomial__function_8h_a18784f4a1372d786aa50427ad3084dc7}{polynomial\+\_\+real\+\_\+roots}} (const Vector\+Xr \&A\+\_\+coeffs)
+\begin{DoxyCompactList}\small\item\em Compute the real roots of a polynomial. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{polynomial__function_8h_a3024ad8bc91c5660a75ceca790e32618}{formatted\+\_\+monomial}} (const std\+::string \&variable, int degree)
+\begin{DoxyCompactList}\small\item\em Construct a formatted string for a variable raised to some power. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{polynomial__function_8h_a05bd567db7216b1297191264935f77f9}{formatted\+\_\+term}} (double coefficient, std\+::string variable, int precision=16)
+\begin{DoxyCompactList}\small\item\em Construct a formatted string for a term with given coefficient and variable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int degree, int dimension$>$ }\\std\+::string \mbox{\hyperlink{polynomial__function_8h_a5645bb42a3e7fb1e48deea61f227a065}{formatted\+\_\+polynomial}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ $>$ \&polynomial\+\_\+coeffs, int precision=16)
+\begin{DoxyCompactList}\small\item\em Construct a formatted string for a polynomial with given coefficients TODO Implement separate method for polynomial mappings. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Variable\+Type $>$ }\\Variable\+Type \mbox{\hyperlink{polynomial__function_8h_a73d84588182aa8a2253772fa23b59cb5}{substitute\+\_\+polynomial}} (const Vector\+Xr \&A\+\_\+coeffs, Variable\+Type t)
+\begin{DoxyCompactList}\small\item\em Substitute some variable value that supports addition, multiplication, and double multiplication into a polynomial. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to construct and evaluate polynomials in one variable. We represent polynomials as column vectors of coefficients with basis order 1, t, t\texorpdfstring{$^\wedge$}{\string^}2,.... For vector valued polynomial functions (i.\+e. functions f\+: R -\/\texorpdfstring{$>$}{>} R\texorpdfstring{$^\wedge$}{\string^}n where each coordinate projection is a polynomial), we use matrices with the column vectors as columns. We refer to these vector valued polynomial functions as polynomial mappings to distinguish them from scalar valued polynomials. Evaluation of the polynomials and polynomial mappings is then simply the left product of the row vector \mbox{[}1 t t\texorpdfstring{$^\wedge$}{\string^}2 ... t\texorpdfstring{$^\wedge$}{\string^}n\mbox{]} with the column vector or matrix. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{polynomial__function_8h_a86448e55bbcf7a7047b858a62362c629}\label{polynomial__function_8h_a86448e55bbcf7a7047b858a62362c629} 
+\index{polynomial\_function.h@{polynomial\_function.h}!compute\_polynomial\_mapping\_cross\_product@{compute\_polynomial\_mapping\_cross\_product}}
+\index{compute\_polynomial\_mapping\_cross\_product@{compute\_polynomial\_mapping\_cross\_product}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{compute\_polynomial\_mapping\_cross\_product()}{compute\_polynomial\_mapping\_cross\_product()}}
+{\footnotesize\ttfamily template$<$int first\+\_\+degree, int second\+\_\+degree$>$ \\
+void compute\+\_\+polynomial\+\_\+mapping\+\_\+cross\+\_\+product (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, first\+\_\+degree+1, 3 $>$ $>$ \&}]{first\+\_\+polynomial\+\_\+coeffs,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, second\+\_\+degree+1, 3 $>$ $>$ \&}]{second\+\_\+polynomial\+\_\+coeffs,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, first\+\_\+degree+second\+\_\+degree+1, 3 $>$ $>$}]{product\+\_\+polynomial\+\_\+coeffs }\end{DoxyParamCaption})}
+
+
+
+Generate the polynomial coefficients for the cross product of two vector valued polynomial mappings with range R\texorpdfstring{$^\wedge$}{\string^}3. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em first\+\_\+degree} & maximum monomial degree of the first polynomial \\
+\hline
+{\em second\+\_\+degree} & maximum monomial degree of the second polynomial \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em first\+\_\+polynomial\+\_\+coeffs} & coefficients of the first polynomial \\
+\hline
+\mbox{\texttt{ in}}  & {\em second\+\_\+polynomial\+\_\+coeffs} & coefficients of the second polynomial \\
+\hline
+\mbox{\texttt{ out}}  & {\em product\+\_\+polynomial\+\_\+coeffs} & product vector valued polynomial mapping coefficients \\
+\hline
+\end{DoxyParams}
+\Hypertarget{polynomial__function_8h_adc2fb786f4328cb94349deb2e9f78208}\label{polynomial__function_8h_adc2fb786f4328cb94349deb2e9f78208} 
+\index{polynomial\_function.h@{polynomial\_function.h}!compute\_polynomial\_mapping\_derivative@{compute\_polynomial\_mapping\_derivative}}
+\index{compute\_polynomial\_mapping\_derivative@{compute\_polynomial\_mapping\_derivative}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{compute\_polynomial\_mapping\_derivative()}{compute\_polynomial\_mapping\_derivative()}}
+{\footnotesize\ttfamily template$<$int degree, int dimension$>$ \\
+void compute\+\_\+polynomial\+\_\+mapping\+\_\+derivative (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ $>$ \&}]{polynomial\+\_\+coeffs,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, degree, dimension $>$ $>$}]{derivative\+\_\+polynomial\+\_\+coeffs }\end{DoxyParamCaption})}
+
+
+
+Generate the polynomial coefficients for the derivative of a polynomial mapping. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em polynomial\+\_\+coeffs} & coefficients of the polynomial mapping \\
+\hline
+\mbox{\texttt{ out}}  & {\em derivative-\/polynomial\+\_\+coeffs} & derivative polynomial mapping coefficients \\
+\hline
+\end{DoxyParams}
+\Hypertarget{polynomial__function_8h_a4828c4b39386df6725e799def1faff5b}\label{polynomial__function_8h_a4828c4b39386df6725e799def1faff5b} 
+\index{polynomial\_function.h@{polynomial\_function.h}!compute\_polynomial\_mapping\_dot\_product@{compute\_polynomial\_mapping\_dot\_product}}
+\index{compute\_polynomial\_mapping\_dot\_product@{compute\_polynomial\_mapping\_dot\_product}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{compute\_polynomial\_mapping\_dot\_product()}{compute\_polynomial\_mapping\_dot\_product()}}
+{\footnotesize\ttfamily template$<$int first\+\_\+degree, int second\+\_\+degree, int dimension$>$ \\
+void compute\+\_\+polynomial\+\_\+mapping\+\_\+dot\+\_\+product (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, first\+\_\+degree+1, dimension $>$ $>$ \&}]{first\+\_\+polynomial\+\_\+coeffs,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, second\+\_\+degree+1, dimension $>$ $>$ \&}]{second\+\_\+polynomial\+\_\+coeffs,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, first\+\_\+degree+second\+\_\+degree+1, 1 $>$ $>$}]{product\+\_\+polynomial\+\_\+coeffs }\end{DoxyParamCaption})}
+
+
+
+Generate the polynomial coefficients for the cross product of two vector valued polynomial mappings with the same range. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em dimension} & polynomial mapping dimension \\
+\hline
+{\em first\+\_\+degree} & maximum monomial degree of the first polynomial \\
+\hline
+{\em second\+\_\+degree} & maximum monomial degree of the second polynomial \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em first\+\_\+polynomial\+\_\+coeffs} & coefficients of the first polynomial \\
+\hline
+\mbox{\texttt{ in}}  & {\em second\+\_\+polynomial\+\_\+coeffs} & coefficients of the second polynomial \\
+\hline
+\mbox{\texttt{ out}}  & {\em product\+\_\+polynomial\+\_\+coeffs} & product vector valued polynomial mapping coefficients \\
+\hline
+\end{DoxyParams}
+\Hypertarget{polynomial__function_8h_a182bf2ffada50842609b1bd1cf9beecf}\label{polynomial__function_8h_a182bf2ffada50842609b1bd1cf9beecf} 
+\index{polynomial\_function.h@{polynomial\_function.h}!compute\_polynomial\_mapping\_product@{compute\_polynomial\_mapping\_product}}
+\index{compute\_polynomial\_mapping\_product@{compute\_polynomial\_mapping\_product}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{compute\_polynomial\_mapping\_product()}{compute\_polynomial\_mapping\_product()}}
+{\footnotesize\ttfamily template$<$int first\+\_\+degree, int second\+\_\+degree, int dimension$>$ \\
+void compute\+\_\+polynomial\+\_\+mapping\+\_\+product (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, first\+\_\+degree+1, dimension $>$ $>$ \&}]{first\+\_\+polynomial\+\_\+coeffs,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, second\+\_\+degree+1, dimension $>$ $>$ \&}]{second\+\_\+polynomial\+\_\+coeffs,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, first\+\_\+degree+second\+\_\+degree+1, dimension $>$ $>$}]{product\+\_\+polynomial\+\_\+coeffs }\end{DoxyParamCaption})}
+
+
+
+Generate the polynomial coefficients for the kronecker product of two polynomials of the same dimension. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em dimension} & polynomial dimension \\
+\hline
+{\em first\+\_\+degree} & maximum monomial degree of the first polynomial \\
+\hline
+{\em second\+\_\+degree} & maximum monomial degree of the second polynomial \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em first\+\_\+polynomial\+\_\+coeffs} & coefficients of the first polynomial \\
+\hline
+\mbox{\texttt{ in}}  & {\em second\+\_\+polynomial\+\_\+coeffs} & coefficients of the second polynomial \\
+\hline
+\mbox{\texttt{ out}}  & {\em product\+\_\+polynomial\+\_\+coeffs} & product polynomial coefficients \\
+\hline
+\end{DoxyParams}
+\Hypertarget{polynomial__function_8h_aaeb94797826a19f55ed10ed50b595c94}\label{polynomial__function_8h_aaeb94797826a19f55ed10ed50b595c94} 
+\index{polynomial\_function.h@{polynomial\_function.h}!compute\_polynomial\_mapping\_scalar\_product@{compute\_polynomial\_mapping\_scalar\_product}}
+\index{compute\_polynomial\_mapping\_scalar\_product@{compute\_polynomial\_mapping\_scalar\_product}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{compute\_polynomial\_mapping\_scalar\_product()}{compute\_polynomial\_mapping\_scalar\_product()}}
+{\footnotesize\ttfamily template$<$int first\+\_\+degree, int second\+\_\+degree, int dimension$>$ \\
+void compute\+\_\+polynomial\+\_\+mapping\+\_\+scalar\+\_\+product (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, first\+\_\+degree+1, 1 $>$ $>$ \&}]{scalar\+\_\+polynomial\+\_\+coeffs,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, second\+\_\+degree+1, dimension $>$ $>$ \&}]{polynomial\+\_\+coeffs,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, first\+\_\+degree+second\+\_\+degree+1, dimension $>$ $>$}]{product\+\_\+polynomial\+\_\+coeffs }\end{DoxyParamCaption})}
+
+
+
+Generate the polynomial coefficients for the product of a scalar polynomial and a vector valued polynomial mapping. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em dimension} & polynomial mapping dimension \\
+\hline
+{\em first\+\_\+degree} & maximum monomial degree of the first polynomial \\
+\hline
+{\em second\+\_\+degree} & maximum monomial degree of the second polynomial \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em scalar\+\_\+polynomial\+\_\+coeffs} & coefficients of the scalar polynomial \\
+\hline
+\mbox{\texttt{ in}}  & {\em polynomial\+\_\+coeffs} & coefficients of the vector valued polynomial \\
+\hline
+\mbox{\texttt{ out}}  & {\em product\+\_\+polynomial\+\_\+coeffs} & product vector valued polynomial mapping coefficients \\
+\hline
+\end{DoxyParams}
+\Hypertarget{polynomial__function_8h_a0a3ddece99ff080997194d85add00a70}\label{polynomial__function_8h_a0a3ddece99ff080997194d85add00a70} 
+\index{polynomial\_function.h@{polynomial\_function.h}!evaluate\_polynomial@{evaluate\_polynomial}}
+\index{evaluate\_polynomial@{evaluate\_polynomial}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{evaluate\_polynomial()}{evaluate\_polynomial()}}
+{\footnotesize\ttfamily template$<$int degree$>$ \\
+double evaluate\+\_\+polynomial (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, degree+1, 1 $>$ $>$ \&}]{polynomial\+\_\+coeffs,  }\item[{double}]{t }\end{DoxyParamCaption})}
+
+
+
+Evaluate the polynomial with given coefficients at t. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em degree} & maximum monomial degree \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em polynomial\+\_\+coeffs} & coefficients of the polynomial \\
+\hline
+\mbox{\texttt{ in}}  & {\em t} & evaluation point for the polynomial \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+evaluation of the polynomial 
+\end{DoxyReturn}
+\Hypertarget{polynomial__function_8h_a54ae2d44a2d009070160bd45ba66cfef}\label{polynomial__function_8h_a54ae2d44a2d009070160bd45ba66cfef} 
+\index{polynomial\_function.h@{polynomial\_function.h}!evaluate\_polynomial\_mapping@{evaluate\_polynomial\_mapping}}
+\index{evaluate\_polynomial\_mapping@{evaluate\_polynomial\_mapping}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{evaluate\_polynomial\_mapping()}{evaluate\_polynomial\_mapping()}}
+{\footnotesize\ttfamily template$<$int degree, int dimension$>$ \\
+void evaluate\+\_\+polynomial\+\_\+mapping (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ $>$ \&}]{polynomial\+\_\+coeffs,  }\item[{double}]{t,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, 1, dimension $>$ $>$}]{polynomial\+\_\+evaluation }\end{DoxyParamCaption})}
+
+
+
+Evaluate the polynomial with given coefficients at t. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em dimension} & polynomial dimension \\
+\hline
+{\em degree} & maximum monomial degree \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em polynomial\+\_\+coeffs} & coefficients of the polynomial \\
+\hline
+\mbox{\texttt{ in}}  & {\em t} & evaluation point for the polynomial \\
+\hline
+\mbox{\texttt{ out}}  & {\em polynomial\+\_\+evaluation} & evaluation of the polynomial \\
+\hline
+\end{DoxyParams}
+\Hypertarget{polynomial__function_8h_a3024ad8bc91c5660a75ceca790e32618}\label{polynomial__function_8h_a3024ad8bc91c5660a75ceca790e32618} 
+\index{polynomial\_function.h@{polynomial\_function.h}!formatted\_monomial@{formatted\_monomial}}
+\index{formatted\_monomial@{formatted\_monomial}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{formatted\_monomial()}{formatted\_monomial()}}
+{\footnotesize\ttfamily std\+::string formatted\+\_\+monomial (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{variable,  }\item[{int}]{degree }\end{DoxyParamCaption})}
+
+
+
+Construct a formatted string for a variable raised to some power. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em variable} & variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em degree} & power to raise the variable to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+formatted monomial string 
+\end{DoxyReturn}
+\Hypertarget{polynomial__function_8h_a5645bb42a3e7fb1e48deea61f227a065}\label{polynomial__function_8h_a5645bb42a3e7fb1e48deea61f227a065} 
+\index{polynomial\_function.h@{polynomial\_function.h}!formatted\_polynomial@{formatted\_polynomial}}
+\index{formatted\_polynomial@{formatted\_polynomial}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{formatted\_polynomial()}{formatted\_polynomial()}}
+{\footnotesize\ttfamily template$<$int degree, int dimension$>$ \\
+std\+::string formatted\+\_\+polynomial (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ $>$ \&}]{polynomial\+\_\+coeffs,  }\item[{int}]{precision = {\ttfamily 16} }\end{DoxyParamCaption})}
+
+
+
+Construct a formatted string for a polynomial with given coefficients TODO Implement separate method for polynomial mappings. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em P\+\_\+coeffs} & coefficients of the polynomial \\
+\hline
+\mbox{\texttt{ in}}  & {\em precision} & floating point precision \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+formatted polynomial string 
+\end{DoxyReturn}
+\Hypertarget{polynomial__function_8h_a05bd567db7216b1297191264935f77f9}\label{polynomial__function_8h_a05bd567db7216b1297191264935f77f9} 
+\index{polynomial\_function.h@{polynomial\_function.h}!formatted\_term@{formatted\_term}}
+\index{formatted\_term@{formatted\_term}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{formatted\_term()}{formatted\_term()}}
+{\footnotesize\ttfamily std\+::string formatted\+\_\+term (\begin{DoxyParamCaption}\item[{double}]{coefficient,  }\item[{std\+::string}]{variable,  }\item[{int}]{precision = {\ttfamily 16} }\end{DoxyParamCaption})}
+
+
+
+Construct a formatted string for a term with given coefficient and variable. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em coefficient} & coefficient of the term \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable} & variable of the term \\
+\hline
+\mbox{\texttt{ in}}  & {\em precision} & floating point precision \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+formatted term string 
+\end{DoxyReturn}
+\Hypertarget{polynomial__function_8h_a03864f4a1874e1dbabaf545a98a9fa4d}\label{polynomial__function_8h_a03864f4a1874e1dbabaf545a98a9fa4d} 
+\index{polynomial\_function.h@{polynomial\_function.h}!generate\_monomials@{generate\_monomials}}
+\index{generate\_monomials@{generate\_monomials}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{generate\_monomials()}{generate\_monomials()}}
+{\footnotesize\ttfamily template$<$int degree$>$ \\
+void generate\+\_\+monomials (\begin{DoxyParamCaption}\item[{double}]{t,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Matrix$<$ double, 1, degree+1 $>$ $>$}]{T }\end{DoxyParamCaption})}
+
+
+
+Generate the row vector T of n + 1 monomials 1, t, ... , t\texorpdfstring{$^\wedge$}{\string^}n. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em degree} & maximum monomial degree \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em t} & evaluation point for the monomials \\
+\hline
+\mbox{\texttt{ out}}  & {\em T} & row vector of monomials \\
+\hline
+\end{DoxyParams}
+\Hypertarget{polynomial__function_8h_a18784f4a1372d786aa50427ad3084dc7}\label{polynomial__function_8h_a18784f4a1372d786aa50427ad3084dc7} 
+\index{polynomial\_function.h@{polynomial\_function.h}!polynomial\_real\_roots@{polynomial\_real\_roots}}
+\index{polynomial\_real\_roots@{polynomial\_real\_roots}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{polynomial\_real\_roots()}{polynomial\_real\_roots()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ polynomial\+\_\+real\+\_\+roots (\begin{DoxyParamCaption}\item[{const Vector\+Xr \&}]{A\+\_\+coeffs }\end{DoxyParamCaption})}
+
+
+
+Compute the real roots of a polynomial. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em A\+\_\+coeffs} & coefficients of the polynomial \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+real roots of the polynomial 
+\end{DoxyReturn}
+\Hypertarget{polynomial__function_8h_a34abe4ce2bec1322489038c9518261d7}\label{polynomial__function_8h_a34abe4ce2bec1322489038c9518261d7} 
+\index{polynomial\_function.h@{polynomial\_function.h}!quadratic\_real\_roots@{quadratic\_real\_roots}}
+\index{quadratic\_real\_roots@{quadratic\_real\_roots}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{quadratic\_real\_roots()}{quadratic\_real\_roots()}}
+{\footnotesize\ttfamily void quadratic\+\_\+real\+\_\+roots (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&}]{quadratic\+\_\+coeffs,  }\item[{std\+::array$<$ double, 2 $>$ \&}]{solutions,  }\item[{int \&}]{num\+\_\+solutions,  }\item[{double}]{eps = {\ttfamily 1e-\/10} }\end{DoxyParamCaption})}
+
+
+
+Compute the real roots of a quadratic polynomial. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em quadratic\+\_\+coeffs} & coefficients of the polynomial \\
+\hline
+\mbox{\texttt{ out}}  & {\em solutions} & real roots of the polynomial \\
+\hline
+\mbox{\texttt{ out}}  & {\em num\+\_\+solutions} & solution count \\
+\hline
+\mbox{\texttt{ in}}  & {\em eps} & threshold for zero comparisons \\
+\hline
+\end{DoxyParams}
+\Hypertarget{polynomial__function_8h_a73d84588182aa8a2253772fa23b59cb5}\label{polynomial__function_8h_a73d84588182aa8a2253772fa23b59cb5} 
+\index{polynomial\_function.h@{polynomial\_function.h}!substitute\_polynomial@{substitute\_polynomial}}
+\index{substitute\_polynomial@{substitute\_polynomial}!polynomial\_function.h@{polynomial\_function.h}}
+\doxysubsubsection{\texorpdfstring{substitute\_polynomial()}{substitute\_polynomial()}}
+{\footnotesize\ttfamily template$<$typename Variable\+Type $>$ \\
+Variable\+Type substitute\+\_\+polynomial (\begin{DoxyParamCaption}\item[{const Vector\+Xr \&}]{A\+\_\+coeffs,  }\item[{Variable\+Type}]{t }\end{DoxyParamCaption})}
+
+
+
+Substitute some variable value that supports addition, multiplication, and double multiplication into a polynomial. 
+
+Abstractly, this represents the polynomial evaluation homomorphism between R\mbox{[}X\mbox{]} and some R-\/\+Algebra S.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em A\+\_\+coeffs} & coefficients of the polynomial function \\
+\hline
+\mbox{\texttt{ in}}  & {\em t} & evaluation point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+evaluated polynomial value 
+\end{DoxyReturn}

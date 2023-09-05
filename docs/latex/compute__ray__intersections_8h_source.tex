@@ -1,0 +1,31 @@
+\doxysection{compute\+\_\+ray\+\_\+intersections.\+h}
+\hypertarget{compute__ray__intersections_8h_source}{}\label{compute__ray__intersections_8h_source}\index{src/contour\_network/compute\_ray\_intersections.h@{src/contour\_network/compute\_ray\_intersections.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{quadratic__spline__surface_8h}{quadratic\_spline\_surface.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00024\ compute\_spline\_surface\_ray\_intersections(}
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quadratic_spline_surface}{QuadraticSplineSurface}}\&\ spline\_surface,}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{const}\ Matrix2x3r\&\ ray\_mapping\_coeffs,}
+\DoxyCodeLine{00027\ \ \ std::vector<QuadraticSplineSurface::PatchIndex>\&\ patch\_indices,}
+\DoxyCodeLine{00028\ \ \ std::vector<PlanarPoint>\&\ surface\_intersections,}
+\DoxyCodeLine{00029\ \ \ std::vector<double>\&\ ray\_intersections,}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\&\ ray\_intersections\_call,}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\&\ ray\_bounding\_box\_call);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00045\ partition\_ray\_intersections(\textcolor{keyword}{const}\ Matrix2x3r\&\ ray\_mapping\_coeffs,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ SpatialVector\&\ comparison\_point,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\&\ ray\_intersections,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\&\ ray\_intersections\_below,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\&\ ray\_intersections\_above);}
+
+\end{DoxyCode}

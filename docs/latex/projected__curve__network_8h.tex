@@ -1,0 +1,41 @@
+\doxysection{src/contour\+\_\+network/projected\+\_\+curve\+\_\+network.h File Reference}
+\hypertarget{projected__curve__network_8h}{}\label{projected__curve__network_8h}\index{src/contour\_network/projected\_curve\_network.h@{src/contour\_network/projected\_curve\_network.h}}
+{\ttfamily \#include \"{}abstract\+\_\+curve\+\_\+network.\+h\"{}}\newline
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}conic.\+h\"{}}\newline
+{\ttfamily \#include \"{}intersection\+\_\+data.\+h\"{}}\newline
+{\ttfamily \#include \"{}rational\+\_\+function.\+h\"{}}\newline
+{\ttfamily \#include \"{}svg.\+h\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_segment_geometry}{Segment\+Geometry}}
+\item 
+class \mbox{\hyperlink{class_node_geometry}{Node\+Geometry}}
+\item 
+class \mbox{\hyperlink{class_projected_curve_network}{Projected\+Curve\+Network}}
+\item 
+class \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{Projected\+Curve\+Network\+::\+Segment\+Chain\+Iterator}}
+\begin{DoxyCompactList}\small\item\em Iterator over contour segment chains until FIXME is found. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{projected__curve__network_8h_a5efdb5b6daa1988d404af01aac04726a}\label{projected__curve__network_8h_a5efdb5b6daa1988d404af01aac04726a} 
+enum class {\bfseries SVGOutput\+Mode} \{ \newline
+{\bfseries uniform\+\_\+segments}
+, {\bfseries uniform\+\_\+visible\+\_\+segments}
+, {\bfseries contrast\+\_\+invisible\+\_\+segments}
+, {\bfseries random\+\_\+chains}
+, \newline
+{\bfseries uniform\+\_\+chains}
+, {\bfseries uniform\+\_\+visible\+\_\+chains}
+, {\bfseries uniform\+\_\+visible\+\_\+curves}
+, {\bfseries uniform\+\_\+closed\+\_\+curves}
+, \newline
+{\bfseries uniform\+\_\+simplified\+\_\+visible\+\_\+curves}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to compute a simple planar curve network from annotated plane curve soup. 

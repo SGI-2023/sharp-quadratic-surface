@@ -1,0 +1,113 @@
+\doxysection{Line\+Segment Class Reference}
+\hypertarget{class_line_segment}{}\label{class_line_segment}\index{LineSegment@{LineSegment}}
+
+
+Representation of a line segment, which is a rational function with degree 1 numerator and degree 0 denominator.  
+
+
+
+
+{\ttfamily \#include $<$line\+\_\+segment.\+h$>$}
+
+Inheritance diagram for Line\+Segment\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_line_segment}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_line_segment_a6c3ecbccecf17ff75ce0d9d394694363}\label{class_line_segment_a6c3ecbccecf17ff75ce0d9d394694363} 
+{\bfseries Line\+Segment} (const Matrix2x2r \&numerator\+\_\+coeffs)
+\item 
+\Hypertarget{class_line_segment_a3d7afa15ff8ee61c1e0b1a1e99720a18}\label{class_line_segment_a3d7afa15ff8ee61c1e0b1a1e99720a18} 
+{\bfseries Line\+Segment} (const Matrix2x2r \&numerator\+\_\+coeffs, const \mbox{\hyperlink{class_interval}{Interval}} \&input\+\_\+domain)
+\item 
+\Hypertarget{class_line_segment_ae6848547968032c48a02ef43c783e3c0}\label{class_line_segment_ae6848547968032c48a02ef43c783e3c0} 
+{\footnotesize template$<$size\+\_\+t dimension$>$ }\\void {\bfseries pullback\+\_\+linear\+\_\+function} (const Eigen\+::\+Matrix$<$ double, 3, dimension $>$ \&F\+\_\+coeffs, \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 1, dimension $>$ \&pullback\+\_\+function) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_conic}{Conic}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Conic} ()
+\begin{DoxyCompactList}\small\item\em Build a trivial conic;. \end{DoxyCompactList}\item 
+{\bfseries Conic} (const Matrix3x2r \&numerator\+\_\+coeffs, const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&denominator\+\_\+coeffs)
+\item 
+{\bfseries Conic} (const Matrix3x2r \&numerator\+\_\+coeffs, const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&denominator\+\_\+coeffs, const Conic\+Type \&type)
+\item 
+{\bfseries Conic} (const Matrix3x2r \&numerator\+\_\+coeffs, const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&denominator\+\_\+coeffs, const \mbox{\hyperlink{class_interval}{Interval}} domain)
+\item 
+{\bfseries Conic} (const Matrix3x2r \&numerator\+\_\+coeffs, const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&denominator\+\_\+coeffs, const \mbox{\hyperlink{class_interval}{Interval}} domain, const Conic\+Type \&type)
+\item 
+Conic\+Type \mbox{\hyperlink{class_conic_adbc092cf52b18781a80d04a42b93c263}{get\+\_\+type}} () const
+\begin{DoxyCompactList}\small\item\em Get the type (e.\+g. hyperbola, line, etc.) of the conic. \end{DoxyCompactList}\item 
+void {\bfseries transform} (const Matrix2x2r \&rotation, const Planar\+Point \&translation)
+\item 
+{\footnotesize template$<$size\+\_\+t dimension$>$ }\\void {\bfseries pullback\+\_\+quadratic\+\_\+function} (const Eigen\+::\+Matrix$<$ double, 6, dimension $>$ \&F\+\_\+coeffs, \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, dimension $>$ \&pullback\+\_\+function) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_rational_function}{Rational\+Function$<$ 2, 2 $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Rational\+Function} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for 0 function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_rational_function_a15c35eaf13167fe0e2c4f2d03918ef5d}{Rational\+Function}} (const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ \&numerator\+\_\+coeffs)
+\item 
+\mbox{\hyperlink{class_rational_function_a12a54fe6df680120e73bfdf0cab19b03}{Rational\+Function}} (const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ \&numerator\+\_\+coeffs, const Eigen\+::\+Matrix$<$ double, degree+1, 1 $>$ \&denominator\+\_\+coeffs)
+\item 
+\mbox{\hyperlink{class_rational_function_ac2b1e32df1be0ea3c9a80b1ba124de5e}{Rational\+Function}} (const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ \&numerator\+\_\+coeffs, const Eigen\+::\+Matrix$<$ double, degree+1, 1 $>$ \&denominator\+\_\+coeffs, const \mbox{\hyperlink{class_interval}{Interval}} \&domain)
+\item 
+int \mbox{\hyperlink{class_rational_function_a6c7ab7e99c478b3991cfc534bc5137bf}{get\+\_\+degree}} () const
+\item 
+int \mbox{\hyperlink{class_rational_function_a3ee3fc74107bc24f2c4e5342ed429916}{get\+\_\+dimension}} () const
+\item 
+void \mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\+\_\+derivative}} (\mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 2 \texorpdfstring{$\ast$}{*}degree, dimension $>$ \&derivative) const
+\item 
+void \mbox{\hyperlink{class_rational_function_aa85111f0e98350cccbd35377312c3f2e}{apply\+\_\+one\+\_\+form}} (const Eigen\+::\+Matrix$<$ double, dimension, 1 $>$ \&one\+\_\+form, \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ degree, 1 $>$ scalar\+\_\+function) const
+\begin{DoxyCompactList}\small\item\em Compose the rational mapping f\+: R -\/\texorpdfstring{$>$}{>} R\texorpdfstring{$^\wedge$}{\string^}n with a one form to obtain a rational scalar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_rational_function_a45563906524c67e3868d847b52b7b96c}{split\+\_\+at\+\_\+knot}} (double knot, \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ degree, dimension $>$ \&lower\+\_\+segment, \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ degree, dimension $>$ \&upper\+\_\+segment)
+\begin{DoxyCompactList}\small\item\em Split the rational function into two rational function at some knot in the domain. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_rational_function_a37451f8928798e178bc87cc46c1c5c48}{sample\+\_\+points}} (int num\+\_\+points, std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 1, dimension $>$ $>$ \&points) const
+\begin{DoxyCompactList}\small\item\em Sample points in the rational function. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix$<$ double, 1, dimension $>$ \mbox{\hyperlink{class_rational_function_a54ccf367a2303399d7ca872f1ef73571}{start\+\_\+point}} () const
+\begin{DoxyCompactList}\small\item\em Get the point at the start of the rational mapping curve. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix$<$ double, 1, dimension $>$ \mbox{\hyperlink{class_rational_function_a5ab798478fd7bfdbd143b926c20a2f1d}{mid\+\_\+point}} () const
+\begin{DoxyCompactList}\small\item\em Get the point of the rational mapping curve sampled at the midpoint of the domain interval (or some interior point in an unbounded interval). \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix$<$ double, 1, dimension $>$ \mbox{\hyperlink{class_rational_function_a3e4f99d38f0fff5dbeffa665196b29af}{end\+\_\+point}} () const
+\begin{DoxyCompactList}\small\item\em Get the point at the end of the rational mapping curve. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_rational_function_ae9dd3a492696c59250bae7617347551a}{evaluate}} (double t, Eigen\+::\+Matrix$<$ double, 1, dimension $>$ \&point) const
+\begin{DoxyCompactList}\small\item\em Evaluate the function at a domain coordinate. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_rational_function_af1aae7b8b64d66184d48f01748e08ae1}{evaluate\+\_\+normalized\+\_\+coordinate}} (double t, Eigen\+::\+Matrix$<$ double, 1, dimension $>$ \&point) const
+\begin{DoxyCompactList}\small\item\em Evaluate the function at an normalized parameter in \mbox{[}0, 1\mbox{]}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_rational_function_a2c079e7d758f9f0381ae0da42b5193ca}{is\+\_\+in\+\_\+domain}} (double t) const
+\begin{DoxyCompactList}\small\item\em Determine if a point is in the domain of the rational mapping. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_rational_function_a5f3578f1e0d14849595f86c938ce3352}{is\+\_\+in\+\_\+domain\+\_\+interior}} (double t) const
+\begin{DoxyCompactList}\small\item\em Determine if a point is in the interior of the domain of the rational mapping. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_rational_function_af592c153afda83fb206d5136f1b820ca}{discretize}} (const \mbox{\hyperlink{struct_curve_discretization_parameters}{Curve\+Discretization\+Parameters}} \&curve\+\_\+disc\+\_\+params, std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 1, dimension $>$ $>$ \&points, std\+::vector$<$ int $>$ \&polyline) const
+\item 
+void \mbox{\hyperlink{class_rational_function_a260502d67735babd93a410849543be90}{add\+\_\+curve\+\_\+to\+\_\+viewer}} (std\+::string curve\+\_\+name=\"{}rational\+\_\+function\+\_\+curve\"{}) const
+\begin{DoxyCompactList}\small\item\em Add the rational function curve to the polyscope viewer. \end{DoxyCompactList}\item 
+std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 1, dimension $>$ $>$ \mbox{\hyperlink{class_rational_function_a0aba41aa657286e97f9815111e928d04}{finite\+\_\+difference\+\_\+derivative}} (double t, double h=1e-\/3) const
+\begin{DoxyCompactList}\small\item\em Compute the derivative at domain point t with finite differences with finite difference step size h. \end{DoxyCompactList}\item 
+void {\bfseries set\+\_\+numerators} (const Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ \&numerator)
+\item 
+void {\bfseries set\+\_\+denominator} (const Eigen\+::\+Matrix$<$ double, degree+1, 1 $>$ \&denominator)
+\item 
+Eigen\+::\+Matrix$<$ double, degree+1, dimension $>$ const \& {\bfseries get\+\_\+numerators} () const
+\item 
+Eigen\+::\+Matrix$<$ double, degree+1, 1 $>$ const \& {\bfseries get\+\_\+denominator} () const
+\item 
+\mbox{\hyperlink{class_interval}{Interval}} \& {\bfseries domain} ()
+\item 
+\mbox{\hyperlink{class_interval}{Interval}} const \& {\bfseries domain} () const
+\item 
+Eigen\+::\+Matrix$<$ double, 1, dimension $>$ \mbox{\hyperlink{class_rational_function_ad12bad3e540f001eee102fedd0e6d99a}{operator()}} (double t) const
+\begin{DoxyCompactList}\small\item\em Evaluate the rational mapping at domain point t. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Representation of a line segment, which is a rational function with degree 1 numerator and degree 0 denominator. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/core/line\+\_\+segment.\+h\end{DoxyCompactItemize}

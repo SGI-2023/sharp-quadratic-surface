@@ -1,0 +1,30 @@
+\doxysection{src/contour\+\_\+network/contour\+\_\+network.h File Reference}
+\hypertarget{contour__network_8h}{}\label{contour__network_8h}\index{src/contour\_network/contour\_network.h@{src/contour\_network/contour\_network.h}}
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}compute\+\_\+contours.\+h\"{}}\newline
+{\ttfamily \#include \"{}compute\+\_\+intersections.\+h\"{}}\newline
+{\ttfamily \#include \"{}compute\+\_\+ray\+\_\+intersections.\+h\"{}}\newline
+{\ttfamily \#include \"{}projected\+\_\+curve\+\_\+network.\+h\"{}}\newline
+{\ttfamily \#include \"{}quadratic\+\_\+spline\+\_\+surface.\+h\"{}}\newline
+{\ttfamily \#include \"{}rational\+\_\+function.\+h\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_invisibility_parameters}{Invisibility\+Parameters}}
+\begin{DoxyCompactList}\small\item\em Parameters for the invisibility computation. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_contour_network}{Contour\+Network}}
+\begin{DoxyCompactList}\small\item\em Class to compute the projected contours of a quadratic spline surface and represent them as a curve network. Also computes the quantitative invisibility for the contours. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{contour__network_8h_af7206bdc885b7ff33ae72dc829008432}\label{contour__network_8h_af7206bdc885b7ff33ae72dc829008432} 
+enum class {\bfseries Invisibility\+Method} \{ {\bfseries none}
+, {\bfseries direct}
+, {\bfseries chaining}
+, {\bfseries propagation}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to compute the contour curve network for a spline surface with view frame. 

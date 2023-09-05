@@ -1,0 +1,21 @@
+\doxysection{src/figures/generate\+\_\+example\+\_\+figure.cpp File Reference}
+\hypertarget{generate__example__figure_8cpp}{}\label{generate__example__figure_8cpp}\index{src/figures/generate\_example\_figure.cpp@{src/figures/generate\_example\_figure.cpp}}
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}apply\+\_\+transformation.\+h\"{}}\newline
+{\ttfamily \#include \"{}compute\+\_\+boundaries.\+h\"{}}\newline
+{\ttfamily \#include \"{}contour\+\_\+network.\+h\"{}}\newline
+{\ttfamily \#include \"{}generate\+\_\+transformation.\+h\"{}}\newline
+{\ttfamily \#include \"{}twelve\+\_\+split\+\_\+spline.\+h\"{}}\newline
+{\ttfamily \#include $<$igl/read\+OBJ.\+h$>$}\newline
+{\ttfamily \#include $<$igl/write\+OBJ.\+h$>$}\newline
+{\ttfamily \#include $<$CLI/\+CLI.\+hpp$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{generate__example__figure_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{generate__example__figure_8cpp_a0ddf1224851353fc92bfbff6f499fa97} 
+int {\bfseries main} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Executable to generate a pipeline example from a mesh and camera specification. Generates an image of the mesh, the quadratic surface (with front camera view), the full contours with cusps and intersections, and the final occluding contours. 

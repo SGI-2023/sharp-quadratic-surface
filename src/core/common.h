@@ -55,6 +55,7 @@ typedef Eigen::Matrix<double, 2, 2> Matrix2x2r;
 typedef Eigen::Matrix<double, 3, 2> Matrix3x2r;
 typedef Eigen::Matrix<double, 3, 3> Matrix3x3r;
 typedef std::array<int, 2> Edge;
+typedef Eigen::SimplicialLDLT<Eigen::SparseMatrix<double>> MatrixInverse;
 
 // Bivariate quadratic matrices
 typedef Eigen::Matrix<double, 6, 1> Vector6r;

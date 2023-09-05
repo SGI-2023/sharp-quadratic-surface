@@ -1,0 +1,238 @@
+\doxysection{affine\+\_\+manifold.\+h}
+\hypertarget{affine__manifold_8h_source}{}\label{affine__manifold_8h_source}\index{src/core/affine\_manifold.h@{src/core/affine\_manifold.h}}
+\mbox{\hyperlink{affine__manifold_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{halfedge_8h}{halfedge.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_vertex_manifold_chart}{VertexManifoldChart}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ Halfedge::Index\ vertex\_index;\ \textcolor{comment}{//\ Index\ of\ the\ vertex\ in\ the\ affine\ manifold}}
+\DoxyCodeLine{00027\ \ \ std::vector<Halfedge::Index>}
+\DoxyCodeLine{00028\ \ \ \ \ vertex\_one\_ring;\ \textcolor{comment}{//\ List\ of\ manifold\ vertex\ indices\ in\ the\ one\ ring}}
+\DoxyCodeLine{00029\ \ \ std::vector<Halfedge::Index>}
+\DoxyCodeLine{00030\ \ \ \ \ face\_one\_ring;\ \textcolor{comment}{//\ List\ of\ manifold\ face\ indices\ in\ the\ one\ ring}}
+\DoxyCodeLine{00031\ \ \ MatrixXr}
+\DoxyCodeLine{00032\ \ \ \ \ one\_ring\_uv\_positions;\ \ \textcolor{comment}{//\ Local\ uv\ coordinates\ of\ the\ one\ ring\ vertices}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{bool}\ is\_boundary\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Mark\ boundary\ vertices}}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{bool}\ is\_cone\ =\ \textcolor{keyword}{false};\ \ \ \ \ \textcolor{comment}{//\ Mark\ cone\ vertices}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{bool}\ is\_cone\_adjacent\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Mark\ vertices\ adjacent\ to\ a\ cone}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_edge_manifold_chart}{EdgeManifoldChart}}}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ Face\ indices}}
+\DoxyCodeLine{00049\ \ \ Halfedge::Index\ top\_face\_index;}
+\DoxyCodeLine{00050\ \ \ Halfedge::Index\ bottom\_face\_index;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{//\ Vertex\ indices}}
+\DoxyCodeLine{00053\ \ \ Halfedge::Index\ left\_vertex\_index;}
+\DoxyCodeLine{00054\ \ \ Halfedge::Index\ right\_vertex\_index;}
+\DoxyCodeLine{00055\ \ \ Halfedge::Index\ top\_vertex\_index;}
+\DoxyCodeLine{00056\ \ \ Halfedge::Index\ bottom\_vertex\_index;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{comment}{//\ Vertex\ positions}}
+\DoxyCodeLine{00059\ \ \ PlanarPoint\ left\_vertex\_uv\_position;}
+\DoxyCodeLine{00060\ \ \ PlanarPoint\ right\_vertex\_uv\_position;}
+\DoxyCodeLine{00061\ \ \ PlanarPoint\ top\_vertex\_uv\_position;}
+\DoxyCodeLine{00062\ \ \ PlanarPoint\ bottom\_vertex\_uv\_position;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{//\ True\ iff\ the\ edge\ is\ on\ the\ boundary}}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ is\_boundary;}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_face_manifold_chart}{FaceManifoldChart}}}
+\DoxyCodeLine{00072\ \{}
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//\ Face\ indices}}
+\DoxyCodeLine{00074\ \ \ Halfedge::Index\ face\_index;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ Vertex\ positions}}
+\DoxyCodeLine{00077\ \ \ std::array<PlanarPoint,\ 3>\ face\_uv\_positions;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{comment}{//\ Global\ information}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{bool}\ is\_boundary\ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \textcolor{comment}{//\ True\ iff\ the\ edge\ is\ on\ the\ boundary}}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{bool}\ is\_cone\_adjacent\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Mark\ faces\ adjacent\ to\ a\ cone}}
+\DoxyCodeLine{00082\ \ \ std::array<bool,\ 3>\ is\_cone\_corner\ =\ \{\ \textcolor{keyword}{false},\ \textcolor{keyword}{false},\ \textcolor{keyword}{false}\ \};\ \textcolor{comment}{//\ Mark\ individual\ corners\ adjacent\ to\ a\ cone}}
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_affine_manifold}{AffineManifold}}}
+\DoxyCodeLine{00088\ \{}
+\DoxyCodeLine{00089\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ Index;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00093\ \ \ \mbox{\hyperlink{class_affine_manifold_afcc040d0f3ed7cda428c966c4c9b2b0d}{AffineManifold}}();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{class_affine_manifold_afcc040d0f3ed7cda428c966c4c9b2b0d}{AffineManifold}}(\textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MatrixXr\&\ global\_uv,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F\_uv);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00107\ \ \ Index\ \mbox{\hyperlink{class_affine_manifold_ade5a24a432a95df21beddec821e39b16}{num\_faces}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00112\ \ \ Index\ \mbox{\hyperlink{class_affine_manifold_a1c91854336d95c217e3316b24dc3c6a8}{num\_vertices}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00117\ \ \ Eigen::MatrixXi\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_affine_manifold_a6e3caa36616a55fec146dd2a6a245301}{get\_faces}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00122\ \ \ \mbox{\hyperlink{class_halfedge}{Halfedge}}\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_affine_manifold_a4da611ea8a9c4c82347e403c8c889f1f}{get\_halfedge}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_halfedge;\ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00127\ \ \ std::vector<std::pair<Eigen::Index,\ Eigen::Index>>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_affine_manifold_a4e36285e30374755c46dee3611b43b15}{get\_he\_to\_corner}}()\textcolor{keyword}{}}
+\DoxyCodeLine{00128\ \textcolor{keyword}{\ \ \ \ const}}
+\DoxyCodeLine{00129\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}\ m\_he\_to\_corner;}
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00136\ \ \ Eigen::MatrixXi\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_affine_manifold_acc633c3366f190094bf1c07f92910650}{get\_F\_uv}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00148\ \ \ \mbox{\hyperlink{struct_vertex_manifold_chart}{VertexManifoldChart}}\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_affine_manifold_a634cb38fb80495675c392abbd82f27c7}{get\_vertex\_chart}}(Index\ vertex\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00157\ \ \ \mbox{\hyperlink{struct_edge_manifold_chart}{EdgeManifoldChart}}\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_affine_manifold_af68eb1ee1d21fa8bb47daaba467d22c6}{get\_edge\_chart}}(Index\ face\_index,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Index\ face\_vertex\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00164\ \ \ \mbox{\hyperlink{struct_face_manifold_chart}{FaceManifoldChart}}\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_affine_manifold_a8a0287f9ba0f2ba7e9936ba740ccc579}{get\_face\_chart}}(Index\ face\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a7087fa8c1768c2b4327b93505f0e33b8}{get\_face\_corner\_charts}}(}
+\DoxyCodeLine{00177\ \ \ \ \ Index\ face\_index,}
+\DoxyCodeLine{00178\ \ \ \ \ std::array<Matrix2x2r,\ 3>\&\ corner\_uv\_positions)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a61a1a1db94bbed7312fd2b6cfe07027b}{get\_face\_edge\_charts}}(}
+\DoxyCodeLine{00192\ \ \ \ \ Index\ face\_index,}
+\DoxyCodeLine{00193\ \ \ \ \ std::array<Matrix3x2r,\ 3>\&\ face\_edge\_uv\_positions)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a179fbd7b9050cf20a8c5c78e2e87f94b}{get\_face\_global\_uv}}(Index\ face\_index,}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::array<PlanarPoint,\ 3>\&\ face\_uv\_positions)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_affine_manifold_abf2ab050df58c8d1c05a5177b508686e}{compute\_curvature}}(Index\ vertex\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_affine_manifold_a356d226d3ecf36569fb68df02b568ace}{is\_boundary}}(Index\ vertex\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_affine_manifold_ad954f76d53659be3361d2c3c2e5f8adc}{is\_flat}}(Index\ vertex\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a3e940c1335c5e897474c6bd57173e730}{compute\_flat\_vertices}}(std::vector<Index>\&\ flat\_vertices);}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_ad01a8524558ba2f7b8b233f5ff87e465}{compute\_cones}}(std::vector<Index>\&\ cones)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_ad4b4cadb93a95d30bc9d5b41dd6a1a36}{compute\_cones\_corners}}(}
+\DoxyCodeLine{00238\ \ \ \ \ std::vector<std::array<bool,\ 3>>\&\ is\_cone\_corner)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_ad66b5b8fa55de132b00760a35cc16c79}{compute\_cone\_points}}(\textcolor{keyword}{const}\ MatrixXr\&\ V,\ MatrixXr\&\ cone\_points)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00249\ \ \ std::vector<Index>\ \mbox{\hyperlink{class_affine_manifold_a3cfe8922a412d98788352cb03028b291}{generate\_cones}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00254\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a22d42ebbfc83dc4296c7c54c53ea616d}{compute\_boundary\_vertices}}(std::vector<Index>\&\ boundary\_vertices)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00259\ \ \ std::vector<Index>\ \mbox{\hyperlink{class_affine_manifold_a429d86f39f9e64ca7fea38031e8bcadb}{generate\_boundary\_vertices}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00264\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a6a04906aca9ee8f0b89c237f992a0dc3}{mark\_cone\_adjacent\_vertex}}(Index\ vertex\_index);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00269\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_aeb6c977f357135897e2d431714fe70fc}{mark\_cone\_adjacent\_face}}(Index\ face\_index);}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00274\ \ \ MatrixXr\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_affine_manifold_a58c0b0bef9631b4473650bd3bfe33950}{get\_global\_uv}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00278\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a89f64c24d613162ca0b1b6a6606da4f1}{cut\_cone\_edges}}();}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00285\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a6e14fba7016671a956b874969b66c99e}{add\_to\_viewer}}(\textcolor{keyword}{const}\ MatrixXr\&\ V,\ Eigen::Matrix<double,\ 3,\ 1>\ color\ =\ GOLD\_YELLOW)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00290\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_affine_manifold_a98136d633fd83c40fe11e4e430b9f360}{view}}(\textcolor{keyword}{const}\ MatrixXr\&\ V)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00299\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00300\ \ \ \mbox{\hyperlink{class_affine_manifold_a74fc2437460dcbc13c5d64fc67ec2212}{screenshot}}(\textcolor{keyword}{const}\ std::string\&\ filename,}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MatrixXr\&\ V,}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ SpatialVector\ camera\_position,}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ SpatialVector\ camera\_target,}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ use\_orthographic)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00305\ \ \ \textcolor{comment}{//\ Clear\ all\ internal\ data\ for\ a\ trivial\ cone\ manifold}}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordtype}{void}\ clear();}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00309\ \ \ \textcolor{keywordtype}{void}\ build\_vertex\_charts\_from\_lengths(}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ l,}
+\DoxyCodeLine{00312\ \ \ \ \ std::vector<VertexManifoldChart>\&\ vertex\_charts)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \textcolor{keywordtype}{void}\ build\_edge\_charts\_from\_lengths(}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_halfedge}{Halfedge}}\&\ halfedge,}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ l,}
+\DoxyCodeLine{00318\ \ \ \ \ std::vector<EdgeManifoldChart>\&\ edge\_charts)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \textcolor{keywordtype}{void}\ build\_face\_charts(\textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MatrixXr\&\ global\_uv,}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F\_uv,}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<FaceManifoldChart>\&\ face\_charts)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \textcolor{keywordtype}{void}\ build\_corner\_to\_edge\_map(}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<Halfedge::Index>>\&\ corner\_to\_he,}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Halfedge::Index>\&\ he\_to\_edge,}
+\DoxyCodeLine{00328\ \ \ \ \ std::vector<std::vector<Halfedge::Index>>\&\ corner\_to\_edge)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ PlanarPoint\ layout\_next\_vertex(\textcolor{keyword}{const}\ PlanarPoint\&\ current\_point,}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ next\_edge\_length,}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ prev\_edge\_length)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \textcolor{keywordtype}{void}\ layout\_one\_ring(\textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ l,}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Index\ vertex\_index,}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Index>\&\ vertex\_one\_ring,}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Index>\&\ face\_one\_ring,}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXr\&\ one\_ring\_uv\_positions)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \textcolor{keywordtype}{void}\ build\_lengths\_from\_global\_uv(\textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MatrixXr\&\ global\_uv,}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::vector<double>>\&\ l)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \textcolor{keywordtype}{void}\ align\_local\_charts(\textcolor{keyword}{const}\ MatrixXr\&\ uv,\ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F\_uv);}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \textcolor{keywordtype}{void}\ mark\_cones();}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \textcolor{keywordtype}{double}\ compute\_corner\_uv\_length(Index\ face\_index,}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Index\ face\_vertex\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \textcolor{keywordtype}{bool}\ is\_valid\_affine\_manifold()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \textcolor{comment}{//\ Topology\ information}}
+\DoxyCodeLine{00355\ \ \ \textcolor{comment}{//\ TODO:\ The\ faces\ are\ duplicated\ in\ the\ halfedge.\ Our\ halfedge\ alway\ retains}}
+\DoxyCodeLine{00356\ \ \ \textcolor{comment}{//\ the\ original\ VF\ topology,\ so\ there\ is\ no\ need\ to\ maintain\ both\ separately}}
+\DoxyCodeLine{00357\ \ \ Eigen::MatrixXi\ m\_F;}
+\DoxyCodeLine{00358\ \ \ std::vector<std::vector<Halfedge::Index>>\ m\_corner\_to\_he;}
+\DoxyCodeLine{00359\ \ \ std::vector<std::vector<Halfedge::Index>>\ m\_corner\_to\_edge;}
+\DoxyCodeLine{00360\ \ \ std::vector<std::pair<Eigen::Index,\ Eigen::Index>>\ m\_he\_to\_corner;}
+\DoxyCodeLine{00361\ \ \ \mbox{\hyperlink{class_halfedge}{Halfedge}}\ m\_halfedge;}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \textcolor{comment}{//\ Global\ metric\ information}}
+\DoxyCodeLine{00364\ \ \ std::vector<std::vector<double>>\ m\_l;}
+\DoxyCodeLine{00365\ \ \ MatrixXr\ m\_global\_uv;}
+\DoxyCodeLine{00366\ \ \ Eigen::MatrixXi\ m\_F\_uv;}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \ \ \textcolor{comment}{//\ Local\ metric\ information}}
+\DoxyCodeLine{00369\ \ \ std::vector<VertexManifoldChart>\ m\_vertex\_charts;}
+\DoxyCodeLine{00370\ \ \ std::vector<EdgeManifoldChart>\ m\_edge\_charts;}
+\DoxyCodeLine{00371\ \ \ std::vector<FaceManifoldChart>\ m\_face\_charts;}
+\DoxyCodeLine{00372\ \};}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00376\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_parametric_affine_manifold}{ParametricAffineManifold}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_affine_manifold}{AffineManifold}}}
+\DoxyCodeLine{00377\ \{}
+\DoxyCodeLine{00378\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00379\ \ \ \mbox{\hyperlink{class_parametric_affine_manifold}{ParametricAffineManifold}}();}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00386\ \ \ \mbox{\hyperlink{class_parametric_affine_manifold}{ParametricAffineManifold}}(\textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,\ \textcolor{keyword}{const}\ MatrixXr\&\ global\_uv);}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00392\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(Index\ vertex\_index,\ PlanarPoint\&\ uv\_coords)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00395\ \ \ \textcolor{keywordtype}{bool}\ is\_valid\_parametric\_affine\_manifold()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00396\ \};}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00400\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00401\ \mbox{\hyperlink{affine__manifold_8h_a375ea40f96095bf39de1f5713ad9b746}{remove\_cones}}(\textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_affine_manifold}{AffineManifold}}\&\ affine\_manifold,}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\&\ pruned\_V,}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_affine_manifold}{AffineManifold}}\&\ pruned\_affine\_manifold,}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<AffineManifold::Index>\&\ cones,}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<AffineManifold::Index>\&\ removed\_faces);}
+
+\end{DoxyCode}

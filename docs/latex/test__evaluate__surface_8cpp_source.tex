@@ -1,0 +1,124 @@
+\doxysection{test\+\_\+evaluate\+\_\+surface.\+cpp}
+\hypertarget{test__evaluate__surface_8cpp_source}{}\label{test__evaluate__surface_8cpp_source}\index{src/tests/test\_evaluate\_surface.cpp@{src/tests/test\_evaluate\_surface.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <catch2/catch\_test\_macros.hpp>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}bivariate\_quadratic\_function.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ TEST\_CASE(\ \textcolor{stringliteral}{"{}Patch\ monomials\ are\ computed\ at\ (0,0)"{}},\ \textcolor{stringliteral}{"{}[patch]"{}}\ )\ \{}
+\DoxyCodeLine{00006\ \ \ Eigen::Matrix<double,\ 1,\ 6>\ w\ =\ generate\_quadratic\_monomials(PlanarPoint(0,\ 0));}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ REQUIRE(\ w[0]\ ==\ 1.0\ );}
+\DoxyCodeLine{00009\ \ \ REQUIRE(\ w[1]\ ==\ 0.0\ );}
+\DoxyCodeLine{00010\ \ \ REQUIRE(\ w[2]\ ==\ 0.0\ );}
+\DoxyCodeLine{00011\ \ \ REQUIRE(\ w[3]\ ==\ 0.0\ );}
+\DoxyCodeLine{00012\ \ \ REQUIRE(\ w[4]\ ==\ 0.0\ );}
+\DoxyCodeLine{00013\ \ \ REQUIRE(\ w[5]\ ==\ 0.0\ );}
+\DoxyCodeLine{00014\ \}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ TEST\_CASE(\ \textcolor{stringliteral}{"{}Patch\ monomials\ are\ computed\ at\ (1,0)"{}},\ \textcolor{stringliteral}{"{}[patch]"{}}\ )\ \{}
+\DoxyCodeLine{00017\ \ \ Eigen::Matrix<double,\ 1,\ 6>\ w\ =\ generate\_quadratic\_monomials(PlanarPoint(1,\ 0));}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ REQUIRE(\ w[0]\ ==\ 1.0\ );}
+\DoxyCodeLine{00020\ \ \ REQUIRE(\ w[1]\ ==\ 1.0\ );}
+\DoxyCodeLine{00021\ \ \ REQUIRE(\ w[2]\ ==\ 0.0\ );}
+\DoxyCodeLine{00022\ \ \ REQUIRE(\ w[3]\ ==\ 0.0\ );}
+\DoxyCodeLine{00023\ \ \ REQUIRE(\ w[4]\ ==\ 1.0\ );}
+\DoxyCodeLine{00024\ \ \ REQUIRE(\ w[5]\ ==\ 0.0\ );}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ TEST\_CASE(\ \textcolor{stringliteral}{"{}Patch\ monomials\ are\ computed\ at\ (0,1)"{}},\ \textcolor{stringliteral}{"{}[patch]"{}}\ )\ \{}
+\DoxyCodeLine{00028\ \ \ Eigen::Matrix<double,\ 1,\ 6>\ w\ =\ generate\_quadratic\_monomials(PlanarPoint(0,\ 1));}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ REQUIRE(\ w.size()\ ==\ 6\ );}
+\DoxyCodeLine{00031\ \ \ REQUIRE(\ w[0]\ ==\ 1.0\ );}
+\DoxyCodeLine{00032\ \ \ REQUIRE(\ w[1]\ ==\ 0.0\ );}
+\DoxyCodeLine{00033\ \ \ REQUIRE(\ w[2]\ ==\ 1.0\ );}
+\DoxyCodeLine{00034\ \ \ REQUIRE(\ w[3]\ ==\ 0.0\ );}
+\DoxyCodeLine{00035\ \ \ REQUIRE(\ w[4]\ ==\ 0.0\ );}
+\DoxyCodeLine{00036\ \ \ REQUIRE(\ w[5]\ ==\ 1.0\ );}
+\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ TEST\_CASE(\ \textcolor{stringliteral}{"{}Patch\ monomials\ are\ computed\ at\ (1,1)"{}},\ \textcolor{stringliteral}{"{}[patch]"{}}\ )\ \{}
+\DoxyCodeLine{00040\ \ \ Eigen::Matrix<double,\ 1,\ 6>\ w\ =\ generate\_quadratic\_monomials(PlanarPoint(1,\ 1));}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ REQUIRE(\ w.size()\ ==\ 6\ );}
+\DoxyCodeLine{00043\ \ \ REQUIRE(\ w[0]\ ==\ 1.0\ );}
+\DoxyCodeLine{00044\ \ \ REQUIRE(\ w[1]\ ==\ 1.0\ );}
+\DoxyCodeLine{00045\ \ \ REQUIRE(\ w[2]\ ==\ 1.0\ );}
+\DoxyCodeLine{00046\ \ \ REQUIRE(\ w[3]\ ==\ 1.0\ );}
+\DoxyCodeLine{00047\ \ \ REQUIRE(\ w[4]\ ==\ 1.0\ );}
+\DoxyCodeLine{00048\ \ \ REQUIRE(\ w[5]\ ==\ 1.0\ );}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ TEST\_CASE(\ \textcolor{stringliteral}{"{}Patch\ monomials\ are\ computed\ at\ (0.5,1)"{}},\ \textcolor{stringliteral}{"{}[patch]"{}}\ )\ \{}
+\DoxyCodeLine{00052\ \ \ Eigen::Matrix<double,\ 1,\ 6>\ w\ =\ generate\_quadratic\_monomials(PlanarPoint(0.5,\ 1));}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ REQUIRE(\ w.size()\ ==\ 6\ );}
+\DoxyCodeLine{00055\ \ \ REQUIRE(\ w[0]\ ==\ 1.0\ );}
+\DoxyCodeLine{00056\ \ \ REQUIRE(\ w[1]\ ==\ 0.5\ );}
+\DoxyCodeLine{00057\ \ \ REQUIRE(\ w[2]\ ==\ 1.0\ );}
+\DoxyCodeLine{00058\ \ \ REQUIRE(\ w[3]\ ==\ 0.5\ );}
+\DoxyCodeLine{00059\ \ \ REQUIRE(\ w[4]\ ==\ 0.25\ );}
+\DoxyCodeLine{00060\ \ \ REQUIRE(\ w[5]\ ==\ 1.0\ );}
+\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ TEST\_CASE(\ \textcolor{stringliteral}{"{}Patch\ monomials\ are\ computed\ at\ (0.5,0.5)"{}},\ \textcolor{stringliteral}{"{}[patch]"{}}\ )\ \{}
+\DoxyCodeLine{00064\ \ \ Eigen::Matrix<double,\ 1,\ 6>\ w\ =\ generate\_quadratic\_monomials(PlanarPoint(0.5,\ 0.5));}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ REQUIRE(\ w[0]\ ==\ 1.0\ );}
+\DoxyCodeLine{00067\ \ \ REQUIRE(\ w[1]\ ==\ 0.5\ );}
+\DoxyCodeLine{00068\ \ \ REQUIRE(\ w[2]\ ==\ 0.5\ );}
+\DoxyCodeLine{00069\ \ \ REQUIRE(\ w[3]\ ==\ 0.25\ );}
+\DoxyCodeLine{00070\ \ \ REQUIRE(\ w[4]\ ==\ 0.25\ );}
+\DoxyCodeLine{00071\ \ \ REQUIRE(\ w[5]\ ==\ 0.25\ );}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{//TEST\_CASE(\ "{}Patches\ are\ constant\ for\ constant\ control\ points"{},\ "{}[patch]"{}\ )\ \{}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ std::vector<std::vector<SpatialVector>>\ P(3);}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ \ for\ (int\ i\ =\ 0;\ i\ <\ 3;\ ++i)\ \{}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ P[i].resize(3);}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ \ \ \ for\ (int\ j\ =\ 0;\ j\ <\ 3;\ ++j)\ \{}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ \ \ \ \ \ P[i][j].setZero();}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ \ SECTION(\ "{}Evaluation\ at\ the\ center\ gives\ 0\ "{})\ \{}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \ \ SpatialVector\ p;}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ \ \ \ PatchIndices\ patch\_indices\ =\ \{\ 1,\ 1,\ 0\ \};}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ \ \ \ PlanarPoint\ v;}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ \ \ \ v\ <<\ 0,\ 0;}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ \ \ \ evaluate\_spline\_surface\_patch(P,\ patch\_indices,\ v,\ p);}}
+\DoxyCodeLine{00089\ \textcolor{comment}{//}}
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(0))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(1))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(2))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00093\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00094\ \textcolor{comment}{//}}
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ \ SECTION(\ "{}Evaluation\ at\ a\ corner\ gives\ 0\ "{})\ \{}}
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ \ \ \ SpatialVector\ p;}}
+\DoxyCodeLine{00097\ \textcolor{comment}{//\ \ \ \ PatchIndices\ patch\_indices\ =\ \{\ 0,\ 0,\ 0\ \};}}
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ \ \ \ PlanarPoint\ v;}}
+\DoxyCodeLine{00099\ \textcolor{comment}{//\ \ \ \ v\ <<\ 0,\ 0;}}
+\DoxyCodeLine{00100\ \textcolor{comment}{//\ \ \ \ evaluate\_spline\_surface\_patch(P,\ patch\_indices,\ v,\ p);}}
+\DoxyCodeLine{00101\ \textcolor{comment}{//}}
+\DoxyCodeLine{00102\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(0))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(1))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00104\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(2))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00105\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00106\ \textcolor{comment}{//}}
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ \ SECTION(\ "{}Evaluation\ at\ an\ arbitrary\ point\ gives\ 0\ "{})\ \{}}
+\DoxyCodeLine{00108\ \textcolor{comment}{//\ \ \ \ SpatialVector\ p;}}
+\DoxyCodeLine{00109\ \textcolor{comment}{//\ \ \ \ PatchIndices\ patch\_indices\ =\ \{\ 1,\ 2,\ 1\ \};}}
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ \ \ \ PlanarPoint\ v;}}
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ \ \ \ v\ <<\ 0.85,\ 0.45;}}
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ \ \ \ evaluate\_spline\_surface\_patch(P,\ patch\_indices,\ v,\ p);}}
+\DoxyCodeLine{00113\ \textcolor{comment}{//}}
+\DoxyCodeLine{00114\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(0))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00115\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(1))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00116\ \textcolor{comment}{//\ \ \ \ REQUIRE(\ abs(p(2))\ <\ 1e-\/12\ );}}
+\DoxyCodeLine{00117\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00118\ \textcolor{comment}{//\}}}
+
+\end{DoxyCode}

@@ -1,0 +1,44 @@
+\doxysection{compute\+\_\+cusps.\+h}
+\hypertarget{compute__cusps_8h_source}{}\label{compute__cusps_8h_source}\index{src/contour\_network/compute\_cusps.h@{src/contour\_network/compute\_cusps.h}}
+\mbox{\hyperlink{compute__cusps_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}conic.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{quadratic__spline__surface_8h}{quadratic\_spline\_surface.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}rational\_function.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00027\ \mbox{\hyperlink{compute__cusps_8h_aa49aa43fa534f055a7b90a10bdd2ddfa}{compute\_quadratic\_surface\_cusp\_function}}(}
+\DoxyCodeLine{00028\ \ \ \textcolor{keyword}{const}\ Matrix6x3r\&\ surface\_mapping\_coeffs,}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{const}\ Matrix6x3r\&\ normal\_mapping\_coeffs,}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_conic}{Conic}}\&\ contour\_domain\_curve\_segment,}
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<12,\ 1>}}\&\ cusp\_function);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00045\ \mbox{\hyperlink{compute__cusps_8h_ae63f80b2f8af057017a8f9fb9b250bff}{compute\_spline\_surface\_cusp\_functions}}(}
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quadratic_spline_surface}{QuadraticSplineSurface}}\&\ spline\_surface,}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{const}\ std::vector<Conic>\&\ contour\_domain\_curve\_segments,}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{const}\ std::vector<QuadraticSplineSurface::PatchIndex>\&\ patch\_indices,}
+\DoxyCodeLine{00050\ \ \ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<12,\ 1>}}>\&\ cusp\_functions);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00065\ \mbox{\hyperlink{compute__cusps_8h_ae7b1bbca0a88d467239bae1f0ecc80b1}{compute\_spline\_surface\_cusps}}(}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quadratic_spline_surface}{QuadraticSplineSurface}}\&\ spline\_surface,}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{const}\ std::vector<Conic>\&\ contour\_domain\_curve\_segments,}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ contour\_segments,}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{const}\ std::vector<QuadraticSplineSurface::PatchIndex>\&\ patch\_indices,}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<int>>\&\ closed\_contours,}
+\DoxyCodeLine{00071\ \ \ std::vector<std::vector<double>>\&\ interior\_cusps,}
+\DoxyCodeLine{00072\ \ \ std::vector<std::vector<double>>\&\ boundary\_cusps,}
+\DoxyCodeLine{00073\ \ \ std::vector<bool>\&\ has\_cusp\_at\_base,}
+\DoxyCodeLine{00074\ \ \ std::vector<bool>\&\ has\_cusp\_at\_tip);}
+
+\end{DoxyCode}

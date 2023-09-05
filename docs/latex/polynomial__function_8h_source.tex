@@ -1,0 +1,225 @@
+\doxysection{polynomial\+\_\+function.\+h}
+\hypertarget{polynomial__function_8h_source}{}\label{polynomial__function_8h_source}\index{src/core/polynomial\_function.h@{src/core/polynomial\_function.h}}
+\mbox{\hyperlink{polynomial__function_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <unsupported/Eigen/Polynomials>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ degree>}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00028\ \mbox{\hyperlink{polynomial__function_8h_a03864f4a1874e1dbabaf545a98a9fa4d}{generate\_monomials}}(\textcolor{keywordtype}{double}\ t,\ Eigen::Ref<Eigen::Matrix<double,\ 1,\ degree\ +\ 1>>\ T)}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ T[0]\ =\ 1.0;}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ degree;\ ++i)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ T[i]\ =\ t\ *\ T[i\ -\/\ 1];}
+\DoxyCodeLine{00033\ \ \ \}}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ degree>}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00044\ \mbox{\hyperlink{polynomial__function_8h_a0a3ddece99ff080997194d85add00a70}{evaluate\_polynomial}}(}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ degree\ +\ 1,\ 1>>\&}
+\DoxyCodeLine{00046\ \ \ \ \ polynomial\_coeffs,}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{double}\ t)}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ Eigen::Matrix<double,\ 1,\ degree\ +\ 1>\ T;}
+\DoxyCodeLine{00050\ \ \ generate\_monomials<degree>(t,\ T);}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordflow}{return}\ T\ *\ polynomial\_coeffs;}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ degree,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00063\ \mbox{\hyperlink{polynomial__function_8h_a54ae2d44a2d009070160bd45ba66cfef}{evaluate\_polynomial\_mapping}}(}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ degree\ +\ 1,\ dimension>>\&}
+\DoxyCodeLine{00065\ \ \ \ \ polynomial\_coeffs,}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{double}\ t,}
+\DoxyCodeLine{00067\ \ \ Eigen::Ref<Eigen::Matrix<double,\ 1,\ dimension>>\ polynomial\_evaluation)}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00069\ \ \ Eigen::Matrix<double,\ 1,\ degree\ +\ 1>\ T;}
+\DoxyCodeLine{00070\ \ \ generate\_monomials<degree>(t,\ T);}
+\DoxyCodeLine{00071\ \ \ polynomial\_evaluation\ =\ T\ *\ polynomial\_coeffs;}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ first\_degree,\ \textcolor{keywordtype}{int}\ second\_degree,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00085\ \mbox{\hyperlink{polynomial__function_8h_a182bf2ffada50842609b1bd1cf9beecf}{compute\_polynomial\_mapping\_product}}(}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ first\_degree\ +\ 1,\ dimension>>\&}
+\DoxyCodeLine{00087\ \ \ \ \ first\_polynomial\_coeffs,}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ second\_degree\ +\ 1,\ dimension>>\&}
+\DoxyCodeLine{00089\ \ \ \ \ second\_polynomial\_coeffs,}
+\DoxyCodeLine{00090\ \ \ Eigen::Ref<Eigen::Matrix<double,\ first\_degree\ +\ second\_degree\ +\ 1,\ dimension>>}
+\DoxyCodeLine{00091\ \ \ \ \ product\_polynomial\_coeffs)}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{//\ Compute\ the\ new\ polynomial\ coefficients\ by\ convolution}}
+\DoxyCodeLine{00094\ \ \ product\_polynomial\_coeffs.setZero();}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ first\_degree;\ ++i)\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ second\_degree;\ ++j)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ dimension;\ ++k)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ product\_polynomial\_coeffs(i\ +\ j,\ k)\ +=}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ first\_polynomial\_coeffs(i,\ k)\ *\ second\_polynomial\_coeffs(j,\ k);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ first\_degree,\ \textcolor{keywordtype}{int}\ second\_degree,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00116\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00117\ \mbox{\hyperlink{polynomial__function_8h_aaeb94797826a19f55ed10ed50b595c94}{compute\_polynomial\_mapping\_scalar\_product}}(}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ first\_degree\ +\ 1,\ 1>>\&}
+\DoxyCodeLine{00119\ \ \ \ \ scalar\_polynomial\_coeffs,}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ second\_degree\ +\ 1,\ dimension>>\&}
+\DoxyCodeLine{00121\ \ \ \ \ polynomial\_coeffs,}
+\DoxyCodeLine{00122\ \ \ Eigen::Ref<Eigen::Matrix<double,\ first\_degree\ +\ second\_degree\ +\ 1,\ dimension>>}
+\DoxyCodeLine{00123\ \ \ \ \ product\_polynomial\_coeffs)}
+\DoxyCodeLine{00124\ \{}
+\DoxyCodeLine{00125\ \ \ \textcolor{comment}{//\ Compute\ the\ new\ polynomial\ mapping\ coefficients\ by\ convolution}}
+\DoxyCodeLine{00126\ \ \ product\_polynomial\_coeffs.setZero();}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ first\_degree;\ ++i)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ second\_degree;\ ++j)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ dimension;\ ++k)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ product\_polynomial\_coeffs(i\ +\ j,\ k)\ +=}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ scalar\_polynomial\_coeffs(i)\ *\ polynomial\_coeffs(j,\ k);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \}}
+\DoxyCodeLine{00135\ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ first\_degree,\ \textcolor{keywordtype}{int}\ second\_degree>}
+\DoxyCodeLine{00147\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00148\ \mbox{\hyperlink{polynomial__function_8h_a86448e55bbcf7a7047b858a62362c629}{compute\_polynomial\_mapping\_cross\_product}}(}
+\DoxyCodeLine{00149\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ first\_degree\ +\ 1,\ 3>>\&}
+\DoxyCodeLine{00150\ \ \ \ \ first\_polynomial\_coeffs,}
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ second\_degree\ +\ 1,\ 3>>\&}
+\DoxyCodeLine{00152\ \ \ \ \ second\_polynomial\_coeffs,}
+\DoxyCodeLine{00153\ \ \ Eigen::Ref<Eigen::Matrix<double,\ first\_degree\ +\ second\_degree\ +\ 1,\ 3>>}
+\DoxyCodeLine{00154\ \ \ \ \ product\_polynomial\_coeffs)}
+\DoxyCodeLine{00155\ \{}
+\DoxyCodeLine{00156\ \ \ \textcolor{comment}{//\ Compute\ cross\ product\ terms}}
+\DoxyCodeLine{00157\ \ \ Eigen::Matrix<double,\ first\_degree\ +\ second\_degree\ +\ 1,\ 1>\ A0B1,\ A0B2,\ A1B0,}
+\DoxyCodeLine{00158\ \ \ \ \ A1B2,\ A2B0,\ A2B1;}
+\DoxyCodeLine{00159\ \ \ compute\_polynomial\_mapping\_product<first\_degree,\ second\_degree,\ 1>(}
+\DoxyCodeLine{00160\ \ \ \ \ first\_polynomial\_coeffs.col(0),\ second\_polynomial\_coeffs.col(1),\ A0B1);}
+\DoxyCodeLine{00161\ \ \ compute\_polynomial\_mapping\_product<first\_degree,\ second\_degree,\ 1>(}
+\DoxyCodeLine{00162\ \ \ \ \ first\_polynomial\_coeffs.col(0),\ second\_polynomial\_coeffs.col(2),\ A0B2);}
+\DoxyCodeLine{00163\ \ \ compute\_polynomial\_mapping\_product<first\_degree,\ second\_degree,\ 1>(}
+\DoxyCodeLine{00164\ \ \ \ \ first\_polynomial\_coeffs.col(1),\ second\_polynomial\_coeffs.col(0),\ A1B0);}
+\DoxyCodeLine{00165\ \ \ compute\_polynomial\_mapping\_product<first\_degree,\ second\_degree,\ 1>(}
+\DoxyCodeLine{00166\ \ \ \ \ first\_polynomial\_coeffs.col(1),\ second\_polynomial\_coeffs.col(2),\ A1B2);}
+\DoxyCodeLine{00167\ \ \ compute\_polynomial\_mapping\_product<first\_degree,\ second\_degree,\ 1>(}
+\DoxyCodeLine{00168\ \ \ \ \ first\_polynomial\_coeffs.col(2),\ second\_polynomial\_coeffs.col(0),\ A2B0);}
+\DoxyCodeLine{00169\ \ \ compute\_polynomial\_mapping\_product<first\_degree,\ second\_degree,\ 1>(}
+\DoxyCodeLine{00170\ \ \ \ \ first\_polynomial\_coeffs.col(2),\ second\_polynomial\_coeffs.col(1),\ A2B1);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \textcolor{comment}{//\ Assemble\ the\ cross\ product\ from\ the\ terms}}
+\DoxyCodeLine{00173\ \ \ product\_polynomial\_coeffs.col(0)\ =\ A1B2\ -\/\ A2B1;}
+\DoxyCodeLine{00174\ \ \ product\_polynomial\_coeffs.col(1)\ =\ A2B0\ -\/\ A0B2;}
+\DoxyCodeLine{00175\ \ \ product\_polynomial\_coeffs.col(2)\ =\ A0B1\ -\/\ A1B0;}
+\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ first\_degree,\ \textcolor{keywordtype}{int}\ second\_degree,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00189\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00190\ \mbox{\hyperlink{polynomial__function_8h_a4828c4b39386df6725e799def1faff5b}{compute\_polynomial\_mapping\_dot\_product}}(}
+\DoxyCodeLine{00191\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ first\_degree\ +\ 1,\ dimension>>\&}
+\DoxyCodeLine{00192\ \ \ \ \ first\_polynomial\_coeffs,}
+\DoxyCodeLine{00193\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ second\_degree\ +\ 1,\ dimension>>\&}
+\DoxyCodeLine{00194\ \ \ \ \ second\_polynomial\_coeffs,}
+\DoxyCodeLine{00195\ \ \ Eigen::Ref<Eigen::Matrix<double,\ first\_degree\ +\ second\_degree\ +\ 1,\ 1>>}
+\DoxyCodeLine{00196\ \ \ \ \ product\_polynomial\_coeffs)}
+\DoxyCodeLine{00197\ \{}
+\DoxyCodeLine{00198\ \ \ product\_polynomial\_coeffs.setZero();}
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ dimension;\ ++i)\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ Eigen::Matrix<double,\ first\_degree\ +\ second\_degree\ +\ 1,\ 1>}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ product\_polynomial\_term\_coeffs;}
+\DoxyCodeLine{00202\ \ \ \ \ compute\_polynomial\_mapping\_product<first\_degree,\ second\_degree,\ dimension>(}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ first\_polynomial\_coeffs.col(i),}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ second\_polynomial\_coeffs.col(i),}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ product\_polynomial\_term\_coeffs);}
+\DoxyCodeLine{00206\ \ \ \ \ product\_polynomial\_coeffs\ +=\ product\_polynomial\_term\_coeffs;}
+\DoxyCodeLine{00207\ \ \ \}}
+\DoxyCodeLine{00208\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ degree,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00218\ \mbox{\hyperlink{polynomial__function_8h_adc2fb786f4328cb94349deb2e9f78208}{compute\_polynomial\_mapping\_derivative}}(}
+\DoxyCodeLine{00219\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ degree\ +\ 1,\ dimension>>\&}
+\DoxyCodeLine{00220\ \ \ \ \ polynomial\_coeffs,}
+\DoxyCodeLine{00221\ \ \ Eigen::Ref<Eigen::Matrix<double,\ degree,\ dimension>>}
+\DoxyCodeLine{00222\ \ \ \ \ derivative\_polynomial\_coeffs)}
+\DoxyCodeLine{00223\ \{}
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ degree;\ ++i)\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ dimension;\ ++j)\ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ derivative\_polynomial\_coeffs(i\ -\/\ 1,\ j)\ =\ i\ *\ polynomial\_coeffs(i,\ j);}
+\DoxyCodeLine{00227\ \ \ \ \ \}}
+\DoxyCodeLine{00228\ \ \ \}}
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00237\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00238\ \mbox{\hyperlink{polynomial__function_8h_a34abe4ce2bec1322489038c9518261d7}{quadratic\_real\_roots}}(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ 3,\ 1>\&\ quadratic\_coeffs,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::array<double,\ 2>\&\ solutions,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\&\ num\_solutions,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ eps\ =\ 1e-\/10);}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00247\ std::vector<double>}
+\DoxyCodeLine{00248\ \mbox{\hyperlink{polynomial__function_8h_a18784f4a1372d786aa50427ad3084dc7}{polynomial\_real\_roots}}(\textcolor{keyword}{const}\ VectorXr\&\ A\_coeffs);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00255\ std::string}
+\DoxyCodeLine{00256\ \mbox{\hyperlink{polynomial__function_8h_a3024ad8bc91c5660a75ceca790e32618}{formatted\_monomial}}(\textcolor{keyword}{const}\ std::string\&\ variable,\ \textcolor{keywordtype}{int}\ degree);}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00265\ std::string}
+\DoxyCodeLine{00266\ \mbox{\hyperlink{polynomial__function_8h_a05bd567db7216b1297191264935f77f9}{formatted\_term}}(\textcolor{keywordtype}{double}\ coefficient,\ std::string\ variable,\ \textcolor{keywordtype}{int}\ precision\ =\ 16);}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00274\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ degree,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00275\ std::string}
+\DoxyCodeLine{00276\ \mbox{\hyperlink{polynomial__function_8h_a5645bb42a3e7fb1e48deea61f227a065}{formatted\_polynomial}}(}
+\DoxyCodeLine{00277\ \ \ \textcolor{keyword}{const}\ Eigen::Ref<\textcolor{keyword}{const}\ Eigen::Matrix<double,\ degree\ +\ 1,\ dimension>>\&}
+\DoxyCodeLine{00278\ \ \ \ \ polynomial\_coeffs,}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordtype}{int}\ precision\ =\ 16)}
+\DoxyCodeLine{00280\ \{}
+\DoxyCodeLine{00281\ \ \ std::stringstream\ polynomial\_string;}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \textcolor{comment}{//\ Handle\ trivial\ case}}
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordflow}{if}\ (polynomial\_coeffs.cols()\ ==\ 0)}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ polynomial\_coeffs.cols();\ ++i)\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ polynomial\_string\ <<\ std::fixed\ <<\ std::setprecision(precision)}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ polynomial\_coeffs(0,\ i);}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 1;\ j\ <\ polynomial\_coeffs.rows();\ ++j)\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ std::string\ monomial\_string\ =\ \mbox{\hyperlink{polynomial__function_8h_a3024ad8bc91c5660a75ceca790e32618}{formatted\_monomial}}(\textcolor{stringliteral}{"{}t"{}},\ j);}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ polynomial\_string\ <<\ \mbox{\hyperlink{polynomial__function_8h_a05bd567db7216b1297191264935f77f9}{formatted\_term}}(}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ polynomial\_coeffs(j,\ i),\ monomial\_string,\ precision);}
+\DoxyCodeLine{00294\ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \ \ polynomial\_string\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00296\ \ \ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \textcolor{keywordflow}{return}\ polynomial\_string.str();}
+\DoxyCodeLine{00299\ \}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00310\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ VariableType>}
+\DoxyCodeLine{00311\ VariableType}
+\DoxyCodeLine{00312\ \mbox{\hyperlink{polynomial__function_8h_a73d84588182aa8a2253772fa23b59cb5}{substitute\_polynomial}}(\textcolor{keyword}{const}\ VectorXr\&\ A\_coeffs,\ VariableType\ t)}
+\DoxyCodeLine{00313\ \{}
+\DoxyCodeLine{00314\ \ \ \textcolor{keywordflow}{if}\ (A\_coeffs.size()\ ==\ 0)}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordflow}{return}\ VariableType();}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \textcolor{comment}{//\ Initialize\ polynomial\ evaluation\ with\ the\ constant\ term}}
+\DoxyCodeLine{00318\ \ \ VariableType\ A\ =\ VariableType(A\_coeffs[0]);}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \textcolor{comment}{//\ Add\ the\ higher\ order\ terms}}
+\DoxyCodeLine{00321\ \ \ \textcolor{keywordtype}{int}\ degree\ =\ A\_coeffs.size()\ -\/\ 1;}
+\DoxyCodeLine{00322\ \ \ VariableType\ power\_of\_t\ =\ t;}
+\DoxyCodeLine{00323\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ degree;\ ++i)\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ A\ =\ A\ +\ VariableType(A\_coeffs[i])\ *\ power\_of\_t;}
+\DoxyCodeLine{00325\ \ \ \ \ power\_of\_t\ =\ power\_of\_t\ *\ t;}
+\DoxyCodeLine{00326\ \ \ \}}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \ \ \textcolor{keywordflow}{return}\ A;}
+\DoxyCodeLine{00329\ \}}
+
+\end{DoxyCode}

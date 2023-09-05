@@ -1,0 +1,42 @@
+\doxysection{Vertex\+Manifold\+Chart Struct Reference}
+\hypertarget{struct_vertex_manifold_chart}{}\label{struct_vertex_manifold_chart}\index{VertexManifoldChart@{VertexManifoldChart}}
+
+
+{\ttfamily \#include $<$affine\+\_\+manifold.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_vertex_manifold_chart_a8c23fff82143fb3664afe599d8db519e}\label{struct_vertex_manifold_chart_a8c23fff82143fb3664afe599d8db519e} 
+Halfedge\+::\+Index {\bfseries vertex\+\_\+index}
+\item 
+\Hypertarget{struct_vertex_manifold_chart_a4ffac0acd482b650336a33628c277726}\label{struct_vertex_manifold_chart_a4ffac0acd482b650336a33628c277726} 
+std\+::vector$<$ Halfedge\+::\+Index $>$ {\bfseries vertex\+\_\+one\+\_\+ring}
+\item 
+\Hypertarget{struct_vertex_manifold_chart_afb5494c91ac25275c8e1ffcc908e2e46}\label{struct_vertex_manifold_chart_afb5494c91ac25275c8e1ffcc908e2e46} 
+std\+::vector$<$ Halfedge\+::\+Index $>$ {\bfseries face\+\_\+one\+\_\+ring}
+\item 
+\Hypertarget{struct_vertex_manifold_chart_aa09696f0286f729a053b0e6d42a22b24}\label{struct_vertex_manifold_chart_aa09696f0286f729a053b0e6d42a22b24} 
+Matrix\+Xr {\bfseries one\+\_\+ring\+\_\+uv\+\_\+positions}
+\item 
+\Hypertarget{struct_vertex_manifold_chart_a8a83cc45a498713df57389e9c53443da}\label{struct_vertex_manifold_chart_a8a83cc45a498713df57389e9c53443da} 
+bool {\bfseries is\+\_\+boundary} = false
+\item 
+\Hypertarget{struct_vertex_manifold_chart_ab3611def682e2fe83e9c55000dd839d3}\label{struct_vertex_manifold_chart_ab3611def682e2fe83e9c55000dd839d3} 
+bool {\bfseries is\+\_\+cone} = false
+\item 
+\Hypertarget{struct_vertex_manifold_chart_ad3a89264b8393e5fb91a1aa84b1c78a9}\label{struct_vertex_manifold_chart_ad3a89264b8393e5fb91a1aa84b1c78a9} 
+bool {\bfseries is\+\_\+cone\+\_\+adjacent} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Local layout manifold chart in R2 of the one ring around a central vertex.
+
+The one ring is represented as a sequential list of the n faces and n + 1 vertices around the central vertex along with the corresponding vertex uv positions. For i = 0,...,n-\/1, the ith vertex corresponds to to the first vertex in face i ccw from the central vertex.
+
+For an interior vertex, the one ring begins at an arbitrary face, and the nth vertex is the same as the first. For a boundary vertex, the one ring begins as the boundary face to the right of the vertex and ends at the left boundary face, and the nth vertex is generally different from the 0th. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/core/\mbox{\hyperlink{affine__manifold_8h}{affine\+\_\+manifold.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,24 @@
+\doxysection{split\+\_\+contours.\+h}
+\hypertarget{split__contours_8h_source}{}\label{split__contours_8h_source}\index{src/contour\_network/split\_contours.h@{src/contour\_network/split\_contours.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}conic.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{quadratic__spline__surface_8h}{quadratic\_spline\_surface.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}rational\_function.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00012\ split\_contours(}
+\DoxyCodeLine{00013\ \ \ std::vector<Conic>\&\ contour\_domain\_curve\_segments,}
+\DoxyCodeLine{00014\ \ \ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ contour\_segments,}
+\DoxyCodeLine{00015\ \ \ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}>\&\ planar\_contour\_segments,}
+\DoxyCodeLine{00016\ \ \ std::vector<QuadraticSplineSurface::PatchIndex>\&\ contour\_patch\_indices,}
+\DoxyCodeLine{00017\ \ \ std::vector<bool>\&\ contour\_is\_boundary,}
+\DoxyCodeLine{00018\ \ \ std::vector<std::map<std::string,\ int>>\ contour\_segment\_labels);}
+
+\end{DoxyCode}

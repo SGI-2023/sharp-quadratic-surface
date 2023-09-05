@@ -1,0 +1,143 @@
+\doxysection{write\+\_\+output.\+h}
+\hypertarget{write__output_8h_source}{}\label{write__output_8h_source}\index{src/contour\_network/write\_output.h@{src/contour\_network/write\_output.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{quadratic__spline__surface_8h}{quadratic\_spline\_surface.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}rational\_function.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}svg.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00012\ sample\_surface(Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00019\ add\_curve\_to\_svg(\textcolor{keyword}{const}\ std::vector<PlanarPoint>\&\ points,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ polyline,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Color\ color\ =\ Color(0,\ 0,\ 0,\ 1));}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00027\ add\_curve\_network\_to\_svg(\textcolor{keyword}{const}\ std::vector<SpatialVector>\&\ points,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<int>>\&\ polylines,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00035\ add\_parametric\_curve\_to\_svg(\textcolor{keyword}{const}\ std::vector<PlanarPoint>\ points,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00041\ add\_vectors\_to\_svg(\textcolor{keyword}{const}\ std::vector<SpatialVector>\ base\_points,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<SpatialVector>\ vectors,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ normalize\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00050\ add\_parametric\_vectors\_to\_svg(\textcolor{keyword}{const}\ std::vector<PlanarPoint>\ base\_points,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<PlanarPoint>\ vectors,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ normalize,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00058\ write\_mesh(std::string\ filename,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00063\ write\_mesh(std::string\ filename,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXd\&\ N);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00069\ add\_point\_to\_svg(\textcolor{keyword}{const}\ SpatialVector\ point,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Color\ color\ =\ Color(1,\ 0,\ 0,\ 1));}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00077\ write\_planar\_point(\textcolor{keyword}{const}\ PlanarPoint\ point,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Color\ color\ =\ Color(1,\ 0,\ 0,\ 1));}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00084\ write\_contours(\textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ contour\_segments,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_curve_discretization_parameters}{CurveDiscretizationParameters}}\ curve\_disc\_params,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00090\ write\_planar\_curve\_segment(}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\&\ planar\_curve\_segment,}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_curve_discretization_parameters}{CurveDiscretizationParameters}}\ curve\_disc\_params,}
+\DoxyCodeLine{00093\ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400,}
+\DoxyCodeLine{00096\ \ \ Color\ color\ =\ Color(0,\ 0,\ 0,\ 1));}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00099\ write\_contour\_tangents(}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quadratic_spline_surface}{QuadraticSplineSurface}}\&\ spline\_surface,}
+\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{const}\ std::vector<Conic>\&\ parameter\_contour\_segments,}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ contour\_segments,}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{const}\ std::vector<QuadraticSplineSurface::PatchIndex>\&\ contour\_patch\_indices,}
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_curve_discretization_parameters}{CurveDiscretizationParameters}}\&\ curve\_disc\_params,}
+\DoxyCodeLine{00106\ \ \ svg::SVG\&\ svgWriter);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00109\ write\_contour\_points(\textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}\&\ contour\_segment,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\&\ parameter\_points,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ scale,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Color\ color);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00118\ write\_contour\_points(}
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ contour\_segments,}
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ parameter\_points,}
+\DoxyCodeLine{00122\ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400,}
+\DoxyCodeLine{00125\ \ \ Color\ color\ =\ Color(1,\ 0,\ 0,\ 1));}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00128\ write\_contours\_with\_annotations(}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{const}\ Matrix3x3r\&\ frame,}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ contour\_segments,}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\ interior\_cusps,}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\ boundary\_cusps,}
+\DoxyCodeLine{00133\ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\ intersections,}
+\DoxyCodeLine{00134\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_curve_discretization_parameters}{CurveDiscretizationParameters}}\ curve\_disc\_params,}
+\DoxyCodeLine{00135\ \ \ svg::SVG\&\ svgWriter,}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{int}\ scale\ =\ 800,}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 400);}
+
+\end{DoxyCode}

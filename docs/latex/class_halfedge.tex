@@ -1,0 +1,90 @@
+\doxysection{Halfedge Class Reference}
+\hypertarget{class_halfedge}{}\label{class_halfedge}\index{Halfedge@{Halfedge}}
+
+
+{\ttfamily \#include $<$halfedge.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_halfedge_a4b4309e8c7544a23e546902bcc19ffca}\label{class_halfedge_a4b4309e8c7544a23e546902bcc19ffca} 
+typedef int {\bfseries Index}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_halfedge_a45d010228468982a0f272c01a9208c22}\label{class_halfedge_a45d010228468982a0f272c01a9208c22} 
+{\bfseries Halfedge} ()
+\begin{DoxyCompactList}\small\item\em Default trivial halfedge. \end{DoxyCompactList}\item 
+\Hypertarget{class_halfedge_a5ed3c396091e609885430f1f3a0e7b26}\label{class_halfedge_a5ed3c396091e609885430f1f3a0e7b26} 
+{\bfseries Halfedge} (const Eigen\+::\+Matrix\+Xi \&F, std\+::vector$<$ std\+::vector$<$ Index $>$ $>$ \&corner\+\_\+to\+\_\+he, std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Index, Eigen\+::\+Index $>$ $>$ \&he\+\_\+to\+\_\+corner)
+\begin{DoxyCompactList}\small\item\em Build halfedge mesh from mesh faces F with. \end{DoxyCompactList}\item 
+\Hypertarget{class_halfedge_a5c07694e74358c43ecf17a1901f2450f}\label{class_halfedge_a5c07694e74358c43ecf17a1901f2450f} 
+Index {\bfseries num\+\_\+halfedges} () const
+\item 
+\Hypertarget{class_halfedge_a71c4dbaf5e2480d60042d88640a5fe89}\label{class_halfedge_a71c4dbaf5e2480d60042d88640a5fe89} 
+Index {\bfseries num\+\_\+faces} () const
+\item 
+\Hypertarget{class_halfedge_a809e21adf738893236763d88cf5ba72e}\label{class_halfedge_a809e21adf738893236763d88cf5ba72e} 
+Index {\bfseries num\+\_\+vertices} () const
+\item 
+\Hypertarget{class_halfedge_a7c243341c62bc690d5951e205f3c738e}\label{class_halfedge_a7c243341c62bc690d5951e205f3c738e} 
+Index {\bfseries num\+\_\+edges} () const
+\item 
+\Hypertarget{class_halfedge_a9a724deb9825fa232e1bcd6985c391dc}\label{class_halfedge_a9a724deb9825fa232e1bcd6985c391dc} 
+Index {\bfseries next\+\_\+halfedge} (Index he) const
+\item 
+\Hypertarget{class_halfedge_ad218bb8f234c8fee2be934e6c661b576}\label{class_halfedge_ad218bb8f234c8fee2be934e6c661b576} 
+Index {\bfseries opposite\+\_\+halfedge} (Index he) const
+\item 
+\Hypertarget{class_halfedge_acde0a277fccb6c4ee5ee8c474c8219c6}\label{class_halfedge_acde0a277fccb6c4ee5ee8c474c8219c6} 
+Index {\bfseries halfedge\+\_\+to\+\_\+face} (Index he) const
+\item 
+\Hypertarget{class_halfedge_adf2bd95577f082c8984c30684d52ba5a}\label{class_halfedge_adf2bd95577f082c8984c30684d52ba5a} 
+Index {\bfseries halfedge\+\_\+to\+\_\+head\+\_\+vertex} (Index he) const
+\item 
+\Hypertarget{class_halfedge_a23d33b247c2ba462248c1e123a56c125}\label{class_halfedge_a23d33b247c2ba462248c1e123a56c125} 
+Index {\bfseries halfedge\+\_\+to\+\_\+tail\+\_\+vertex} (Index he) const
+\item 
+\Hypertarget{class_halfedge_a9f1da541813d6af57d3dfe253ae45e28}\label{class_halfedge_a9f1da541813d6af57d3dfe253ae45e28} 
+Index {\bfseries halfedge\+\_\+to\+\_\+edge} (Index he) const
+\item 
+\Hypertarget{class_halfedge_a73802386d6448069dbdefaa56126b0f3}\label{class_halfedge_a73802386d6448069dbdefaa56126b0f3} 
+std\+::pair$<$ Index, Index $>$ {\bfseries edge\+\_\+to\+\_\+halfedge} (Index e) const
+\item 
+\Hypertarget{class_halfedge_aefd11f4a49798a147f19f1d25b47b83e}\label{class_halfedge_aefd11f4a49798a147f19f1d25b47b83e} 
+Index {\bfseries edge\+\_\+to\+\_\+first\+\_\+halfedge} (Index e) const
+\item 
+\Hypertarget{class_halfedge_a9e92660eed0d9b6b879c06e16991ab06}\label{class_halfedge_a9e92660eed0d9b6b879c06e16991ab06} 
+Index {\bfseries edge\+\_\+to\+\_\+second\+\_\+halfedge} (Index e) const
+\item 
+\Hypertarget{class_halfedge_afe0c553b493d415f68234dc099739fca}\label{class_halfedge_afe0c553b493d415f68234dc099739fca} 
+std\+::vector$<$ Index $>$ const \& {\bfseries get\+\_\+halfedge\+\_\+to\+\_\+edge\+\_\+map} () const
+\item 
+\Hypertarget{class_halfedge_a5d5716d3329e507b2fdc88a106bfd76b}\label{class_halfedge_a5d5716d3329e507b2fdc88a106bfd76b} 
+std\+::vector$<$ std\+::pair$<$ Index, Index $>$ $>$ const \& {\bfseries get\+\_\+edge\+\_\+to\+\_\+halfedge\+\_\+map} () const
+\item 
+\Hypertarget{class_halfedge_ad1f826c9886a1a2e6aee3227af38a9b5}\label{class_halfedge_ad1f826c9886a1a2e6aee3227af38a9b5} 
+bool {\bfseries is\+\_\+boundary\+\_\+edge} (Index e) const
+\item 
+\Hypertarget{class_halfedge_a7f9d018b15d5316aea0ee5d3abd4cc87}\label{class_halfedge_a7f9d018b15d5316aea0ee5d3abd4cc87} 
+bool {\bfseries is\+\_\+boundary\+\_\+halfedge} (Index he) const
+\item 
+\Hypertarget{class_halfedge_ab1575b75e2fb6d9611060eabc603c4dd}\label{class_halfedge_ab1575b75e2fb6d9611060eabc603c4dd} 
+void {\bfseries build\+\_\+boundary\+\_\+edge\+\_\+list} (std\+::vector$<$ Index $>$ \&boundary\+\_\+edges) const
+\item 
+\Hypertarget{class_halfedge_aa601c1572b41409bbf8a4254ea2e717c}\label{class_halfedge_aa601c1572b41409bbf8a4254ea2e717c} 
+void {\bfseries build\+\_\+boundary\+\_\+halfedge\+\_\+list} (std\+::vector$<$ Index $>$ \&boundary\+\_\+halfedges) const
+\item 
+\Hypertarget{class_halfedge_a79d5602420ad312e7efdf3b653d042fc}\label{class_halfedge_a79d5602420ad312e7efdf3b653d042fc} 
+void {\bfseries clear} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Mesh halfedge representation. Supports meshes with boundary and basic topological information. Can be initialized from face topology information. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/\mbox{\hyperlink{halfedge_8h}{halfedge.\+h}}\item 
+src/core/halfedge.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,38 @@
+\doxysection{intersect\+\_\+conic.\+h}
+\hypertarget{intersect__conic_8h_source}{}\label{intersect__conic_8h_source}\index{src/core/intersect\_conic.h@{src/core/intersect\_conic.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}conic.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}convex\_polygon.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00018\ intersect\_conic\_with\_line(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_conic}{Conic}}\&\ C\_param,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 3,\ 1>\&\ L\_coeffs,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\&\ intersections);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00033\ intersect\_conic\_with\_convex\_polygon(}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_conic}{Conic}}\&\ conic,}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_convex_polygon}{ConvexPolygon}}\&\ convex\_polygon,}
+\DoxyCodeLine{00036\ \ \ std::vector<Conic>\&\ conic\_segments,}
+\DoxyCodeLine{00037\ \ \ std::vector<std::pair<int,\ int>>\&\ line\_intersection\_indices);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00052\ intersect\_conic\_in\_cone\_patch(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_conic}{Conic}}\&\ conic,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_convex_polygon}{ConvexPolygon}}\&\ convex\_polygon,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ cone\_corner\_index,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_conic}{Conic}}\&\ conic\_segment,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::pair<int,\ int>\&\ line\_intersection\_indices);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00067\ check\_if\_conic\_intersects\_cone\_patch\_domain(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_conic}{Conic}}\&\ conic,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_convex_polygon}{ConvexPolygon}}\&\ convex\_polygon,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ cone\_corner\_index);}
+
+\end{DoxyCode}

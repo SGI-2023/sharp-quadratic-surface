@@ -1,0 +1,54 @@
+\doxysection{Edge\+Manifold\+Chart Struct Reference}
+\hypertarget{struct_edge_manifold_chart}{}\label{struct_edge_manifold_chart}\index{EdgeManifoldChart@{EdgeManifoldChart}}
+
+
+{\ttfamily \#include $<$affine\+\_\+manifold.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_edge_manifold_chart_a168bcd452c620427f26743e391b806e0}\label{struct_edge_manifold_chart_a168bcd452c620427f26743e391b806e0} 
+Halfedge\+::\+Index {\bfseries top\+\_\+face\+\_\+index}
+\item 
+\Hypertarget{struct_edge_manifold_chart_a0b953452951c18c1dc72492483abd5f9}\label{struct_edge_manifold_chart_a0b953452951c18c1dc72492483abd5f9} 
+Halfedge\+::\+Index {\bfseries bottom\+\_\+face\+\_\+index}
+\item 
+\Hypertarget{struct_edge_manifold_chart_aafec97b36c84d191ce0641982e16d027}\label{struct_edge_manifold_chart_aafec97b36c84d191ce0641982e16d027} 
+Halfedge\+::\+Index {\bfseries left\+\_\+vertex\+\_\+index}
+\item 
+\Hypertarget{struct_edge_manifold_chart_a9e2129afb5e6fbb42086dbd13d1c9c4d}\label{struct_edge_manifold_chart_a9e2129afb5e6fbb42086dbd13d1c9c4d} 
+Halfedge\+::\+Index {\bfseries right\+\_\+vertex\+\_\+index}
+\item 
+\Hypertarget{struct_edge_manifold_chart_a782a96e25a233e9c88f90bf2e67f38c5}\label{struct_edge_manifold_chart_a782a96e25a233e9c88f90bf2e67f38c5} 
+Halfedge\+::\+Index {\bfseries top\+\_\+vertex\+\_\+index}
+\item 
+\Hypertarget{struct_edge_manifold_chart_a27e0e67b91afa334271d9f5ff1610b74}\label{struct_edge_manifold_chart_a27e0e67b91afa334271d9f5ff1610b74} 
+Halfedge\+::\+Index {\bfseries bottom\+\_\+vertex\+\_\+index}
+\item 
+\Hypertarget{struct_edge_manifold_chart_aa22ef64dad9aff1f66e68f1ed44bb155}\label{struct_edge_manifold_chart_aa22ef64dad9aff1f66e68f1ed44bb155} 
+Planar\+Point {\bfseries left\+\_\+vertex\+\_\+uv\+\_\+position}
+\item 
+\Hypertarget{struct_edge_manifold_chart_aad04fd0f6fedf6fd4f5dd09432fa2d1e}\label{struct_edge_manifold_chart_aad04fd0f6fedf6fd4f5dd09432fa2d1e} 
+Planar\+Point {\bfseries right\+\_\+vertex\+\_\+uv\+\_\+position}
+\item 
+\Hypertarget{struct_edge_manifold_chart_aeade2213aee6ed1d502de0747eb7f6d5}\label{struct_edge_manifold_chart_aeade2213aee6ed1d502de0747eb7f6d5} 
+Planar\+Point {\bfseries top\+\_\+vertex\+\_\+uv\+\_\+position}
+\item 
+\Hypertarget{struct_edge_manifold_chart_a0cedeb757d0b1e7b0f742bf3d5c1abb2}\label{struct_edge_manifold_chart_a0cedeb757d0b1e7b0f742bf3d5c1abb2} 
+Planar\+Point {\bfseries bottom\+\_\+vertex\+\_\+uv\+\_\+position}
+\item 
+\Hypertarget{struct_edge_manifold_chart_a3dca7768a24cdb0cb9bda7819bc0346a}\label{struct_edge_manifold_chart_a3dca7768a24cdb0cb9bda7819bc0346a} 
+bool {\bfseries is\+\_\+boundary}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Local layout manifold chart in R2 of the triangles around an edge.
+
+An orientation is specified on the chart by a choice of top and bottom face.
+
+For an interior edge, there are always two adjacent faces. For a boundary edge, there is only one adjacent face. The bottom vertex and face indices are set to an out of range value (e.\+g., -\/1), and the bottom vertex is set to the empty vector. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/core/\mbox{\hyperlink{affine__manifold_8h}{affine\+\_\+manifold.\+h}}\end{DoxyCompactItemize}

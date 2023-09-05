@@ -1,0 +1,45 @@
+\doxysection{Convex\+Polygon Class Reference}
+\hypertarget{class_convex_polygon}{}\label{class_convex_polygon}\index{ConvexPolygon@{ConvexPolygon}}
+
+
+{\ttfamily \#include $<$convex\+\_\+polygon.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_convex_polygon_abe0730ed1a455ed9435776c59e43c579}\label{class_convex_polygon_abe0730ed1a455ed9435776c59e43c579} 
+{\bfseries Convex\+Polygon} (const std\+::array$<$ Eigen\+::\+Matrix$<$ double, 3, 1 $>$, 3 $>$ \&boundary\+\_\+segments\+\_\+coeffs)
+\item 
+\Hypertarget{class_convex_polygon_a47c6af595a96fc60d57298a62294a857}\label{class_convex_polygon_a47c6af595a96fc60d57298a62294a857} 
+{\bfseries Convex\+Polygon} (const Eigen\+::\+Matrix$<$ double, 3, 2 $>$ \&vertices)
+\item 
+\Hypertarget{class_convex_polygon_aaa674efa15a23ebf96aaa2a964cce10f}\label{class_convex_polygon_aaa674efa15a23ebf96aaa2a964cce10f} 
+bool {\bfseries contains} (const Planar\+Point \&point) const
+\begin{DoxyCompactList}\small\item\em Return true iff point is in the convex polygon. \end{DoxyCompactList}\item 
+\Hypertarget{class_convex_polygon_a0ce0b384df96bbbf5f81db2fe154159a}\label{class_convex_polygon_a0ce0b384df96bbbf5f81db2fe154159a} 
+void {\bfseries intersect\+\_\+patch\+\_\+boundaries} (const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&first\+\_\+boundary\+\_\+segment\+\_\+coeffs, const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&second\+\_\+boundary\+\_\+segment\+\_\+coeffs, Planar\+Point \&intersection) const
+\item 
+\Hypertarget{class_convex_polygon_a6710e415a39481e9fdcc385330337c30}\label{class_convex_polygon_a6710e415a39481e9fdcc385330337c30} 
+std\+::array$<$ Eigen\+::\+Matrix$<$ double, 3, 1 $>$, 3 $>$ const \& {\bfseries get\+\_\+boundary\+\_\+segments} () const
+\item 
+\Hypertarget{class_convex_polygon_a205a3b8f7d5600706e0c9c17bd3e3694}\label{class_convex_polygon_a205a3b8f7d5600706e0c9c17bd3e3694} 
+Eigen\+::\+Matrix$<$ double, 3, 2 $>$ const \& {\bfseries get\+\_\+vertices} () const
+\item 
+\Hypertarget{class_convex_polygon_aadfb09d603a7e2f83a6a5ec3e9655389}\label{class_convex_polygon_aadfb09d603a7e2f83a6a5ec3e9655389} 
+void {\bfseries parametrize\+\_\+patch\+\_\+boundaries} (std\+::array$<$ \mbox{\hyperlink{class_line_segment}{Line\+Segment}}, 3 $>$ \&patch\+\_\+boundaries) const
+\item 
+\Hypertarget{class_convex_polygon_a0897cd9f3df78ca291d0add4648f4c40}\label{class_convex_polygon_a0897cd9f3df78ca291d0add4648f4c40} 
+void {\bfseries triangulate} (size\+\_\+t num\+\_\+refinements, Eigen\+::\+Matrix\+Xd \&V, Eigen\+::\+Matrix\+Xi \&F) const
+\item 
+\Hypertarget{class_convex_polygon_acef1b5de3173760892679bf240494911}\label{class_convex_polygon_acef1b5de3173760892679bf240494911} 
+void {\bfseries sample} (size\+\_\+t num\+\_\+samples, std\+::vector$<$ Planar\+Point $>$ \&domain\+\_\+points) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Representation of a convex polygon in R\texorpdfstring{$^\wedge$}{\string^}2 that supports containment queries, sampling, boundary segments and vertices computation, triangulation, and boundary parametrization. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/convex\+\_\+polygon.\+h\item 
+src/core/convex\+\_\+polygon.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,76 @@
+\doxysection{intersection\+\_\+heuristics.\+h}
+\hypertarget{intersection__heuristics_8h_source}{}\label{intersection__heuristics_8h_source}\index{src/contour\_network/intersection\_heuristics.h@{src/contour\_network/intersection\_heuristics.h}}
+\mbox{\hyperlink{intersection__heuristics_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}rational\_function.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_intersection_stats}{IntersectionStats}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \textcolor{keywordtype}{int}\ num\_intersection\_tests\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordtype}{int}\ num\_bezier\_nonoverlaps\ =\ 0;}
+\DoxyCodeLine{00018\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ bounding\_box\_call\ =\ 0;}
+\DoxyCodeLine{00019\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ intersection\_call\ =\ 0;}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00031\ \mbox{\hyperlink{intersection__heuristics_8h_abbc69e99c7c00449eb55b96026b0e233}{compute\_homogeneous\_bezier\_points\_over\_interval}}(}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\&\ planar\_curve,}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{double}\ t\_min,}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{double}\ t\_max,}
+\DoxyCodeLine{00035\ \ \ Eigen::Matrix<double,\ 5,\ 3>\&\ bezier\_points);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00044\ \mbox{\hyperlink{intersection__heuristics_8h_a90d96a38b13619c1f91cf3daa7f299a9}{compute\_bezier\_bounding\_box}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\&\ planar\_curve,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlanarPoint\&\ lower\_left\_point,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlanarPoint\&\ upper\_right\_point);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00054\ \mbox{\hyperlink{intersection__heuristics_8h_ab591735ff869fac76231c817aa8f3cec}{compute\_bezier\_bounding\_boxes}}(}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}>\&\ planar\_curves,}
+\DoxyCodeLine{00056\ \ \ std::vector<PlanarPoint>\&\ lower\_left\_points,}
+\DoxyCodeLine{00057\ \ \ std::vector<PlanarPoint>\&\ upper\_right\_points);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00068\ \mbox{\hyperlink{intersection__heuristics_8h_a696b69456fc7dd29a0cbb43ea8f05e5a}{combine\_bounding\_boxes}}(\textcolor{keyword}{const}\ PlanarPoint\&\ first\_box\_lower\_left\_point,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PlanarPoint\&\ first\_box\_upper\_right\_point,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PlanarPoint\&\ second\_box\_lower\_left\_point,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PlanarPoint\&\ second\_box\_upper\_right\_point,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlanarPoint\&\ lower\_left\_point,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlanarPoint\&\ upper\_right\_point);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00083\ \mbox{\hyperlink{intersection__heuristics_8h_ad24d6d52b40a11d1c82ca00150301e2b}{is\_in\_bounding\_box}}(\textcolor{keyword}{const}\ PlanarPoint\&\ test\_point,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PlanarPoint\&\ lower\_left\_point,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PlanarPoint\&\ upper\_right\_point);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00096\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00097\ \mbox{\hyperlink{intersection__heuristics_8h_ae0d621e14dd69e6834f4658b67d37ba7}{are\_nonintersecting\_by\_heuristic}}(}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\&\ first\_planar\_curve,}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\&\ second\_planar\_curve,}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{struct_intersection_stats}{IntersectionStats}}\&\ intersection\_stats);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00113\ \mbox{\hyperlink{intersection__heuristics_8h_ae0d621e14dd69e6834f4658b67d37ba7}{are\_nonintersecting\_by\_heuristic}}(}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{const}\ std::pair<PlanarPoint,\ PlanarPoint>\&\ first\_bounding\_box,}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{const}\ std::pair<PlanarPoint,\ PlanarPoint>\&\ second\_bounding\_box,}
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{struct_intersection_stats}{IntersectionStats}}\&\ intersection\_stats);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00125\ \mbox{\hyperlink{intersection__heuristics_8h_a19b7d7ef96495d43575feea748443b72}{compute\_bounding\_box\_hash\_table}}(}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{const}\ std::vector<std::pair<PlanarPoint,\ PlanarPoint>>\&\ bounding\_boxes,}
+\DoxyCodeLine{00127\ \ \ std::vector<int>\ hash\_table[50][50],}
+\DoxyCodeLine{00128\ \ \ std::vector<std::vector<int>>\&\ reverse\_hash\_table);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00140\ \mbox{\hyperlink{intersection__heuristics_8h_ab14cde502618479497423e384905f08e}{has\_linear\_intersection}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\&\ first\_planar\_curve,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\&\ second\_planar\_curve);}
+
+\end{DoxyCode}

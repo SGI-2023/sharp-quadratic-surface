@@ -51,7 +51,7 @@ public:
     std::vector<int>& patch_to_face_indices,
     Eigen::SparseMatrix<double>& fit_matrix,
     Eigen::SparseMatrix<double>& energy_hessian,
-    Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>&
+    MatrixInverse&
       energy_hessian_inverse);
 
   /// Constructor for the spline directly from position data.
@@ -81,7 +81,7 @@ public:
   void update_positions(
     const Eigen::MatrixXd& V,
     const Eigen::SparseMatrix<double>& fit_matrix,
-    const Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>&
+    const MatrixInverse&
       energy_hessian_inverse);
 
   /// Get the underlying affine manifold for the spline

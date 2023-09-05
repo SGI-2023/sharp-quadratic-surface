@@ -1,0 +1,206 @@
+\doxysection{test\+\_\+halfedge.\+cpp}
+\hypertarget{test__halfedge_8cpp_source}{}\label{test__halfedge_8cpp_source}\index{src/tests/test\_halfedge.cpp@{src/tests/test\_halfedge.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <catch2/catch\_test\_macros.hpp>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}generate\_shapes.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{halfedge_8h}{halfedge.h}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ TEST\_CASE\ (\ \textcolor{stringliteral}{"{}Halfedge\ can\ be\ built\ from\ VF"{}},\ \textcolor{stringliteral}{"{}[halfedge]"{}})}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ Eigen::MatrixXi\ F;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}One\ triangle"{}}\ )}
+\DoxyCodeLine{00013\ \ \ \{}
+\DoxyCodeLine{00014\ \ \ \ \ F.resize(1,\ 3);}
+\DoxyCodeLine{00015\ \ \ \ \ F\ <<\ 0,\ 1,\ 2;}
+\DoxyCodeLine{00016\ \ \ \ \ std::vector<std::vector<Halfedge::Index>>\ corner\_to\_he;}
+\DoxyCodeLine{00017\ \ \ \ \ std::vector<std::pair<Eigen::Index,\ Eigen::Index>>\ he\_to\_corner;}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_halfedge}{Halfedge}}\ mesh(F,\ corner\_to\_he,\ he\_to\_corner);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ Check\ size\ information}}
+\DoxyCodeLine{00021\ \ \ \ \ REQUIRE\ (\ corner\_to\_he.size()\ ==\ 1\ );}
+\DoxyCodeLine{00022\ \ \ \ \ REQUIRE\ (\ corner\_to\_he[0].size()\ ==\ 3\ );}
+\DoxyCodeLine{00023\ \ \ \ \ REQUIRE\ (\ he\_to\_corner.size()\ ==\ 3\ );}
+\DoxyCodeLine{00024\ \ \ \ \ REQUIRE\ (\ mesh.num\_halfedges()\ ==\ 3\ );}
+\DoxyCodeLine{00025\ \ \ \ \ REQUIRE\ (\ mesh.num\_faces()\ ==\ 1\ );}
+\DoxyCodeLine{00026\ \ \ \ \ REQUIRE\ (\ mesh.num\_vertices()\ ==\ 3\ );}
+\DoxyCodeLine{00027\ \ \ \ \ REQUIRE\ (\ mesh.num\_edges()\ ==\ 3\ );}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ Get\ mesh\ elements}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he0\ =\ corner\_to\_he[0][0];}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he1\ =\ corner\_to\_he[0][1];}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he2\ =\ corner\_to\_he[0][2];}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ f0\ =\ 0;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v0\ =\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v1\ =\ 1;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v2\ =\ 2;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ Check\ next\ }}
+\DoxyCodeLine{00039\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he0)\ ==\ he1\ );}
+\DoxyCodeLine{00040\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he1)\ ==\ he2\ );}
+\DoxyCodeLine{00041\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he2)\ ==\ he0\ );}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ Check\ face}}
+\DoxyCodeLine{00044\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he0)\ ==\ f0\ );}
+\DoxyCodeLine{00045\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he1)\ ==\ f0\ );}
+\DoxyCodeLine{00046\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he2)\ ==\ f0\ );}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ Check\ vertex}}
+\DoxyCodeLine{00049\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he0)\ ==\ v1\ );}
+\DoxyCodeLine{00050\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he0)\ ==\ v2\ );}
+\DoxyCodeLine{00051\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he1)\ ==\ v2\ );}
+\DoxyCodeLine{00052\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he1)\ ==\ v0\ );}
+\DoxyCodeLine{00053\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he2)\ ==\ v0\ );}
+\DoxyCodeLine{00054\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he2)\ ==\ v1\ );}
+\DoxyCodeLine{00055\ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Two\ closed\ triangles"{}}\ )}
+\DoxyCodeLine{00058\ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ F.resize(2,\ 3);}
+\DoxyCodeLine{00060\ \ \ \ \ F\ <<\ 0,\ 1,\ 2,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ 0,\ 2,\ 1;}
+\DoxyCodeLine{00062\ \ \ \ \ std::vector<std::vector<Halfedge::Index>>\ corner\_to\_he;}
+\DoxyCodeLine{00063\ \ \ \ \ std::vector<std::pair<Eigen::Index,\ Eigen::Index>>\ he\_to\_corner;}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_halfedge}{Halfedge}}\ mesh(F,\ corner\_to\_he,\ he\_to\_corner);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ Check\ size\ information}}
+\DoxyCodeLine{00067\ \ \ \ \ REQUIRE\ (\ corner\_to\_he.size()\ ==\ 2\ );}
+\DoxyCodeLine{00068\ \ \ \ \ REQUIRE\ (\ corner\_to\_he[0].size()\ ==\ 3\ );}
+\DoxyCodeLine{00069\ \ \ \ \ REQUIRE\ (\ corner\_to\_he[1].size()\ ==\ 3\ );}
+\DoxyCodeLine{00070\ \ \ \ \ REQUIRE\ (\ he\_to\_corner.size()\ ==\ 6\ );}
+\DoxyCodeLine{00071\ \ \ \ \ REQUIRE\ (\ mesh.num\_halfedges()\ ==\ 6\ );}
+\DoxyCodeLine{00072\ \ \ \ \ REQUIRE\ (\ mesh.num\_faces()\ ==\ 2\ );}
+\DoxyCodeLine{00073\ \ \ \ \ REQUIRE\ (\ mesh.num\_vertices()\ ==\ 3\ );}
+\DoxyCodeLine{00074\ \ \ \ \ REQUIRE\ (\ mesh.num\_edges()\ ==\ 3\ );}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{//\ Get\ mesh\ elements}}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ Halfedges\ are\ indexed\ by\ face\ and\ global\ vertex\ index}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he00\ =\ corner\_to\_he[0][0];}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he01\ =\ corner\_to\_he[0][1];}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he02\ =\ corner\_to\_he[0][2];}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he10\ =\ corner\_to\_he[1][0];}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he11\ =\ corner\_to\_he[1][2];}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he12\ =\ corner\_to\_he[1][1];}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ f0\ =\ 0;}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ f1\ =\ 1;}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v0\ =\ 0;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v1\ =\ 1;}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v2\ =\ 2;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ Check\ next\ }}
+\DoxyCodeLine{00091\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he00)\ ==\ he01\ );}
+\DoxyCodeLine{00092\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he01)\ ==\ he02\ );}
+\DoxyCodeLine{00093\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he02)\ ==\ he00\ );}
+\DoxyCodeLine{00094\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he10)\ ==\ he12\ );}
+\DoxyCodeLine{00095\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he11)\ ==\ he10\ );}
+\DoxyCodeLine{00096\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he12)\ ==\ he11\ );}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{//\ Check\ opposite\ }}
+\DoxyCodeLine{00099\ \ \ \ \ REQUIRE\ (\ mesh.opposite\_halfedge(he00)\ ==\ he10\ );}
+\DoxyCodeLine{00100\ \ \ \ \ REQUIRE\ (\ mesh.opposite\_halfedge(he01)\ ==\ he11\ );}
+\DoxyCodeLine{00101\ \ \ \ \ REQUIRE\ (\ mesh.opposite\_halfedge(he02)\ ==\ he12\ );}
+\DoxyCodeLine{00102\ \ \ \ \ REQUIRE\ (\ mesh.opposite\_halfedge(he10)\ ==\ he00\ );}
+\DoxyCodeLine{00103\ \ \ \ \ REQUIRE\ (\ mesh.opposite\_halfedge(he11)\ ==\ he01\ );}
+\DoxyCodeLine{00104\ \ \ \ \ REQUIRE\ (\ mesh.opposite\_halfedge(he12)\ ==\ he02\ );}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{comment}{//\ Check\ face}}
+\DoxyCodeLine{00107\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he00)\ ==\ f0\ );}
+\DoxyCodeLine{00108\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he01)\ ==\ f0\ );}
+\DoxyCodeLine{00109\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he02)\ ==\ f0\ );}
+\DoxyCodeLine{00110\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he10)\ ==\ f1\ );}
+\DoxyCodeLine{00111\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he11)\ ==\ f1\ );}
+\DoxyCodeLine{00112\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he12)\ ==\ f1\ );}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//\ Check\ vertex}}
+\DoxyCodeLine{00115\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he00)\ ==\ v1\ );}
+\DoxyCodeLine{00116\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he00)\ ==\ v2\ );}
+\DoxyCodeLine{00117\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he01)\ ==\ v2\ );}
+\DoxyCodeLine{00118\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he01)\ ==\ v0\ );}
+\DoxyCodeLine{00119\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he02)\ ==\ v0\ );}
+\DoxyCodeLine{00120\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he02)\ ==\ v1\ );}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he10)\ ==\ v2\ );}
+\DoxyCodeLine{00123\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he10)\ ==\ v1\ );}
+\DoxyCodeLine{00124\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he11)\ ==\ v0\ );}
+\DoxyCodeLine{00125\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he11)\ ==\ v2\ );}
+\DoxyCodeLine{00126\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he12)\ ==\ v1\ );}
+\DoxyCodeLine{00127\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he12)\ ==\ v0\ );}
+\DoxyCodeLine{00128\ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Two\ open\ triangles"{}}\ )}
+\DoxyCodeLine{00131\ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ F.resize(2,\ 3);}
+\DoxyCodeLine{00133\ \ \ \ \ F\ <<\ 0,\ 1,\ 2,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ 0,\ 3,\ 1;}
+\DoxyCodeLine{00135\ \ \ \ \ std::vector<std::vector<Halfedge::Index>>\ corner\_to\_he;}
+\DoxyCodeLine{00136\ \ \ \ \ std::vector<std::pair<Eigen::Index,\ Eigen::Index>>\ he\_to\_corner;}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{class_halfedge}{Halfedge}}\ mesh(F,\ corner\_to\_he,\ he\_to\_corner);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{comment}{//\ Check\ size\ information}}
+\DoxyCodeLine{00140\ \ \ \ \ REQUIRE\ (\ corner\_to\_he.size()\ ==\ 2\ );}
+\DoxyCodeLine{00141\ \ \ \ \ REQUIRE\ (\ corner\_to\_he[0].size()\ ==\ 3\ );}
+\DoxyCodeLine{00142\ \ \ \ \ REQUIRE\ (\ corner\_to\_he[1].size()\ ==\ 3\ );}
+\DoxyCodeLine{00143\ \ \ \ \ REQUIRE\ (\ he\_to\_corner.size()\ ==\ 6\ );}
+\DoxyCodeLine{00144\ \ \ \ \ REQUIRE\ (\ mesh.num\_halfedges()\ ==\ 6\ );}
+\DoxyCodeLine{00145\ \ \ \ \ REQUIRE\ (\ mesh.num\_faces()\ ==\ 2\ );}
+\DoxyCodeLine{00146\ \ \ \ \ REQUIRE\ (\ mesh.num\_vertices()\ ==\ 4\ );}
+\DoxyCodeLine{00147\ \ \ \ \ REQUIRE\ (\ mesh.num\_edges()\ ==\ 5\ );}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{comment}{//\ Get\ mesh\ elements}}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//\ Halfedges\ are\ indexed\ by\ face\ and\ global\ vertex\ index}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he00\ =\ corner\_to\_he[0][0];}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he01\ =\ corner\_to\_he[0][1];}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he02\ =\ corner\_to\_he[0][2];}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he10\ =\ corner\_to\_he[1][0];}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he11\ =\ corner\_to\_he[1][2];}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ he13\ =\ corner\_to\_he[1][1];}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ f0\ =\ 0;}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ f1\ =\ 1;}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v0\ =\ 0;}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v1\ =\ 1;}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v2\ =\ 2;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v3\ =\ 3;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{comment}{//\ Check\ next\ }}
+\DoxyCodeLine{00165\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he00)\ ==\ he01\ );}
+\DoxyCodeLine{00166\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he01)\ ==\ he02\ );}
+\DoxyCodeLine{00167\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he02)\ ==\ he00\ );}
+\DoxyCodeLine{00168\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he10)\ ==\ he13\ );}
+\DoxyCodeLine{00169\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he11)\ ==\ he10\ );}
+\DoxyCodeLine{00170\ \ \ \ \ REQUIRE\ (\ mesh.next\_halfedge(he13)\ ==\ he11\ );}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{comment}{//\ Check\ opposite\ }}
+\DoxyCodeLine{00173\ \ \ \ \ REQUIRE\ (\ mesh.opposite\_halfedge(he02)\ ==\ he13\ );}
+\DoxyCodeLine{00174\ \ \ \ \ REQUIRE\ (\ mesh.opposite\_halfedge(he13)\ ==\ he02\ );}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{comment}{//\ Check\ face}}
+\DoxyCodeLine{00177\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he00)\ ==\ f0\ );}
+\DoxyCodeLine{00178\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he01)\ ==\ f0\ );}
+\DoxyCodeLine{00179\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he02)\ ==\ f0\ );}
+\DoxyCodeLine{00180\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he10)\ ==\ f1\ );}
+\DoxyCodeLine{00181\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he11)\ ==\ f1\ );}
+\DoxyCodeLine{00182\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_face(he13)\ ==\ f1\ );}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//\ Check\ vertex}}
+\DoxyCodeLine{00185\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he00)\ ==\ v1\ );}
+\DoxyCodeLine{00186\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he00)\ ==\ v2\ );}
+\DoxyCodeLine{00187\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he01)\ ==\ v2\ );}
+\DoxyCodeLine{00188\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he01)\ ==\ v0\ );}
+\DoxyCodeLine{00189\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he02)\ ==\ v0\ );}
+\DoxyCodeLine{00190\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he02)\ ==\ v1\ );}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he10)\ ==\ v3\ );}
+\DoxyCodeLine{00193\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he10)\ ==\ v1\ );}
+\DoxyCodeLine{00194\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he11)\ ==\ v0\ );}
+\DoxyCodeLine{00195\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he11)\ ==\ v3\ );}
+\DoxyCodeLine{00196\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_tail\_vertex(he13)\ ==\ v1\ );}
+\DoxyCodeLine{00197\ \ \ \ \ REQUIRE\ (\ mesh.halfedge\_to\_head\_vertex(he13)\ ==\ v0\ );}
+\DoxyCodeLine{00198\ \ \ \}}
+\DoxyCodeLine{00199\ \}}
+\DoxyCodeLine{00200\ }
+
+\end{DoxyCode}

@@ -1,0 +1,32 @@
+\doxysection{convert\+\_\+conic.\+h}
+\hypertarget{convert__conic_8h_source}{}\label{convert__conic_8h_source}\index{src/core/convert\_conic.h@{src/core/convert\_conic.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Given\ a\ symmetric\ 2x2\ matrix\ A,\ compute\ the\ eigenvalues\ and\ a\ rotation\ matrix}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ U\ of\ eigenvectors\ so\ that\ A\ =\ U\ *\ diag(eigenvalues)\ *\ U\string^T}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ param[in]\ A:\ symmetric\ matrix\ to\ decompose}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ param[out]\ eigenvalues:\ length\ 2\ vector\ of\ eigenvalues\ with\ the\ largest\ first}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ param[out]\ rotation:\ rotation\ matrix\ such\ the\ the\ columns\ are\ the\ eigenvalues}}
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00015\ compute\_symmetric\_matrix\_eigen\_decomposition(\textcolor{keyword}{const}\ Matrix2x2r\&\ A,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::array<double,\ 2>\&\ eigenvalues,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Matrix2x2r\&\ rotation);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00028\ convert\_conic\_to\_standard\_form(\textcolor{keyword}{const}\ Vector6r\&\ conic\_coeffs,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector6r\&\ conic\_standard\_form,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Matrix2x2r\&\ rotation,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlanarPoint\&\ translation);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00038\ Vector6r}
+\DoxyCodeLine{00039\ convert\_conic\_to\_standard\_form(\textcolor{keyword}{const}\ Vector6r\&\ conic\_coeffs);}
+
+\end{DoxyCode}

@@ -1,0 +1,213 @@
+\doxysection{differentiable\+\_\+variable.\+h}
+\hypertarget{differentiable__variable_8h_source}{}\label{differentiable__variable_8h_source}\index{src/core/differentiable\_variable.h@{src/core/differentiable\_variable.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00009\ generate\_local\_variable\_matrix\_index(\textcolor{keywordtype}{size\_t}\ row,}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ col,}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dimension\ =\ 3)}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \textcolor{keywordflow}{return}\ dimension\ *\ row\ +\ col;}
+\DoxyCodeLine{00014\ \}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var>}
+\DoxyCodeLine{00024\ Var}
+\DoxyCodeLine{00025\ generate\_independent\_variable(\textcolor{keywordtype}{double}\ value,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ variable\_index,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ total\_independent\_variables)}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \ \ DiffScalarBase::setVariableCount(total\_independent\_variables);}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordflow}{return}\ Var(variable\_index,\ value);}
+\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ VectorXv>}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00044\ build\_independent\_variable\_vector(\textcolor{keyword}{const}\ VectorXr\&\ value\_vector,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VectorXv\&\ variable\_vector,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\_variable\_index,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ total\_independent\_variables)}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ DiffScalarBase::setVariableCount(total\_independent\_variables);}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{size\_t}\ vector\_size\ =\ value\_vector.size();}
+\DoxyCodeLine{00051\ \ \ variable\_vector.resize(vector\_size);}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vector\_size;\ ++i)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ variable\_vector[i]\ =\ generate\_independent\_variable<Var>(}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ value\_vector[i],\ start\_variable\_index\ +\ i,\ total\_independent\_variables);}
+\DoxyCodeLine{00055\ \ \ \}}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ MatrixXv>}
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00069\ build\_independent\_variable\_matrix(\textcolor{keyword}{const}\ MatrixXr\&\ value\_matrix,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXv\&\ variable\_matrix,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\_variable\_index,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ total\_independent\_variables)}
+\DoxyCodeLine{00073\ \{}
+\DoxyCodeLine{00074\ \ \ DiffScalarBase::setVariableCount(total\_independent\_variables);}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{size\_t}\ rows\ =\ value\_matrix.rows();}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{size\_t}\ cols\ =\ value\_matrix.cols();}
+\DoxyCodeLine{00077\ \ \ variable\_matrix.resize(rows,\ cols);}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ rows;\ ++i)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ cols;\ ++j)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ local\_index\ =\ generate\_local\_variable\_matrix\_index(i,\ j,\ cols);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ variable\_matrix(i,\ j)\ =}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ generate\_independent\_variable<Var>(value\_matrix(i,\ j),}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ start\_variable\_index\ +\ local\_index,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_independent\_variables);}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \}}
+\DoxyCodeLine{00087\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var>}
+\DoxyCodeLine{00094\ Var}
+\DoxyCodeLine{00095\ generate\_constant\_variable(\textcolor{keywordtype}{double}\ value)}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordflow}{return}\ Var(value);}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ VectorXv>}
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00106\ build\_constant\_variable\_vector(\textcolor{keyword}{const}\ VectorXr\&\ value\_vector,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VectorXv\&\ constant\_variable\_vector)}
+\DoxyCodeLine{00108\ \{}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{size\_t}\ vector\_size\ =\ value\_vector.size();}
+\DoxyCodeLine{00110\ \ \ constant\_variable\_vector.resize(vector\_size);}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vector\_size;\ ++i)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ constant\_variable\_vector[i]\ =}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ generate\_constant\_variable<Var>(value\_vector[i]);}
+\DoxyCodeLine{00114\ \ \ \}}
+\DoxyCodeLine{00115\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ MatrixXv>}
+\DoxyCodeLine{00122\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00123\ build\_constant\_variable\_matrix(\textcolor{keyword}{const}\ MatrixXr\&\ value\_matrix,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXv\&\ constant\_variable\_matrix)}
+\DoxyCodeLine{00125\ \{}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{size\_t}\ rows\ =\ value\_matrix.rows();}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{size\_t}\ cols\ =\ value\_matrix.cols();}
+\DoxyCodeLine{00128\ \ \ constant\_variable\_matrix.resize(rows,\ cols);}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ rows;\ ++i)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ cols;\ ++j)\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ constant\_variable\_matrix(i,\ j)\ =}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ generate\_constant\_variable<Var>(value\_matrix(i,\ j));}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \}}
+\DoxyCodeLine{00135\ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var>}
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00143\ compute\_variable\_value(\textcolor{keyword}{const}\ Var\&\ variable)}
+\DoxyCodeLine{00144\ \{}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordflow}{return}\ variable.getValue();}
+\DoxyCodeLine{00146\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00153\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Gradient,\ \textcolor{keyword}{typename}\ Var>}
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00155\ compute\_variable\_gradient(\textcolor{keyword}{const}\ Var\&\ variable,\ Gradient\&\ gradient)}
+\DoxyCodeLine{00156\ \{}
+\DoxyCodeLine{00157\ \ \ gradient\ =\ variable.getGradient();}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Hessian,\ \textcolor{keyword}{typename}\ Var>}
+\DoxyCodeLine{00166\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00167\ compute\_variable\_hessian(\textcolor{keyword}{const}\ Var\&\ variable,\ Hessian\&\ hessian)}
+\DoxyCodeLine{00168\ \{}
+\DoxyCodeLine{00169\ \ \ hessian\ =\ variable.getHessian();}
+\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00176\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ VectorXv>}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00178\ extract\_variable\_vector\_values(\textcolor{keyword}{const}\ VectorXv\&\ variable\_vector,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VectorXr\&\ values\_vector)}
+\DoxyCodeLine{00180\ \{}
+\DoxyCodeLine{00181\ \ \ values\_vector.resize(variable\_vector.size());}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ variable\_vector.size();\ ++i)\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ values\_vector[i]\ =\ compute\_variable\_value<Var>(variable\_vector[i]);}
+\DoxyCodeLine{00184\ \ \ \}}
+\DoxyCodeLine{00185\ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00191\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ VectorXv>}
+\DoxyCodeLine{00192\ VectorXr}
+\DoxyCodeLine{00193\ extract\_variable\_vector\_values(\textcolor{keyword}{const}\ VectorXv\&\ variable\_vector)}
+\DoxyCodeLine{00194\ \{}
+\DoxyCodeLine{00195\ \ \ VectorXr\ values\_vector;}
+\DoxyCodeLine{00196\ \ \ extract\_variable\_vector\_values<Var,\ VectorXv>(variable\_vector,\ values\_vector);}
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordflow}{return}\ values\_vector;}
+\DoxyCodeLine{00198\ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00204\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ MatrixXv>}
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00206\ extract\_variable\_matrix\_values(\textcolor{keyword}{const}\ MatrixXv\&\ variable\_matrix,}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXr\&\ values\_matrix)}
+\DoxyCodeLine{00208\ \{}
+\DoxyCodeLine{00209\ \ \ values\_matrix.resize(variable\_matrix.rows(),\ variable\_matrix.cols());}
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ variable\_matrix.rows();\ ++i)\ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ variable\_matrix.cols();\ ++j)\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ values\_matrix(i,\ j)\ =\ compute\_variable\_value<Var>(variable\_matrix(i,\ j));}
+\DoxyCodeLine{00213\ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \}}
+\DoxyCodeLine{00215\ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00221\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ MatrixXv>}
+\DoxyCodeLine{00222\ MatrixXr}
+\DoxyCodeLine{00223\ extract\_variable\_matrix\_values(\textcolor{keyword}{const}\ MatrixXv\&\ variable\_matrix)}
+\DoxyCodeLine{00224\ \{}
+\DoxyCodeLine{00225\ \ \ MatrixXr\ values\_matrix;}
+\DoxyCodeLine{00226\ \ \ extract\_variable\_matrix\_values<Var,\ MatrixXv>(variable\_matrix,\ values\_matrix);}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordflow}{return}\ values\_matrix;}
+\DoxyCodeLine{00228\ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00234\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ VectorXv>}
+\DoxyCodeLine{00235\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00236\ vector\_contains\_nan(\textcolor{keyword}{const}\ VectorXv\&\ variable\_vector)}
+\DoxyCodeLine{00237\ \{}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ variable\_vector.size();\ ++i)\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(compute\_variable\_value(variable\_vector[i])))}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00241\ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00244\ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00250\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ MatrixXv>}
+\DoxyCodeLine{00251\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00252\ matrix\_contains\_nan(\textcolor{keyword}{const}\ MatrixXv\&\ variable\_matrix)}
+\DoxyCodeLine{00253\ \{}
+\DoxyCodeLine{00254\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ variable\_matrix.rows();\ ++i)\ \{}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ j\ =\ 0;\ j\ <\ variable\_matrix.cols();\ ++j)\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(compute\_variable\_value<Var>(variable\_matrix(i,\ j))))}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00258\ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00262\ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00268\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var>}
+\DoxyCodeLine{00269\ Var}
+\DoxyCodeLine{00270\ variable\_square(\textcolor{keyword}{const}\ Var\&\ x)}
+\DoxyCodeLine{00271\ \{}
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordflow}{return}\ x\ *\ x;}
+\DoxyCodeLine{00273\ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00279\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Var,\ \textcolor{keyword}{typename}\ VectorXv>}
+\DoxyCodeLine{00280\ Var}
+\DoxyCodeLine{00281\ variable\_square\_norm(\textcolor{keyword}{const}\ VectorXv\&\ variable\_vector)}
+\DoxyCodeLine{00282\ \{}
+\DoxyCodeLine{00283\ \ \ Var\ norm(0);}
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordtype}{size\_t}\ num\_entries\ =\ variable\_vector.size();}
+\DoxyCodeLine{00285\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ num\_entries;\ ++i)\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ norm\ +=\ variable\_square<Var>(variable\_vector[i]);}
+\DoxyCodeLine{00287\ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \textcolor{keywordflow}{return}\ norm;}
+\DoxyCodeLine{00290\ \}}
+
+\end{DoxyCode}

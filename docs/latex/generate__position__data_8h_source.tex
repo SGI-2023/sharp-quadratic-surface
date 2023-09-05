@@ -1,0 +1,404 @@
+\doxysection{generate\+\_\+position\+\_\+data.\+h}
+\hypertarget{generate__position__data_8h_source}{}\label{generate__position__data_8h_source}\index{src/util/generate\_position\_data.h@{src/util/generate\_position\_data.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}generate\_shapes.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ ***************************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Parametric\ surface\ functors}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ ***************************}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_quadratic_position_function}{QuadraticPositionFunction}}\{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \mbox{\hyperlink{class_quadratic_position_function}{QuadraticPositionFunction}}(}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{double}\ \_uv\_coeff,}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ \_uu\_coeff,}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ \_vv\_coeff}
+\DoxyCodeLine{00019\ \ \ )\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ uv\_coeff\ =\ \_uv\_coeff;}
+\DoxyCodeLine{00021\ \ \ \ \ uu\_coeff\ =\ \_uu\_coeff;}
+\DoxyCodeLine{00022\ \ \ \ \ vv\_coeff\ =\ \_vv\_coeff;}
+\DoxyCodeLine{00023\ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ SpatialVector\ operator()(}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{double}\ u,}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{double}\ v}
+\DoxyCodeLine{00028\ \ \ )\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ SpatialVector\ point;}
+\DoxyCodeLine{00030\ \ \ \ \ point(0)\ =\ u;}
+\DoxyCodeLine{00031\ \ \ \ \ point(1)\ =\ v;}
+\DoxyCodeLine{00032\ \ \ \ \ point(2)\ =\ uv\_coeff\ *\ u\ *\ v\ +\ uu\_coeff\ *\ u\ *\ u\ +\ vv\_coeff\ *\ v\ *\ v;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{return}\ point;}
+\DoxyCodeLine{00035\ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{double}\ uv\_coeff;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{double}\ uu\_coeff;}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{double}\ vv\_coeff;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_quadratic_gradient_function}{QuadraticGradientFunction}}\{}
+\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{class_quadratic_gradient_function}{QuadraticGradientFunction}}(}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{double}\ \_uv\_coeff,}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{double}\ \_uu\_coeff,}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{double}\ \_vv\_coeff}
+\DoxyCodeLine{00049\ \ \ )\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ uv\_coeff\ =\ \_uv\_coeff;}
+\DoxyCodeLine{00051\ \ \ \ \ uu\_coeff\ =\ \_uu\_coeff;}
+\DoxyCodeLine{00052\ \ \ \ \ vv\_coeff\ =\ \_vv\_coeff;}
+\DoxyCodeLine{00053\ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ Matrix2x3r\ operator()(}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{double}\ u,}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{double}\ v}
+\DoxyCodeLine{00058\ \ \ )\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ MatrixXr\ gradient(2,\ 3);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Generate\ derivative\ with\ respect\ to\ u}}
+\DoxyCodeLine{00062\ \ \ \ \ gradient(0,\ 0)\ =\ 1.0;}
+\DoxyCodeLine{00063\ \ \ \ \ gradient(0,\ 1)\ =\ 0.0;}
+\DoxyCodeLine{00064\ \ \ \ \ gradient(0,\ 2)\ =\ uv\_coeff\ *\ v\ +\ 2\ *\ uu\_coeff\ *\ u;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ Generate\ derivative\ with\ respect\ to\ v}}
+\DoxyCodeLine{00067\ \ \ \ \ gradient(1,\ 0)\ =\ 0.0;}
+\DoxyCodeLine{00068\ \ \ \ \ gradient(1,\ 1)\ =\ 1.0;}
+\DoxyCodeLine{00069\ \ \ \ \ gradient(1,\ 2)\ =\ uv\_coeff\ *\ u\ +\ 2\ *\ vv\_coeff\ *\ v;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return}\ gradient;}
+\DoxyCodeLine{00072\ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{double}\ uv\_coeff;}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{double}\ uu\_coeff;}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{double}\ vv\_coeff;}
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_torus_position_function}{TorusPositionFunction}}\ \{}
+\DoxyCodeLine{00080\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{class_torus_position_function}{TorusPositionFunction}}(}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{double}\ \_major\_radius,}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{double}\ \_minor\_radius,}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{int}\ \_resolution,}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{double}\ \_angle\_offset}
+\DoxyCodeLine{00086\ \ \ )\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ R\ =\ \_major\_radius;}
+\DoxyCodeLine{00088\ \ \ \ \ r\ =\ \_minor\_radius;}
+\DoxyCodeLine{00089\ \ \ \ \ resolution\ =\ \_resolution;}
+\DoxyCodeLine{00090\ \ \ \ \ angle\_offset\ =\ \_angle\_offset;}
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ SpatialVector\ operator()(}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{double}\ u,}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{double}\ v}
+\DoxyCodeLine{00096\ \ \ )\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ SpatialVector\ point;}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{double}\ theta\ =\ generate\_angle(u,\ resolution,\ angle\_offset);}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{double}\ phi\ =\ generate\_angle(v,\ resolution,\ angle\_offset);}
+\DoxyCodeLine{00100\ \ \ \ \ point(0)\ =\ (R\ +\ r\ *\ std::cos(theta))\ *\ std::cos(phi);}
+\DoxyCodeLine{00101\ \ \ \ \ point(1)\ =\ (R\ +\ r\ *\ std::cos(theta))\ *\ std::sin(phi);}
+\DoxyCodeLine{00102\ \ \ \ \ point(2)\ =\ r\ *\ std::sin(theta);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{return}\ point;}
+\DoxyCodeLine{00105\ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{double}\ R;}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{double}\ r;}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{int}\ resolution;}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{double}\ angle\_offset;}
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_torus_gradient_function}{TorusGradientFunction}}\ \{}
+\DoxyCodeLine{00115\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{class_torus_gradient_function}{TorusGradientFunction}}(}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{double}\ \_major\_radius,}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{double}\ \_minor\_radius,}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{int}\ \_resolution,}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{double}\ \_angle\_offset}
+\DoxyCodeLine{00121\ \ \ )\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ R\ =\ \_major\_radius;}
+\DoxyCodeLine{00123\ \ \ \ \ r\ =\ \_minor\_radius;}
+\DoxyCodeLine{00124\ \ \ \ \ resolution\ =\ \_resolution;}
+\DoxyCodeLine{00125\ \ \ \ \ angle\_offset\ =\ \_angle\_offset;}
+\DoxyCodeLine{00126\ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ Matrix2x3r\ operator()(}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{double}\ u,}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{double}\ v}
+\DoxyCodeLine{00131\ \ \ )\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ Matrix2x3r\ gradient(2,\ 3);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{comment}{//\ Compute\ angle\ derivatives}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{double}\ theta\ =\ generate\_angle(u,\ resolution,\ angle\_offset);}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{double}\ phi\ =\ generate\_angle(v,\ resolution,\ angle\_offset);}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{double}\ dtheta\_du\ =\ generate\_angle\_derivative(resolution);}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{double}\ dphi\_dv\ =\ generate\_angle\_derivative(resolution);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ Generate\ derivative\ with\ respect\ to\ u}}
+\DoxyCodeLine{00141\ \ \ \ \ gradient(0,\ 0)\ =\ -\/r\ *\ std::sin(theta)\ *\ std::cos(phi)\ *\ dtheta\_du;}
+\DoxyCodeLine{00142\ \ \ \ \ gradient(0,\ 1)\ =\ -\/r\ *\ std::sin(theta)\ *\ std::sin(phi)\ *\ dtheta\_du;}
+\DoxyCodeLine{00143\ \ \ \ \ gradient(0,\ 2)\ =\ r\ *\ std::cos(theta)\ *\ dtheta\_du;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{comment}{//\ Generate\ derivative\ with\ respect\ to\ v}}
+\DoxyCodeLine{00146\ \ \ \ \ gradient(1,\ 0)\ =\ -\/(R\ +\ r\ *\ std::cos(theta))\ *\ std::sin(phi)\ *\ dphi\_dv;}
+\DoxyCodeLine{00147\ \ \ \ \ gradient(1,\ 1)\ =\ (R\ +\ r\ *\ std::cos(theta))\ *\ std::cos(phi)\ *\ dphi\_dv;}
+\DoxyCodeLine{00148\ \ \ \ \ gradient(1,\ 2)\ =\ 0.0;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{return}\ gradient;}
+\DoxyCodeLine{00151\ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{double}\ R;}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{double}\ r;}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{int}\ resolution;}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{double}\ angle\_offset;}
+\DoxyCodeLine{00157\ \};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ PositionFunction>}
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{void}\ generate\_point\_grid(}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{int}\ resolution,}
+\DoxyCodeLine{00162\ \ \ PositionFunction\ position\_func,}
+\DoxyCodeLine{00163\ \ \ std::vector<\ std::vector<VectorXr>\ >\ \&point\_grid}
+\DoxyCodeLine{00164\ )\ \{}
+\DoxyCodeLine{00165\ \ \ point\_grid.resize(resolution);}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ resolution;\ ++i)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ point\_grid[i].resize(resolution);}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ resolution;\ ++j)\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\ =\ i\ *\ 1.0;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ v\ =\ j\ *\ 1.0;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ point\_grid[i][j]\ =\ position\_func(u,\ v);}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ PositionFunction>}
+\DoxyCodeLine{00178\ \textcolor{keywordtype}{void}\ generate\_parametric\_affine\_manifold\_vertex\_positions(}
+\DoxyCodeLine{00179\ \ \ PositionFunction\ \&position\_func,}
+\DoxyCodeLine{00180\ \ \ \mbox{\hyperlink{class_parametric_affine_manifold}{ParametricAffineManifold}}\ \&parametric\_affine\_manifold,}
+\DoxyCodeLine{00181\ \ \ MatrixXr\ \&vertex\_positions}
+\DoxyCodeLine{00182\ )\ \{}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{size\_t}\ num\_vertices\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_a1c91854336d95c217e3316b24dc3c6a8}{num\_vertices}}();}
+\DoxyCodeLine{00184\ \ \ vertex\_positions.resize(num\_vertices,\ 3);}
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ vi\ =\ 0;\ vi\ <\ num\_vertices;\ ++vi)}
+\DoxyCodeLine{00186\ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{comment}{//\ Get\ global\ vertex\ uv\ coordinates}}
+\DoxyCodeLine{00188\ \ \ \ \ PlanarPoint\ uv;}
+\DoxyCodeLine{00189\ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(vi,\ uv);}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{double}\ u\ =\ uv[0];}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{double}\ v\ =\ uv[1];}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ Compute\ gradient\ at\ these\ coordinates}}
+\DoxyCodeLine{00194\ \ \ \ \ vertex\_positions.row(vi)\ =\ position\_func(u,\ v);}
+\DoxyCodeLine{00195\ \ \ \}}
+\DoxyCodeLine{00196\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ GradientFunction>}
+\DoxyCodeLine{00200\ \textcolor{keywordtype}{void}\ generate\_parametric\_affine\_manifold\_vertex\_gradients(}
+\DoxyCodeLine{00201\ \ \ GradientFunction\ \&gradient\_func,}
+\DoxyCodeLine{00202\ \ \ \mbox{\hyperlink{class_parametric_affine_manifold}{ParametricAffineManifold}}\ \&parametric\_affine\_manifold,}
+\DoxyCodeLine{00203\ \ \ std::vector<Matrix2x3r>\ \&vertex\_gradients}
+\DoxyCodeLine{00204\ )\ \{}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{size\_t}\ num\_vertices\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_a1c91854336d95c217e3316b24dc3c6a8}{num\_vertices}}();}
+\DoxyCodeLine{00206\ \ \ vertex\_gradients.resize(num\_vertices);}
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ vi\ =\ 0;\ vi\ <\ num\_vertices;\ ++vi)}
+\DoxyCodeLine{00208\ \ \ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{comment}{//\ Get\ global\ vertex\ uv\ coordinates}}
+\DoxyCodeLine{00210\ \ \ \ \ PlanarPoint\ uv;}
+\DoxyCodeLine{00211\ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(vi,\ uv);}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{double}\ u\ =\ uv[0];}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{double}\ v\ =\ uv[1];}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{//\ Compute\ gradient\ at\ these\ coordinates}}
+\DoxyCodeLine{00216\ \ \ \ \ vertex\_gradients[vi]\ =\ gradient\_func(u,\ v);}
+\DoxyCodeLine{00217\ \ \ \}}
+\DoxyCodeLine{00218\ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ GradientFunction>}
+\DoxyCodeLine{00222\ \textcolor{keywordtype}{void}\ generate\_parametric\_affine\_manifold\_edge\_gradients(}
+\DoxyCodeLine{00223\ \ \ GradientFunction\ \&gradient\_func,}
+\DoxyCodeLine{00224\ \ \ \mbox{\hyperlink{class_parametric_affine_manifold}{ParametricAffineManifold}}\ \&parametric\_affine\_manifold,}
+\DoxyCodeLine{00225\ \ \ \mbox{\hyperlink{class_halfedge}{Halfedge}}\ \&halfedge,}
+\DoxyCodeLine{00226\ \ \ std::vector<std::array<SpatialVector,\ 3>>\ \&edge\_gradients}
+\DoxyCodeLine{00227\ )\ \{}
+\DoxyCodeLine{00228\ \ \ Eigen::MatrixXi\ \textcolor{keyword}{const}\ \&\ F\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_a6e3caa36616a55fec146dd2a6a245301}{get\_faces}}();}
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{size\_t}\ num\_faces\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_ade5a24a432a95df21beddec821e39b16}{num\_faces}}();}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ edge\_gradients.resize(num\_faces);}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ face\_index\ =\ 0;\ face\_index\ <\ num\_faces;\ ++face\_index)}
+\DoxyCodeLine{00233\ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ face\_vertex\_index\ =\ 0;\ face\_vertex\_index\ <\ 3;\ ++face\_vertex\_index)}
+\DoxyCodeLine{00235\ \ \ \ \ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \mbox{\hyperlink{struct_edge_manifold_chart}{EdgeManifoldChart}}\ \textcolor{keyword}{const}\ \&\ chart\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_af68eb1ee1d21fa8bb47daaba467d22c6}{get\_edge\_chart}}(}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ face\_index,}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ face\_vertex\_index}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ f\_top\ =\ chart.top\_face\_index;}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v\_top\ =\ chart.top\_vertex\_index;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ j\_top\ =\ find\_face\_vertex\_index(F.row(f\_top),\ v\_top);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ f\_top\ !=\ face\_index\ )\ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//\ Only\ process\ top\ faces\ of\ edge\ charts\ to\ prevent\ redundancy}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ assert(\ j\_top\ ==\ face\_vertex\_index\ );}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ face\ indices}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\ =\ F(face\_index,\ (face\_vertex\_index\ +\ 1)\ \%\ 3);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ j\ =\ F(face\_index,\ (face\_vertex\_index\ +\ 2)\ \%\ 3);}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ k\ =\ F(face\_index,\ face\_vertex\_index);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ assert\ (k\ ==\ v\_top);}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ vertex\ uv\ positions}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ PlanarPoint\ uvi,\ uvj;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(i,\ uvi);}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(j,\ uvj);}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ midpoint\ uv\ position\ and\ gradient}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ PlanarPoint\ uvij\ =\ 0.5\ *\ (uvi\ +\ uvj);}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ Matrix2x3r\ Gij\ =\ gradient\_func(uvij[0],\ uvij[1]);}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ spdlog::debug(}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Gradient\ for\ corner\ \{\},\ \{\}\ is:\ \(\backslash\)n\{\}"{}},}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ face\_index,}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ face\_vertex\_index,}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ Gij}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ normal\ uv\ directions\ perpendicular\ to\ the\ edge\ direction}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ Matrix2x2r\ R;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ R\ <<}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ 0,\ 1,}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ -\/1,\ 0;}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ PlanarPoint\ dji\ =\ (uvj\ -\/\ uvi);\ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ PlanarPoint\ uv\_perp\_ij\ =\ dji\ *\ R;}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \textcolor{comment}{//\ Build\ midpoint\ normals\ (indexed\ opposite\ the\ edge)}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ edge\_gradients[face\_index][face\_vertex\_index]\ =\ uv\_perp\_ij\ *\ Gij;}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ spdlog::debug(}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Reduced\ edge\ gradient\ for\ corner\ \{\},\ \{\}\ is:\ \(\backslash\)n\{\}"{}},}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ face\_index,}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ face\_vertex\_index,}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ edge\_gradients[face\_index][face\_vertex\_index]}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ the\ edge\ isn't\ on\ the\ boundary,\ set\ the\ other\ face\ corner\ corresponding\ to\ it}}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!chart.is\_boundary)}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ f\_bottom\ =\ chart.bottom\_face\_index;}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ v\_bottom\ =\ chart.bottom\_vertex\_index;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ j\_bottom\ =\ find\_face\_vertex\_index(F.row(f\_bottom),\ v\_bottom);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ edge\_gradients[f\_bottom][j\_bottom]\ =\ edge\_gradients[face\_index][face\_vertex\_index];}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \ \ \ \ \}}
+\DoxyCodeLine{00293\ \ \ \}}
+\DoxyCodeLine{00294\ \}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ PositionFunction,\ \textcolor{keyword}{typename}\ GradientFunction>}
+\DoxyCodeLine{00298\ \textcolor{keywordtype}{void}\ generate\_parametric\_affine\_manifold\_corner\_data(}
+\DoxyCodeLine{00299\ \ \ PositionFunction\ position\_func,}
+\DoxyCodeLine{00300\ \ \ GradientFunction\ gradient\_func,}
+\DoxyCodeLine{00301\ \ \ \mbox{\hyperlink{class_parametric_affine_manifold}{ParametricAffineManifold}}\ \&parametric\_affine\_manifold,}
+\DoxyCodeLine{00302\ \ \ std::vector<std::array<TriangleCornerFunctionData,\ 3>>\ \&corner\_data}
+\DoxyCodeLine{00303\ )\ \{}
+\DoxyCodeLine{00304\ \ \ \textcolor{keywordtype}{size\_t}\ num\_faces\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_ade5a24a432a95df21beddec821e39b16}{num\_faces}}();}
+\DoxyCodeLine{00305\ \ \ corner\_data.resize(num\_faces);}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ face\_index\ =\ 0;\ face\_index\ <\ num\_faces;\ ++face\_index)}
+\DoxyCodeLine{00307\ \ \ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{comment}{//\ Get\ face\ vertex\ indices}}
+\DoxyCodeLine{00309\ \ \ \ \ Eigen::MatrixXi\ \textcolor{keyword}{const}\ \&\ F\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_a6e3caa36616a55fec146dd2a6a245301}{get\_faces}}();}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\ =\ F(face\_index,\ 0);}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ j\ =\ F(face\_index,\ 1);}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ k\ =\ F(face\_index,\ 2);}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{comment}{//\ Get\ vertex\ uv\ positions}}
+\DoxyCodeLine{00315\ \ \ \ \ PlanarPoint\ uvi,\ uvj,\ uvk;}
+\DoxyCodeLine{00316\ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(i,\ uvi);}
+\DoxyCodeLine{00317\ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(j,\ uvj);}
+\DoxyCodeLine{00318\ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(k,\ uvk);}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{comment}{//\ Get\ vertex\ positions}}
+\DoxyCodeLine{00321\ \ \ \ \ SpatialVector\ vi\ =\ position\_func(uvi[0],\ uvi[1]);}
+\DoxyCodeLine{00322\ \ \ \ \ SpatialVector\ vj\ =\ position\_func(uvj[0],\ uvj[1]);}
+\DoxyCodeLine{00323\ \ \ \ \ SpatialVector\ vk\ =\ position\_func(uvk[0],\ uvk[1]);}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{comment}{//\ Get\ vertex\ gradients}}
+\DoxyCodeLine{00326\ \ \ \ \ Matrix2x3r\ Gi\ =\ gradient\_func(uvi[0],\ uvi[1]);}
+\DoxyCodeLine{00327\ \ \ \ \ Matrix2x3r\ Gj\ =\ gradient\_func(uvj[0],\ uvj[1]);}
+\DoxyCodeLine{00328\ \ \ \ \ Matrix2x3r\ Gk\ =\ gradient\_func(uvk[0],\ uvk[1]);}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{comment}{//\ Get\ uv\ directions}}
+\DoxyCodeLine{00331\ \ \ \ \ PlanarPoint\ dij\ =\ uvj\ -\/\ uvi;}
+\DoxyCodeLine{00332\ \ \ \ \ PlanarPoint\ dik\ =\ uvk\ -\/\ uvi;}
+\DoxyCodeLine{00333\ \ \ \ \ PlanarPoint\ djk\ =\ uvk\ -\/\ uvj;}
+\DoxyCodeLine{00334\ \ \ \ \ PlanarPoint\ dji\ =\ uvi\ -\/\ uvj;}
+\DoxyCodeLine{00335\ \ \ \ \ PlanarPoint\ dki\ =\ uvi\ -\/\ uvk;}
+\DoxyCodeLine{00336\ \ \ \ \ PlanarPoint\ dkj\ =\ uvj\ -\/\ uvk;}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{comment}{//\ Build\ first\ corner\ data\ }}
+\DoxyCodeLine{00339\ \ \ \ \ corner\_data[face\_index][0].function\_value\ =\ vi;}
+\DoxyCodeLine{00340\ \ \ \ \ corner\_data[face\_index][0].first\_edge\_derivative\ =\ dij\ *\ Gi;}
+\DoxyCodeLine{00341\ \ \ \ \ corner\_data[face\_index][0].second\_edge\_derivative\ =\ dik\ *\ Gi;}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{comment}{//\ Build\ second\ corner\ data\ }}
+\DoxyCodeLine{00344\ \ \ \ \ corner\_data[face\_index][1].function\_value\ =\ vj;}
+\DoxyCodeLine{00345\ \ \ \ \ corner\_data[face\_index][1].first\_edge\_derivative\ =\ djk\ *\ Gj;}
+\DoxyCodeLine{00346\ \ \ \ \ corner\_data[face\_index][1].second\_edge\_derivative\ =\ dji\ *\ Gj;}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{//\ Build\ third\ corner\ data\ }}
+\DoxyCodeLine{00349\ \ \ \ \ corner\_data[face\_index][2].function\_value\ =\ vk;}
+\DoxyCodeLine{00350\ \ \ \ \ corner\_data[face\_index][2].first\_edge\_derivative\ =\ dki\ *\ Gk;}
+\DoxyCodeLine{00351\ \ \ \ \ corner\_data[face\_index][2].second\_edge\_derivative\ =\ dkj\ *\ Gk;}
+\DoxyCodeLine{00352\ \ \ \}}
+\DoxyCodeLine{00353\ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ GradientFunction>}
+\DoxyCodeLine{00357\ \textcolor{keywordtype}{void}\ generate\_parametric\_affine\_manifold\_midpoint\_data(}
+\DoxyCodeLine{00358\ \ \ GradientFunction\ gradient\_func,}
+\DoxyCodeLine{00359\ \ \ \mbox{\hyperlink{class_parametric_affine_manifold}{ParametricAffineManifold}}\ \&parametric\_affine\_manifold,}
+\DoxyCodeLine{00360\ \ \ std::vector<std::array<TriangleMidpointFunctionData,\ 3>>\ \&midpoint\_data}
+\DoxyCodeLine{00361\ )\ \{}
+\DoxyCodeLine{00362\ \ \ \textcolor{keywordtype}{size\_t}\ num\_faces\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_ade5a24a432a95df21beddec821e39b16}{num\_faces}}();}
+\DoxyCodeLine{00363\ \ \ midpoint\_data.resize(num\_faces);}
+\DoxyCodeLine{00364\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ face\_index\ =\ 0;\ face\_index\ <\ num\_faces;\ ++face\_index)}
+\DoxyCodeLine{00365\ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{comment}{//\ Get\ face\ vertex\ indices}}
+\DoxyCodeLine{00367\ \ \ \ \ Eigen::MatrixXi\ \textcolor{keyword}{const}\ \&\ F\ =\ parametric\_affine\_manifold.\mbox{\hyperlink{class_affine_manifold_a6e3caa36616a55fec146dd2a6a245301}{get\_faces}}();}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\ =\ F(face\_index,\ 0);}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ j\ =\ F(face\_index,\ 1);}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ k\ =\ F(face\_index,\ 2);}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{comment}{//\ Get\ vertex\ uv\ positions}}
+\DoxyCodeLine{00373\ \ \ \ \ PlanarPoint\ uvi,\ uvj,\ uvk;}
+\DoxyCodeLine{00374\ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(i,\ uvi);}
+\DoxyCodeLine{00375\ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(j,\ uvj);}
+\DoxyCodeLine{00376\ \ \ \ \ parametric\_affine\_manifold.\mbox{\hyperlink{class_parametric_affine_manifold_af75183467aae4f02cdb58131ea08ce2e}{get\_vertex\_global\_uv}}(k,\ uvk);}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{comment}{//\ Get\ midpoint\ uv\ positions}}
+\DoxyCodeLine{00379\ \ \ \ \ PlanarPoint\ uvij\ =\ 0.5\ *\ (uvi\ +\ uvj);}
+\DoxyCodeLine{00380\ \ \ \ \ PlanarPoint\ uvjk\ =\ 0.5\ *\ (uvj\ +\ uvk);}
+\DoxyCodeLine{00381\ \ \ \ \ PlanarPoint\ uvki\ =\ 0.5\ *\ (uvk\ +\ uvi);}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{comment}{//\ Get\ midpoint\ gradients}}
+\DoxyCodeLine{00384\ \ \ \ \ Matrix2x3r\ Gij\ =\ gradient\_func(uvij[0],\ uvij[1]);}
+\DoxyCodeLine{00385\ \ \ \ \ Matrix2x3r\ Gjk\ =\ gradient\_func(uvjk[0],\ uvjk[1]);}
+\DoxyCodeLine{00386\ \ \ \ \ Matrix2x3r\ Gki\ =\ gradient\_func(uvki[0],\ uvki[1]);}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{comment}{//\ Get\ uv\ directions}}
+\DoxyCodeLine{00389\ \ \ \ \ PlanarPoint\ nij\ =\ uvk\ -\/\ uvij;}
+\DoxyCodeLine{00390\ \ \ \ \ PlanarPoint\ njk\ =\ uvi\ -\/\ uvjk;}
+\DoxyCodeLine{00391\ \ \ \ \ PlanarPoint\ nki\ =\ uvj\ -\/\ uvki;}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{comment}{//\ Build\ midpoint\ normals\ (indexed\ opposite\ the\ edge)}}
+\DoxyCodeLine{00394\ \ \ \ \ midpoint\_data[face\_index][0].normal\_derivative\ =\ njk\ *\ Gjk;}
+\DoxyCodeLine{00395\ \ \ \ \ midpoint\_data[face\_index][1].normal\_derivative\ =\ nki\ *\ Gki;}
+\DoxyCodeLine{00396\ \ \ \ \ midpoint\_data[face\_index][2].normal\_derivative\ =\ nij\ *\ Gij;}
+\DoxyCodeLine{00397\ \ \ \}}
+\DoxyCodeLine{00398\ \}}
+
+\end{DoxyCode}

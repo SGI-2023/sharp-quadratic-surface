@@ -1,0 +1,200 @@
+\doxysection{src/core/generate\+\_\+transformation.h File Reference}
+\hypertarget{generate__transformation_8h}{}\label{generate__transformation_8h}\index{src/core/generate\_transformation.h@{src/core/generate\_transformation.h}}
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Matrix3x3r \mbox{\hyperlink{generate__transformation_8h_aa89e9318d94948b977ba4b339859afa8}{get\+\_\+frame}} (const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&tau)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_a1466880922b4a1a12884462dae75dd0f}{origin\+\_\+to\+\_\+infinity\+\_\+projective\+\_\+matrix}} (double plane\+\_\+distance)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_aa378abd8613332e74095463a61afacde}{infinity\+\_\+to\+\_\+origin\+\_\+projective\+\_\+matrix}} (double plane\+\_\+distance)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_a4c3b90a0f8c82166127368af762aa997}{rotate\+\_\+frame\+\_\+projective\+\_\+matrix}} (const Matrix3x3r \&frame)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_a6a67a5fe111d7ad7e4ba316d32372590}{translation\+\_\+projective\+\_\+matrix}} (const Spatial\+Vector \&translation)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_a56f4368d64e409363b8b82ec017a131f}{scaling\+\_\+projective\+\_\+matrix}} (double scale)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_a2ebf86e1bb6e4c3617a0dfb2dedcaa2c}{x\+\_\+axis\+\_\+rotation\+\_\+projective\+\_\+matrix}} (double degree)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_a1833e895010f42a6e4489f600394bf92}{y\+\_\+axis\+\_\+rotation\+\_\+projective\+\_\+matrix}} (double degree)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_a99e345f958185d6722bc9e5a9f95acd9}{z\+\_\+axis\+\_\+rotation\+\_\+projective\+\_\+matrix}} (double degree)
+\item 
+Eigen\+::\+Matrix$<$ double, 4, 4 $>$ \mbox{\hyperlink{generate__transformation_8h_a5d827a032d07784e8a24b7bee0be2f5f}{axis\+\_\+rotation\+\_\+projective\+\_\+matrix}} (double x\+\_\+degree, double y\+\_\+degree, double z\+\_\+degree)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to generate projective transformation matrices. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{generate__transformation_8h_a5d827a032d07784e8a24b7bee0be2f5f}\label{generate__transformation_8h_a5d827a032d07784e8a24b7bee0be2f5f} 
+\index{generate\_transformation.h@{generate\_transformation.h}!axis\_rotation\_projective\_matrix@{axis\_rotation\_projective\_matrix}}
+\index{axis\_rotation\_projective\_matrix@{axis\_rotation\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{axis\_rotation\_projective\_matrix()}{axis\_rotation\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ axis\+\_\+rotation\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{double}]{x\+\_\+degree,  }\item[{double}]{y\+\_\+degree,  }\item[{double}]{z\+\_\+degree }\end{DoxyParamCaption})}
+
+Generate the projective matrix for chained rotation around the standard axes.
+
+The order of rotation is z axis -\/\texorpdfstring{$>$}{>} y axis -\/\texorpdfstring{$>$}{>} x axis
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x\+\_\+degree} & degree of rotation around the x axis \\
+\hline
+\mbox{\texttt{ in}}  & {\em y\+\_\+degree} & degree of rotation around the y axis \\
+\hline
+\mbox{\texttt{ in}}  & {\em z\+\_\+degree} & degree of rotation around the z axis \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_aa89e9318d94948b977ba4b339859afa8}\label{generate__transformation_8h_aa89e9318d94948b977ba4b339859afa8} 
+\index{generate\_transformation.h@{generate\_transformation.h}!get\_frame@{get\_frame}}
+\index{get\_frame@{get\_frame}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{get\_frame()}{get\_frame()}}
+{\footnotesize\ttfamily Matrix3x3r get\+\_\+frame (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix$<$ double, 3, 1 $>$ \&}]{tau }\end{DoxyParamCaption})}
+
+Get a 3x3 matrix representing an orientation preserving frame aligned with tau.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em tau} & vector determining the frame (up to rotation) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+3x3 matrix with frame vectors as the rows, including the direction determined by tau as the third vector 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_aa378abd8613332e74095463a61afacde}\label{generate__transformation_8h_aa378abd8613332e74095463a61afacde} 
+\index{generate\_transformation.h@{generate\_transformation.h}!infinity\_to\_origin\_projective\_matrix@{infinity\_to\_origin\_projective\_matrix}}
+\index{infinity\_to\_origin\_projective\_matrix@{infinity\_to\_origin\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{infinity\_to\_origin\_projective\_matrix()}{infinity\_to\_origin\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ infinity\+\_\+to\+\_\+origin\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{double}]{plane\+\_\+distance }\end{DoxyParamCaption})}
+
+Generate the projective matrix that sends a point at infinity to the origin while fixing the plane z = plane\+\_\+distance.
+
+This is the inverse of the map sending the origin to infinity.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em plane\+\_\+distance} & distance from the origin to the plane \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_a1466880922b4a1a12884462dae75dd0f}\label{generate__transformation_8h_a1466880922b4a1a12884462dae75dd0f} 
+\index{generate\_transformation.h@{generate\_transformation.h}!origin\_to\_infinity\_projective\_matrix@{origin\_to\_infinity\_projective\_matrix}}
+\index{origin\_to\_infinity\_projective\_matrix@{origin\_to\_infinity\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{origin\_to\_infinity\_projective\_matrix()}{origin\_to\_infinity\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ origin\+\_\+to\+\_\+infinity\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{double}]{plane\+\_\+distance }\end{DoxyParamCaption})}
+
+Generate the projective matrix that sends the origin to infinity while fixing the plane z = plane\+\_\+distance
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em plane\+\_\+distance} & distance from the origin to the plane \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_a4c3b90a0f8c82166127368af762aa997}\label{generate__transformation_8h_a4c3b90a0f8c82166127368af762aa997} 
+\index{generate\_transformation.h@{generate\_transformation.h}!rotate\_frame\_projective\_matrix@{rotate\_frame\_projective\_matrix}}
+\index{rotate\_frame\_projective\_matrix@{rotate\_frame\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{rotate\_frame\_projective\_matrix()}{rotate\_frame\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ rotate\+\_\+frame\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{const Matrix3x3r \&}]{frame }\end{DoxyParamCaption})}
+
+Generate the rotation matrix that sends the given frame to the standard frame.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em frame} & 3x3 frame matrix to align with the standard frame \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_a56f4368d64e409363b8b82ec017a131f}\label{generate__transformation_8h_a56f4368d64e409363b8b82ec017a131f} 
+\index{generate\_transformation.h@{generate\_transformation.h}!scaling\_projective\_matrix@{scaling\_projective\_matrix}}
+\index{scaling\_projective\_matrix@{scaling\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{scaling\_projective\_matrix()}{scaling\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ scaling\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{double}]{scale }\end{DoxyParamCaption})}
+
+Generate the projective matrix for a given uniform scaling.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em scale} & uniform scale factor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_a6a67a5fe111d7ad7e4ba316d32372590}\label{generate__transformation_8h_a6a67a5fe111d7ad7e4ba316d32372590} 
+\index{generate\_transformation.h@{generate\_transformation.h}!translation\_projective\_matrix@{translation\_projective\_matrix}}
+\index{translation\_projective\_matrix@{translation\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{translation\_projective\_matrix()}{translation\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ translation\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{const Spatial\+Vector \&}]{translation }\end{DoxyParamCaption})}
+
+Generate the projective matrix representing translation by the given translation vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em translation} & 1x3 translation vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_a2ebf86e1bb6e4c3617a0dfb2dedcaa2c}\label{generate__transformation_8h_a2ebf86e1bb6e4c3617a0dfb2dedcaa2c} 
+\index{generate\_transformation.h@{generate\_transformation.h}!x\_axis\_rotation\_projective\_matrix@{x\_axis\_rotation\_projective\_matrix}}
+\index{x\_axis\_rotation\_projective\_matrix@{x\_axis\_rotation\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{x\_axis\_rotation\_projective\_matrix()}{x\_axis\_rotation\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ x\+\_\+axis\+\_\+rotation\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{double}]{degree }\end{DoxyParamCaption})}
+
+Generate the projective matrix for rotation around the x axis.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em degree} & degree of rotation around the x axis \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_a1833e895010f42a6e4489f600394bf92}\label{generate__transformation_8h_a1833e895010f42a6e4489f600394bf92} 
+\index{generate\_transformation.h@{generate\_transformation.h}!y\_axis\_rotation\_projective\_matrix@{y\_axis\_rotation\_projective\_matrix}}
+\index{y\_axis\_rotation\_projective\_matrix@{y\_axis\_rotation\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{y\_axis\_rotation\_projective\_matrix()}{y\_axis\_rotation\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ y\+\_\+axis\+\_\+rotation\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{double}]{degree }\end{DoxyParamCaption})}
+
+Generate the projective matrix for rotation around the y axis.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em degree} & degree of rotation around the y axis \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}
+\Hypertarget{generate__transformation_8h_a99e345f958185d6722bc9e5a9f95acd9}\label{generate__transformation_8h_a99e345f958185d6722bc9e5a9f95acd9} 
+\index{generate\_transformation.h@{generate\_transformation.h}!z\_axis\_rotation\_projective\_matrix@{z\_axis\_rotation\_projective\_matrix}}
+\index{z\_axis\_rotation\_projective\_matrix@{z\_axis\_rotation\_projective\_matrix}!generate\_transformation.h@{generate\_transformation.h}}
+\doxysubsubsection{\texorpdfstring{z\_axis\_rotation\_projective\_matrix()}{z\_axis\_rotation\_projective\_matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix$<$ double, 4, 4 $>$ z\+\_\+axis\+\_\+rotation\+\_\+projective\+\_\+matrix (\begin{DoxyParamCaption}\item[{double}]{degree }\end{DoxyParamCaption})}
+
+Generate the projective matrix for rotation around the z axis.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em degree} & degree of rotation around the z axis \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+4x4 projective matrix for the transformation 
+\end{DoxyReturn}

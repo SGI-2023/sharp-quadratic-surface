@@ -1,0 +1,91 @@
+\doxysection{line\+\_\+segment.\+h}
+\hypertarget{line__segment_8h_source}{}\label{line__segment_8h_source}\index{src/core/line\_segment.h@{src/core/line\_segment.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}bivariate\_quadratic\_function.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}conic.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{polynomial__function_8h}{polynomial\_function.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}rational\_function.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_line_segment}{LineSegment}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_conic}{Conic}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \mbox{\hyperlink{class_line_segment}{LineSegment}}()\ \{\}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \mbox{\hyperlink{class_line_segment}{LineSegment}}(\textcolor{keyword}{const}\ Matrix2x2r\&\ numerator\_coeffs)}
+\DoxyCodeLine{00020\ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ init\_conic\_coefficients(numerator\_coeffs);}
+\DoxyCodeLine{00022\ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{class_line_segment}{LineSegment}}(\textcolor{keyword}{const}\ Matrix2x2r\&\ numerator\_coeffs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_interval}{Interval}}\&\ input\_domain)}
+\DoxyCodeLine{00025\ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ init\_conic\_coefficients(numerator\_coeffs);}
+\DoxyCodeLine{00027\ \ \ \ \ domain()\ =\ input\_domain;}
+\DoxyCodeLine{00028\ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ dimension>}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{void}\ pullback\_linear\_function(}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 3,\ dimension>\&\ F\_coeffs,}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<1,\ dimension>}}\&\ pullback\_function)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ SPDLOG\_TRACE(\textcolor{stringliteral}{"{}Pulling\ back\ line\ segment\ by\ linear\ function\ \{\}"{}},}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_bivariate\_linear\_mapping(F\_coeffs));}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ Separate\ the\ individual\ polynomial\ coefficients\ from\ the\ rational}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ function}}
+\DoxyCodeLine{00040\ \ \ \ \ Matrix3x2r\ P\_coeffs\ =\ get\_numerators();}
+\DoxyCodeLine{00041\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ u\_coeffs\ =\ P\_coeffs.col(0);}
+\DoxyCodeLine{00042\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ v\_coeffs\ =\ P\_coeffs.col(1);}
+\DoxyCodeLine{00043\ \ \ \ \ Eigen::Matrix<double,\ 2,\ 1>\ Q\_coeffs(1.0,\ 0.0);}
+\DoxyCodeLine{00044\ \ \ \ \ SPDLOG\_TRACE(\textcolor{stringliteral}{"{}u\ function\ before\ pullback:\ \{\}"{}},}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{polynomial__function_8h_a5645bb42a3e7fb1e48deea61f227a065}{formatted\_polynomial}}(u\_coeffs));}
+\DoxyCodeLine{00046\ \ \ \ \ SPDLOG\_TRACE(\textcolor{stringliteral}{"{}v\ function\ before\ pullback:\ \{\}"{}},}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{polynomial__function_8h_a5645bb42a3e7fb1e48deea61f227a065}{formatted\_polynomial}}(v\_coeffs));}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ Combine\ quadratic\ monomial\ functions\ into\ a\ matrix}}
+\DoxyCodeLine{00050\ \ \ \ \ Matrix2x3r\ monomial\_coeffs;}
+\DoxyCodeLine{00051\ \ \ \ \ monomial\_coeffs.setZero();}
+\DoxyCodeLine{00052\ \ \ \ \ monomial\_coeffs(0,\ 0)\ =\ 1.0;}
+\DoxyCodeLine{00053\ \ \ \ \ monomial\_coeffs(0,\ 1)\ =\ u\_coeffs[0];}
+\DoxyCodeLine{00054\ \ \ \ \ monomial\_coeffs(1,\ 1)\ =\ u\_coeffs[1];}
+\DoxyCodeLine{00055\ \ \ \ \ monomial\_coeffs(0,\ 2)\ =\ v\_coeffs[0];}
+\DoxyCodeLine{00056\ \ \ \ \ monomial\_coeffs(1,\ 2)\ =\ v\_coeffs[1];}
+\DoxyCodeLine{00057\ \ \ \ \ spdlog::trace(\textcolor{stringliteral}{"{}Monomial\ coefficient\ matrix:\(\backslash\)n\{\}"{}},\ monomial\_coeffs);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ pulled\ back\ rational\ function\ numerator}}
+\DoxyCodeLine{00060\ \ \ \ \ spdlog::trace(\textcolor{stringliteral}{"{}Linear\ coefficient\ matrix:\(\backslash\)n\{\}"{}},\ F\_coeffs);}
+\DoxyCodeLine{00061\ \ \ \ \ Eigen::Matrix<double,\ 2,\ dimension>\ pullback\_coeffs\ =}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ monomial\_coeffs\ *\ F\_coeffs;}
+\DoxyCodeLine{00063\ \ \ \ \ SPDLOG\_TRACE(\textcolor{stringliteral}{"{}Pullback\ function:\ \{\}"{}},}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{polynomial__function_8h_a5645bb42a3e7fb1e48deea61f227a065}{formatted\_polynomial}}(pullback\_coeffs));}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ pullback\_function\ =}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<1,\ dimension>}}(pullback\_coeffs,\ Q\_coeffs,\ domain());}
+\DoxyCodeLine{00068\ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ Given\ line\ segment\ coefficients,\ expand\ them\ to\ conic\ coefficients}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ init\_conic\_coefficients(\textcolor{keyword}{const}\ Matrix2x2r\&\ numerator\_coeffs)}
+\DoxyCodeLine{00073\ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ Build\ conic\ numerator\ with\ trivial\ quadratic\ term}}
+\DoxyCodeLine{00075\ \ \ \ \ Matrix3x2r\ conic\_numerator\_coeffs;}
+\DoxyCodeLine{00076\ \ \ \ \ conic\_numerator\_coeffs.block(0,\ 0,\ 2,\ 2)\ =\ numerator\_coeffs;}
+\DoxyCodeLine{00077\ \ \ \ \ conic\_numerator\_coeffs.block(2,\ 0,\ 1,\ 2).setZero();}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//\ Build\ constant\ 1\ denominator}}
+\DoxyCodeLine{00080\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ conic\_denominator\_coeffs;}
+\DoxyCodeLine{00081\ \ \ \ \ conic\_denominator\_coeffs\ <<\ 1.0,\ 0.0,\ 0.0;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ Set\ conic\ coefficients}}
+\DoxyCodeLine{00084\ \ \ \ \ set\_numerators(conic\_numerator\_coeffs);}
+\DoxyCodeLine{00085\ \ \ \ \ set\_denominator(conic\_denominator\_coeffs);}
+\DoxyCodeLine{00086\ \ \ \}}
+\DoxyCodeLine{00087\ \};}
+
+\end{DoxyCode}

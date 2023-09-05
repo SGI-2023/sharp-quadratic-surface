@@ -1,0 +1,125 @@
+\doxysection{quadratic\+\_\+spline\+\_\+surface.\+h}
+\hypertarget{quadratic__spline__surface_8h_source}{}\label{quadratic__spline__surface_8h_source}\index{src/quadratic\_spline\_surface/quadratic\_spline\_surface.h@{src/quadratic\_spline\_surface/quadratic\_spline\_surface.h}}
+\mbox{\hyperlink{quadratic__spline__surface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}evaluate\_surface\_normal.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{optimize__spline__surface_8h}{optimize\_spline\_surface.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}position\_data.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}quadratic\_spline\_surface\_patch.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <igl/is\_vertex\_manifold.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <igl/writeOBJ.h>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_surface_discretization_parameters}{SurfaceDiscretizationParameters}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00018\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_surface_discretization_parameters_a9d960454f27c6d74fb46fe0d51d7c075}{num\_subdivisions}}\ =\ 2;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00021\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_surface_discretization_parameters_a3abd38334f2a19186896c575da5810e7}{normalize\_surface\_normals}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_quadratic_spline_surface}{QuadraticSplineSurface}}}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \textcolor{comment}{//\ Index\ type}}
+\DoxyCodeLine{00038\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{size\_t}\ PatchIndex;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{class_quadratic_spline_surface_a63c488bab50fc95137726ff24430d998}{QuadraticSplineSurface}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{class_quadratic_spline_surface_a63c488bab50fc95137726ff24430d998}{QuadraticSplineSurface}}(std::vector<QuadraticSplineSurfacePatch>\&\ patches);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00051\ \ \ PatchIndex\ \mbox{\hyperlink{class_quadratic_spline_surface_ace41276c215f967c35cb2f2312b45572}{num\_patches}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_patches.size();\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{class_quadratic_spline_surface_patch}{QuadraticSplineSurfacePatch}}\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_quadratic_spline_surface_ae96d7611ae0e8b9a1dbd03639dfbf6f8}{get\_patch}}(PatchIndex\ patch\_index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00057\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{return}\ m\_patches[patch\_index];}
+\DoxyCodeLine{00059\ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_a98768894caec06f1eb7f9c9619a9480b}{evaluate\_patch}}(\textcolor{keyword}{const}\ PatchIndex\&\ patch\_index,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PlanarPoint\&\ domain\_point,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SpatialVector\&\ surface\_point)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{class_quadratic_spline_surface_ae96d7611ae0e8b9a1dbd03639dfbf6f8}{get\_patch}}(patch\_index).\mbox{\hyperlink{class_quadratic_spline_surface_patch_a036ad5735e2677bdfe87a74a7f2df7fa}{evaluate}}(domain\_point,\ surface\_point);}
+\DoxyCodeLine{00071\ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_a0084ca944c0176696c62ba51400a547b}{evaluate\_patch\_normal}}(\textcolor{keyword}{const}\ PatchIndex\&\ patch\_index,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PlanarPoint\&\ domain\_point,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SpatialVector\&\ surface\_normal)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{class_quadratic_spline_surface_ae96d7611ae0e8b9a1dbd03639dfbf6f8}{get\_patch}}(patch\_index).\mbox{\hyperlink{class_quadratic_spline_surface_patch_a07271a43a22d3ff1bf32c9ef86e3cb23}{evaluate\_normal}}(domain\_point,\ surface\_normal);}
+\DoxyCodeLine{00083\ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_quadratic_spline_surface_aee2075dff1d67a5b2abc0cfb87519fa4}{empty}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_patches.empty();\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_a1944dece378fcbe1d4740e9110a201e2}{clear}}();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{class_quadratic_spline_surface}{QuadraticSplineSurface}}\ \mbox{\hyperlink{class_quadratic_spline_surface_a9291c066674b9271e23d246747bd920c}{subsurface}}(}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<PatchIndex>\&\ patch\_indices)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_ac4b7e35945813696cca67b58e239bf95}{triangulate\_patch}}(\textcolor{keyword}{const}\ PatchIndex\&\ patch\_index,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ num\_refinements,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\&\ N)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_ac4d9f4580b91d31ff620ee0fe08d40c0}{discretize}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_surface_discretization_parameters}{SurfaceDiscretizationParameters}}\&\ surface\_disc\_params,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\&\ N)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00130\ \ \ std::tuple<Eigen::MatrixXd,\ \textcolor{comment}{//\ V}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXi,\ \textcolor{comment}{//\ F}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ \ \textcolor{comment}{//\ N}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ >}
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{class_quadratic_spline_surface_ac4d9f4580b91d31ff620ee0fe08d40c0}{discretize}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_surface_discretization_parameters}{SurfaceDiscretizationParameters}}\&\ surface\_disc\_params)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_a5388ce1af05a001f51b5ad6af08b10dc}{discretize\_patch\_boundaries}}(}
+\DoxyCodeLine{00141\ \ \ \ \ std::vector<SpatialVector>\&\ points,}
+\DoxyCodeLine{00142\ \ \ \ \ std::vector<std::vector<int>>\&\ polylines)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_ac66949d9d77738003feab715ac0af096}{save\_obj}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_a8db7615e418a71d3503cc37c76ea12b3}{add\_surface\_to\_viewer}}(Eigen::Matrix<double,\ 3,\ 1>\ color\ =\ SKY\_BLUE,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ num\_subdivisions\ =\ DISCRETIZATION\_LEVEL)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00160\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_af77372059b698e7282a1df611d2956cd}{view}}(Eigen::Matrix<double,\ 3,\ 1>\ color\ =\ SKY\_BLUE,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ num\_subdivisions\ =\ DISCRETIZATION\_LEVEL)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_a6212fefcf30c2f206008a6d8b3e3c41e}{screenshot}}(\textcolor{keyword}{const}\ std::string\&\ filename,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SpatialVector\ camera\_position\ =\ SpatialVector(0,\ 0,\ 2),}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SpatialVector\ camera\_target\ =\ SpatialVector(0,\ 0,\ 0),}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ use\_orthographic\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_aa0f61a2fdbd5252b1ac7b281eef87b0b}{serialize}}(std::ostream\&\ out)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_ad0fde3e805e511cbb0e934915091614d}{deserialize}}(std::istream\&\ in);}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_ab4fac7b1a4a573550242972cf550afc1}{write\_spline}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_a650def6391e0335690301e858f4d0d85}{read\_spline}}(\textcolor{keyword}{const}\ std::string\&\ filename);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_quadratic_spline_surface_aaaccdfce8fdb8b540333b9dd54a3fe48}{compute\_patch\_hash\_tables}}();}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00201\ \ \ std::pair<int,\ int>\ \mbox{\hyperlink{class_quadratic_spline_surface_a48846fcae6d7fc3661eb2ee54997214d}{compute\_hash\_indices}}(\textcolor{keyword}{const}\ PlanarPoint\&\ point)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00204\ \ \ std::vector<int>\ \mbox{\hyperlink{class_quadratic_spline_surface_a6a4a14a1b184c864cb3f6f9d0f8efb24}{hash\_table}}[HASH\_TABLE\_SIZE][HASH\_TABLE\_SIZE];}
+\DoxyCodeLine{00205\ \ \ std::vector<std::vector<std::pair<int,\ int>>>\ reverse\_hash\_table;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_quadratic_spline_surface_ab4c4f80a3fcde3c4bfb358e6e0ff8457}{patches\_bbox\_x\_min}},\ patches\_bbox\_x\_max,\ patches\_bbox\_y\_min,}
+\DoxyCodeLine{00209\ \ \ \ \ patches\_bbox\_y\_max;}
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordtype}{double}\ hash\_x\_interval;}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordtype}{double}\ hash\_y\_interval;}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00214\ \ \ \textcolor{keywordtype}{bool}\ is\_valid\_patch\_index(PatchIndex\ patch\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{void}\ compute\_patches\_bbox();}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ std::vector<QuadraticSplineSurfacePatch>\ m\_patches;}
+\DoxyCodeLine{00219\ \};}
+
+\end{DoxyCode}

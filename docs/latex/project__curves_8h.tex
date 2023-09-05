@@ -1,0 +1,55 @@
+\doxysection{src/contour\+\_\+network/project\+\_\+curves.h File Reference}
+\hypertarget{project__curves_8h}{}\label{project__curves_8h}\index{src/contour\_network/project\_curves.h@{src/contour\_network/project\_curves.h}}
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}rational\+\_\+function.\+h\"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{project__curves_8h_a4d0c175c0edbb6e7bc52542fa7780e64}{project\+\_\+curve}} (const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$ \&spatial\+\_\+curve, const Matrix3x3r \&frame, \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&planar\+\_\+curve)
+\begin{DoxyCompactList}\small\item\em Given a rational spatial curve and view direction, project the curve to a planar curve. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{project__curves_8h_a3740f83a9f0b096b0d6c0ebbdf640035}{project\+\_\+curves}} (const std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$ $>$ \&spatial\+\_\+curves, const Matrix3x3r \&frame, std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ $>$ \&planar\+\_\+curves)
+\begin{DoxyCompactList}\small\item\em Given a list of rational spatial curves and view direction, project the curves to a list of planar curves. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to compute spatial curves to planar curves in image space. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{project__curves_8h_a4d0c175c0edbb6e7bc52542fa7780e64}\label{project__curves_8h_a4d0c175c0edbb6e7bc52542fa7780e64} 
+\index{project\_curves.h@{project\_curves.h}!project\_curve@{project\_curve}}
+\index{project\_curve@{project\_curve}!project\_curves.h@{project\_curves.h}}
+\doxysubsubsection{\texorpdfstring{project\_curve()}{project\_curve()}}
+{\footnotesize\ttfamily void project\+\_\+curve (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$ \&}]{spatial\+\_\+curve,  }\item[{const Matrix3x3r \&}]{frame,  }\item[{\mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ \&}]{planar\+\_\+curve }\end{DoxyParamCaption})}
+
+
+
+Given a rational spatial curve and view direction, project the curve to a planar curve. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em spatial\+\_\+curve} & curve in R\texorpdfstring{$^\wedge$}{\string^}3 to project \\
+\hline
+\mbox{\texttt{ in}}  & {\em frame} & 3x3 matrix defining the projection \\
+\hline
+\mbox{\texttt{ out}}  & {\em planar\+\_\+curve} & projected planar curve in R\texorpdfstring{$^\wedge$}{\string^}2 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{project__curves_8h_a3740f83a9f0b096b0d6c0ebbdf640035}\label{project__curves_8h_a3740f83a9f0b096b0d6c0ebbdf640035} 
+\index{project\_curves.h@{project\_curves.h}!project\_curves@{project\_curves}}
+\index{project\_curves@{project\_curves}!project\_curves.h@{project\_curves.h}}
+\doxysubsubsection{\texorpdfstring{project\_curves()}{project\_curves()}}
+{\footnotesize\ttfamily void project\+\_\+curves (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$ $>$ \&}]{spatial\+\_\+curves,  }\item[{const Matrix3x3r \&}]{frame,  }\item[{std\+::vector$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 2 $>$ $>$ \&}]{planar\+\_\+curves }\end{DoxyParamCaption})}
+
+
+
+Given a list of rational spatial curves and view direction, project the curves to a list of planar curves. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em spatial\+\_\+curves} & curves in R\texorpdfstring{$^\wedge$}{\string^}3 to project \\
+\hline
+\mbox{\texttt{ in}}  & {\em frame} & 3x3 matrix defining the projection \\
+\hline
+\mbox{\texttt{ out}}  & {\em planar\+\_\+curves} & projected planar curves in R\texorpdfstring{$^\wedge$}{\string^}2 \\
+\hline
+\end{DoxyParams}

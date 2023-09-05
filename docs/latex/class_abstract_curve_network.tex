@@ -1,0 +1,310 @@
+\doxysection{Abstract\+Curve\+Network Class Reference}
+\hypertarget{class_abstract_curve_network}{}\label{class_abstract_curve_network}\index{AbstractCurveNetwork@{AbstractCurveNetwork}}
+
+
+{\ttfamily \#include $<$abstract\+\_\+curve\+\_\+network.\+h$>$}
+
+Inheritance diagram for Abstract\+Curve\+Network\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_abstract_curve_network}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_abstract_curve_network_af1043d14c61cd285aebf67d7f7db76ff}\label{class_abstract_curve_network_af1043d14c61cd285aebf67d7f7db76ff} 
+typedef int {\bfseries Node\+Index}
+\item 
+\Hypertarget{class_abstract_curve_network_a90f707235881e4e9b78f0d6edb0a8fff}\label{class_abstract_curve_network_a90f707235881e4e9b78f0d6edb0a8fff} 
+typedef int {\bfseries Segment\+Index}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_abstract_curve_network_a7acd039766284c53b42ec00690115a63}\label{class_abstract_curve_network_a7acd039766284c53b42ec00690115a63} 
+{\bfseries Abstract\+Curve\+Network} ()
+\begin{DoxyCompactList}\small\item\em Default empty constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_abstract_curve_network_a07e8e654cdf50f1bc88723eb7782f3bb}{Abstract\+Curve\+Network}} (const std\+::vector$<$ Node\+Index $>$ \&to\+\_\+array, const std\+::vector$<$ Segment\+Index $>$ \&out\+\_\+array, const std\+::vector$<$ Node\+Index $>$ \&intersection\+\_\+array)
+\item 
+void \mbox{\hyperlink{class_abstract_curve_network_a7e8741d401384ca465f1f5cde649afc4}{update\+\_\+topology}} (const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Node\+Index $>$ \&to\+\_\+array, const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Segment\+Index $>$ \&out\+\_\+array, const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Node\+Index $>$ \&intersection\+\_\+array)
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_a46642315debba667c3daca7d3f716d86}{get\+\_\+num\+\_\+segments}} () const
+\item 
+Node\+Index \mbox{\hyperlink{class_abstract_curve_network_abd50713ddd09c886c6305f010e158a38}{get\+\_\+num\+\_\+nodes}} () const
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_ac34af3870a4118a4a4b83b4e969fb637}{next}} (Segment\+Index segment\+\_\+index) const
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_ae70dbeea019f3846b1cc81cee2262d35}{prev}} (Segment\+Index segment\+\_\+index) const
+\item 
+Node\+Index \mbox{\hyperlink{class_abstract_curve_network_aa3d30a52421c5086834ea7a02065bc84}{to}} (Segment\+Index segment\+\_\+index) const
+\item 
+Node\+Index \mbox{\hyperlink{class_abstract_curve_network_a41421a1d2354e59c511a150954c50633}{from}} (Segment\+Index segment\+\_\+index) const
+\item 
+Node\+Index \mbox{\hyperlink{class_abstract_curve_network_a7d0ce0f1b760b4097c00f67529f50412}{intersection}} (Node\+Index node\+\_\+index) const
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_a66febb681023290dc003814cdfd14353}{out}} (Node\+Index node\+\_\+index) const
+\item 
+Segment\+Index \mbox{\hyperlink{class_abstract_curve_network_a1a401328ed8092f97e1d7d0f337a0397}{in}} (Node\+Index node\+\_\+index) const
+\item 
+bool \mbox{\hyperlink{class_abstract_curve_network_a3c172f3ac6e2daeef50671383613db96}{is\+\_\+boundary\+\_\+node}} (Node\+Index node\+\_\+index) const
+\item 
+bool \mbox{\hyperlink{class_abstract_curve_network_aa4990c668e4335a0221ce075ad041306}{has\+\_\+intersection\+\_\+node}} (Node\+Index node\+\_\+index) const
+\item 
+bool \mbox{\hyperlink{class_abstract_curve_network_a645a0803586694d7ff1aa808cfae0cdf}{is\+\_\+tnode}} (Node\+Index node\+\_\+index) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_abstract_curve_network_a63e915838c668bec3a82d16c7eee2ee4}\label{class_abstract_curve_network_a63e915838c668bec3a82d16c7eee2ee4} 
+void {\bfseries init\+\_\+abstract\+\_\+curve\+\_\+network} ()
+\item 
+\Hypertarget{class_abstract_curve_network_aac1098fa23293c335b58d7a29a3d6b86}\label{class_abstract_curve_network_aac1098fa23293c335b58d7a29a3d6b86} 
+bool {\bfseries is\+\_\+valid\+\_\+segment\+\_\+index} (Segment\+Index segment\+\_\+index) const
+\item 
+\Hypertarget{class_abstract_curve_network_a786196fb31750c6c7a6ff8191bf8d9bf}\label{class_abstract_curve_network_a786196fb31750c6c7a6ff8191bf8d9bf} 
+bool {\bfseries is\+\_\+valid\+\_\+node\+\_\+index} (Node\+Index node\+\_\+index) const
+\item 
+\Hypertarget{class_abstract_curve_network_a0719f4f6043f5273e622e852af30c352}\label{class_abstract_curve_network_a0719f4f6043f5273e622e852af30c352} 
+bool {\bfseries is\+\_\+valid\+\_\+abstract\+\_\+curve\+\_\+network} () const
+\item 
+\Hypertarget{class_abstract_curve_network_a40221dbe81525da5dcb6236e0644d858}\label{class_abstract_curve_network_a40221dbe81525da5dcb6236e0644d858} 
+void {\bfseries clear\+\_\+topology} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An abstract curve network is a graph representing a finite set of possibly intersecting directed curves. For simplicity, it is assumed that all intersections are either transversal or T-\/nodes so that at most two curves intersect at a node. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_abstract_curve_network_a07e8e654cdf50f1bc88723eb7782f3bb}\label{class_abstract_curve_network_a07e8e654cdf50f1bc88723eb7782f3bb} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{AbstractCurveNetwork()}{AbstractCurveNetwork()}}
+{\footnotesize\ttfamily Abstract\+Curve\+Network\+::\+Abstract\+Curve\+Network (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Node\+Index $>$ \&}]{to\+\_\+array,  }\item[{const std\+::vector$<$ Segment\+Index $>$ \&}]{out\+\_\+array,  }\item[{const std\+::vector$<$ Node\+Index $>$ \&}]{intersection\+\_\+array }\end{DoxyParamCaption})}
+
+Construct the network from the basic topological information.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em to\+\_\+array} & array mapping segments to their endpoints \\
+\hline
+\mbox{\texttt{ in}}  & {\em out\+\_\+array} & array mapping nodes to their outgoing segment \\
+\hline
+\mbox{\texttt{ in}}  & {\em intersection\+\_\+array} & list of intersection nodes \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_abstract_curve_network_a41421a1d2354e59c511a150954c50633}\label{class_abstract_curve_network_a41421a1d2354e59c511a150954c50633} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!from@{from}}
+\index{from@{from}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{from()}{from()}}
+{\footnotesize\ttfamily Node\+Index Abstract\+Curve\+Network\+::from (\begin{DoxyParamCaption}\item[{Segment\+Index}]{segment\+\_\+index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the node at the base of the segment
+
+Note that this operation is valid for any valid segment
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em segment\+\_\+index} & query segment index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+from node of the segment 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_abd50713ddd09c886c6305f010e158a38}\label{class_abstract_curve_network_abd50713ddd09c886c6305f010e158a38} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!get\_num\_nodes@{get\_num\_nodes}}
+\index{get\_num\_nodes@{get\_num\_nodes}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{get\_num\_nodes()}{get\_num\_nodes()}}
+{\footnotesize\ttfamily Node\+Index Abstract\+Curve\+Network\+::get\+\_\+num\+\_\+nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the number of nodes in the curve network.
+
+\begin{DoxyReturn}{Returns}
+number of nodes 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_a46642315debba667c3daca7d3f716d86}\label{class_abstract_curve_network_a46642315debba667c3daca7d3f716d86} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!get\_num\_segments@{get\_num\_segments}}
+\index{get\_num\_segments@{get\_num\_segments}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{get\_num\_segments()}{get\_num\_segments()}}
+{\footnotesize\ttfamily Segment\+Index Abstract\+Curve\+Network\+::get\+\_\+num\+\_\+segments (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the number of segments in the curve network.
+
+\begin{DoxyReturn}{Returns}
+number of segments 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_aa4990c668e4335a0221ce075ad041306}\label{class_abstract_curve_network_aa4990c668e4335a0221ce075ad041306} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!has\_intersection\_node@{has\_intersection\_node}}
+\index{has\_intersection\_node@{has\_intersection\_node}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{has\_intersection\_node()}{has\_intersection\_node()}}
+{\footnotesize\ttfamily bool Abstract\+Curve\+Network\+::has\+\_\+intersection\+\_\+node (\begin{DoxyParamCaption}\item[{Node\+Index}]{node\+\_\+index }\end{DoxyParamCaption}) const}
+
+Determine if the node has an intersection.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em node\+\_\+index} & query node index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the given node is an intersection node 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_a1a401328ed8092f97e1d7d0f337a0397}\label{class_abstract_curve_network_a1a401328ed8092f97e1d7d0f337a0397} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!in@{in}}
+\index{in@{in}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{in()}{in()}}
+{\footnotesize\ttfamily Segment\+Index Abstract\+Curve\+Network\+::in (\begin{DoxyParamCaption}\item[{Node\+Index}]{node\+\_\+index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the incoming segment for the node (or -\/1 if none exists)
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em node\+\_\+index} & query node index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+in segment of the node 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_a7d0ce0f1b760b4097c00f67529f50412}\label{class_abstract_curve_network_a7d0ce0f1b760b4097c00f67529f50412} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!intersection@{intersection}}
+\index{intersection@{intersection}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{intersection()}{intersection()}}
+{\footnotesize\ttfamily Node\+Index Abstract\+Curve\+Network\+::intersection (\begin{DoxyParamCaption}\item[{Node\+Index}]{node\+\_\+index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the node that intersects the given node (or -\/1 if the node does not intersect another node)
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em node\+\_\+index} & query node index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+intersection node of the node 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_a3c172f3ac6e2daeef50671383613db96}\label{class_abstract_curve_network_a3c172f3ac6e2daeef50671383613db96} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!is\_boundary\_node@{is\_boundary\_node}}
+\index{is\_boundary\_node@{is\_boundary\_node}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{is\_boundary\_node()}{is\_boundary\_node()}}
+{\footnotesize\ttfamily bool Abstract\+Curve\+Network\+::is\+\_\+boundary\+\_\+node (\begin{DoxyParamCaption}\item[{Node\+Index}]{node\+\_\+index }\end{DoxyParamCaption}) const}
+
+Determine if the node is on the boundary of a curve in the curve network.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em node\+\_\+index} & query node index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the given node is a boundary node 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_a645a0803586694d7ff1aa808cfae0cdf}\label{class_abstract_curve_network_a645a0803586694d7ff1aa808cfae0cdf} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!is\_tnode@{is\_tnode}}
+\index{is\_tnode@{is\_tnode}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{is\_tnode()}{is\_tnode()}}
+{\footnotesize\ttfamily bool Abstract\+Curve\+Network\+::is\+\_\+tnode (\begin{DoxyParamCaption}\item[{Node\+Index}]{node\+\_\+index }\end{DoxyParamCaption}) const}
+
+Determine if the node is a T-\/node, i.\+e., has an intersection and one of the two is on the boundary.
+
+Note that this is a weaker condition than having an intersection node and being and intersection node and is not simply a logical and of the two conditions.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em node\+\_\+index} & query node index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the given node is a boundary intersection node 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_ac34af3870a4118a4a4b83b4e969fb637}\label{class_abstract_curve_network_ac34af3870a4118a4a4b83b4e969fb637} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!next@{next}}
+\index{next@{next}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{next()}{next()}}
+{\footnotesize\ttfamily Segment\+Index Abstract\+Curve\+Network\+::next (\begin{DoxyParamCaption}\item[{Segment\+Index}]{segment\+\_\+index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the next segment after a given segment (or -\/1 if there is no next segment)
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em segment\+\_\+index} & query segment index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+next segment 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_a66febb681023290dc003814cdfd14353}\label{class_abstract_curve_network_a66febb681023290dc003814cdfd14353} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!out@{out}}
+\index{out@{out}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{out()}{out()}}
+{\footnotesize\ttfamily Segment\+Index Abstract\+Curve\+Network\+::out (\begin{DoxyParamCaption}\item[{Node\+Index}]{node\+\_\+index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the outgoing segment for the node (or -\/1 if none exists)
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em node\+\_\+index} & query node index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+out segment of the node 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_ae70dbeea019f3846b1cc81cee2262d35}\label{class_abstract_curve_network_ae70dbeea019f3846b1cc81cee2262d35} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!prev@{prev}}
+\index{prev@{prev}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{prev()}{prev()}}
+{\footnotesize\ttfamily Segment\+Index Abstract\+Curve\+Network\+::prev (\begin{DoxyParamCaption}\item[{Segment\+Index}]{segment\+\_\+index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the previous segment after a given segment (or -\/1 if there is no previous segment)
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em segment\+\_\+index} & query segment index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+previous segment 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_aa3d30a52421c5086834ea7a02065bc84}\label{class_abstract_curve_network_aa3d30a52421c5086834ea7a02065bc84} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!to@{to}}
+\index{to@{to}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{to()}{to()}}
+{\footnotesize\ttfamily Node\+Index Abstract\+Curve\+Network\+::to (\begin{DoxyParamCaption}\item[{Segment\+Index}]{segment\+\_\+index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the node at the tip of the segment
+
+Note that this operation is valid for any valid segment
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em segment\+\_\+index} & query segment index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+to node of the segment 
+\end{DoxyReturn}
+\Hypertarget{class_abstract_curve_network_a7e8741d401384ca465f1f5cde649afc4}\label{class_abstract_curve_network_a7e8741d401384ca465f1f5cde649afc4} 
+\index{AbstractCurveNetwork@{AbstractCurveNetwork}!update\_topology@{update\_topology}}
+\index{update\_topology@{update\_topology}!AbstractCurveNetwork@{AbstractCurveNetwork}}
+\doxysubsubsection{\texorpdfstring{update\_topology()}{update\_topology()}}
+{\footnotesize\ttfamily void Abstract\+Curve\+Network\+::update\+\_\+topology (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Node\+Index $>$ \&}]{to\+\_\+array,  }\item[{const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Segment\+Index $>$ \&}]{out\+\_\+array,  }\item[{const std\+::vector$<$ Abstract\+Curve\+Network\+::\+Node\+Index $>$ \&}]{intersection\+\_\+array }\end{DoxyParamCaption})}
+
+Update the basic topological information of the curve network.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em to\+\_\+array} & array mapping segments to their endpoints \\
+\hline
+\mbox{\texttt{ in}}  & {\em out\+\_\+array} & array mapping nodes to their outgoing segment \\
+\hline
+\mbox{\texttt{ in}}  & {\em intersection\+\_\+array} & list of intersection nodes \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/\mbox{\hyperlink{abstract__curve__network_8h}{abstract\+\_\+curve\+\_\+network.\+h}}\item 
+src/core/abstract\+\_\+curve\+\_\+network.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,410 @@
+\doxysection{src/quadratic\+\_\+spline\+\_\+surface/powell\+\_\+sabin\+\_\+local\+\_\+to\+\_\+global\+\_\+indexing.h File Reference}
+\hypertarget{powell__sabin__local__to__global__indexing_8h}{}\label{powell__sabin__local__to__global__indexing_8h}\index{src/quadratic\_spline\_surface/powell\_sabin\_local\_to\_global\_indexing.h@{src/quadratic\_spline\_surface/powell\_sabin\_local\_to\_global\_indexing.h}}
+{\ttfamily \#include \"{}affine\+\_\+manifold.\+h\"{}}\newline
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}differentiable\+\_\+variable.\+h\"{}}\newline
+{\ttfamily \#include \"{}halfedge.\+h\"{}}\newline
+{\ttfamily \#include \"{}polynomial\+\_\+function.\+h\"{}}\newline
+{\ttfamily \#include \"{}position\+\_\+data.\+h\"{}}\newline
+{\ttfamily \#include $<$Eigen/\+Cholmod\+Support$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Sparse$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a09af358b4e7c80d24906a454d25651cd}{generate\+\_\+local\+\_\+vertex\+\_\+position\+\_\+variable\+\_\+index}} (size\+\_\+t face\+\_\+vertex\+\_\+index, size\+\_\+t coord, size\+\_\+t dimension=3)
+\item 
+size\+\_\+t \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_ac18ece1cefff94dd859aad4fd2005db0}{generate\+\_\+local\+\_\+vertex\+\_\+gradient\+\_\+variable\+\_\+index}} (size\+\_\+t face\+\_\+vertex\+\_\+index, size\+\_\+t row, size\+\_\+t col, size\+\_\+t dimension=3)
+\item 
+size\+\_\+t \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_ad0c4759c204abc2a08ccf3bc861e5db5}{generate\+\_\+local\+\_\+edge\+\_\+gradient\+\_\+variable\+\_\+index}} (size\+\_\+t face\+\_\+edge\+\_\+index, size\+\_\+t coord, size\+\_\+t dimension=3)
+\item 
+int \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a288662677c9bbae19ee64d6c989a42c9}{generate\+\_\+global\+\_\+vertex\+\_\+position\+\_\+variable\+\_\+index}} (int vertex\+\_\+index, int coord, int dimension=3)
+\item 
+int \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_adcf94900d467ff5e78ed1d134e9a1e4f}{generate\+\_\+global\+\_\+vertex\+\_\+gradient\+\_\+variable\+\_\+index}} (int num\+\_\+variable\+\_\+vertices, int vertex\+\_\+index, int row, int col, int dimension=3)
+\item 
+int \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_ac8609893ab1164edfcdb6ec950a3d445}{generate\+\_\+global\+\_\+edge\+\_\+gradient\+\_\+variable\+\_\+index}} (int num\+\_\+variable\+\_\+vertices, int edge\+\_\+index, int coord, int dimension=3)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a1ed00063a4005007d3f1f6a5809e5b1b}{generate\+\_\+six\+\_\+split\+\_\+variable\+\_\+value\+\_\+vector}} (const std\+::vector$<$ Spatial\+Vector $>$ \&vertex\+\_\+positions, const std\+::vector$<$ Matrix2x3r $>$ \&vertex\+\_\+gradients, const std\+::vector$<$ int $>$ \&variable\+\_\+vertices, Vector\+Xr \&variable\+\_\+values)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a91cbfe9dab367e54af4df8f8a52148f6}{generate\+\_\+twelve\+\_\+split\+\_\+variable\+\_\+value\+\_\+vector}} (const std\+::vector$<$ Spatial\+Vector $>$ \&vertex\+\_\+positions, const std\+::vector$<$ Matrix2x3r $>$ \&vertex\+\_\+gradients, const std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&edge\+\_\+gradients, const std\+::vector$<$ int $>$ \&variable\+\_\+vertices, const std\+::vector$<$ int $>$ \&variable\+\_\+edges, const \mbox{\hyperlink{class_halfedge}{Halfedge}} \&halfedge, const std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Index, Eigen\+::\+Index $>$ $>$ \&he\+\_\+to\+\_\+corner, Vector\+Xr \&variable\+\_\+values)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a6e100f7532c0157510e4bcc2258fafb2}{generate\+\_\+six\+\_\+split\+\_\+local\+\_\+to\+\_\+global\+\_\+map}} (const std\+::array$<$ int, 3 $>$ \&global\+\_\+vertex\+\_\+indices, int num\+\_\+variable\+\_\+vertices, std\+::vector$<$ int $>$ \&local\+\_\+to\+\_\+global\+\_\+map)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a06df9a9379397214eac19bf5ef76d3a3}{generate\+\_\+twelve\+\_\+split\+\_\+local\+\_\+to\+\_\+global\+\_\+map}} (const std\+::array$<$ int, 3 $>$ \&global\+\_\+vertex\+\_\+indices, const std\+::array$<$ int, 3 $>$ \&global\+\_\+edge\+\_\+indices, int num\+\_\+variable\+\_\+vertices, std\+::vector$<$ int $>$ \&local\+\_\+to\+\_\+global\+\_\+map)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a81f84a7632b3c17c1d6361363fb80883}{update\+\_\+position\+\_\+variables}} (const Vector\+Xr \&variable\+\_\+values, const std\+::vector$<$ int $>$ \&variable\+\_\+vertices, std\+::vector$<$ Spatial\+Vector $>$ \&vertex\+\_\+positions)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_acc36dd05cc58d2ef98b964b293ea7069}{update\+\_\+vertex\+\_\+gradient\+\_\+variables}} (const Vector\+Xr \&variable\+\_\+values, const std\+::vector$<$ int $>$ \&variable\+\_\+vertices, std\+::vector$<$ Matrix2x3r $>$ \&vertex\+\_\+gradients)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_af97ba6cf360335a27711de72c5c29752}{update\+\_\+edge\+\_\+gradient\+\_\+variables}} (const Vector\+Xr \&variable\+\_\+values, const std\+::vector$<$ int $>$ \&variable\+\_\+vertices, const std\+::vector$<$ int $>$ \&variable\+\_\+edges, const \mbox{\hyperlink{class_halfedge}{Halfedge}} \&halfedge, const std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Index, Eigen\+::\+Index $>$ $>$ \&he\+\_\+to\+\_\+corner, std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&edge\+\_\+gradients)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a3b8ab1dd359f37f1c62a4bc9333a7c8d}{build\+\_\+variable\+\_\+vertex\+\_\+indices\+\_\+map}} (int num\+\_\+vertices, const std\+::vector$<$ int $>$ \&variable\+\_\+vertices, std\+::vector$<$ int $>$ \&global\+\_\+vertex\+\_\+indices)
+\item 
+void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_ae6ed90152ad6b03ff423a119b0e287c6}{build\+\_\+variable\+\_\+edge\+\_\+indices\+\_\+map}} (int num\+\_\+faces, const std\+::vector$<$ int $>$ \&variable\+\_\+edges, const \mbox{\hyperlink{class_halfedge}{Halfedge}} \&halfedge, const std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Index, Eigen\+::\+Index $>$ $>$ \&he\+\_\+to\+\_\+corner, std\+::vector$<$ std\+::array$<$ int, 3 $>$ $>$ \&global\+\_\+edge\+\_\+indices)
+\item 
+{\footnotesize template$<$typename Gradient , typename Hessian $>$ }\\void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_aafae89ad411eaeeeacd196a4f6602d66}{update\+\_\+energy\+\_\+quadratic}} (const double \&local\+\_\+energy, const Gradient \&local\+\_\+derivatives, const Hessian \&local\+\_\+hessian, const std\+::vector$<$ int $>$ \&local\+\_\+to\+\_\+global\+\_\+map, double \&energy, Vector\+Xr \&derivatives, std\+::vector$<$ Eigen\+::\+Triplet$<$ double $>$ $>$ \&hessian\+\_\+entries)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{powell__sabin__local__to__global__indexing_8h_a1bb94de1d5d1336e3675b221de67f228}{build\+\_\+face\+\_\+variable\+\_\+vector}} (const std\+::vector$<$ T $>$ \&variables, int i, int j, int k, std\+::array$<$ T, 3 $>$ \&face\+\_\+variable\+\_\+vector)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to generate local to global indexing maps for six and twelve split Powell-\/\+Sabin spline surfaces. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a1bb94de1d5d1336e3675b221de67f228}\label{powell__sabin__local__to__global__indexing_8h_a1bb94de1d5d1336e3675b221de67f228} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!build\_face\_variable\_vector@{build\_face\_variable\_vector}}
+\index{build\_face\_variable\_vector@{build\_face\_variable\_vector}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{build\_face\_variable\_vector()}{build\_face\_variable\_vector()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void build\+\_\+face\+\_\+variable\+\_\+vector (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ T $>$ \&}]{variables,  }\item[{int}]{i,  }\item[{int}]{j,  }\item[{int}]{k,  }\item[{std\+::array$<$ T, 3 $>$ \&}]{face\+\_\+variable\+\_\+vector }\end{DoxyParamCaption})}
+
+Build a triplet of face vertex values from a global array of vertex variables
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em variables} & global variables \\
+\hline
+\mbox{\texttt{ in}}  & {\em i} & first variable index \\
+\hline
+\mbox{\texttt{ in}}  & {\em j} & second variable index \\
+\hline
+\mbox{\texttt{ in}}  & {\em k} & third variable index \\
+\hline
+\mbox{\texttt{ out}}  & {\em face\+\_\+variable\+\_\+vector} & variables for face Tijk \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_ae6ed90152ad6b03ff423a119b0e287c6}\label{powell__sabin__local__to__global__indexing_8h_ae6ed90152ad6b03ff423a119b0e287c6} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!build\_variable\_edge\_indices\_map@{build\_variable\_edge\_indices\_map}}
+\index{build\_variable\_edge\_indices\_map@{build\_variable\_edge\_indices\_map}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{build\_variable\_edge\_indices\_map()}{build\_variable\_edge\_indices\_map()}}
+{\footnotesize\ttfamily void build\+\_\+variable\+\_\+edge\+\_\+indices\+\_\+map (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+faces,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+edges,  }\item[{const \mbox{\hyperlink{class_halfedge}{Halfedge}} \&}]{halfedge,  }\item[{const std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Index, Eigen\+::\+Index $>$ $>$ \&}]{he\+\_\+to\+\_\+corner,  }\item[{std\+::vector$<$ std\+::array$<$ int, 3 $>$ $>$ \&}]{global\+\_\+edge\+\_\+indices }\end{DoxyParamCaption})}
+
+Generate a map from all edges to a list of variable edges or -\/1 for edges that are not variable.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num\+\_\+faces} & total number of faces \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+edges} & list of variable edge indices \\
+\hline
+\mbox{\texttt{ in}}  & {\em halfedge} & halfedge data structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em he\+\_\+to\+\_\+corner} & map from halfedges to opposite triangle corners \\
+\hline
+\mbox{\texttt{ out}}  & {\em global\+\_\+edge\+\_\+indices} & map from edge indices to variable edges \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a3b8ab1dd359f37f1c62a4bc9333a7c8d}\label{powell__sabin__local__to__global__indexing_8h_a3b8ab1dd359f37f1c62a4bc9333a7c8d} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!build\_variable\_vertex\_indices\_map@{build\_variable\_vertex\_indices\_map}}
+\index{build\_variable\_vertex\_indices\_map@{build\_variable\_vertex\_indices\_map}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{build\_variable\_vertex\_indices\_map()}{build\_variable\_vertex\_indices\_map()}}
+{\footnotesize\ttfamily void build\+\_\+variable\+\_\+vertex\+\_\+indices\+\_\+map (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+vertices,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+vertices,  }\item[{std\+::vector$<$ int $>$ \&}]{global\+\_\+vertex\+\_\+indices }\end{DoxyParamCaption})}
+
+Generate a map from all vertices to a list of variable vertices or -\/1 for vertices that are not variable.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num\+\_\+vertices} & total number of vertices \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+vertices} & list of variable vertex indices \\
+\hline
+\mbox{\texttt{ out}}  & {\em global\+\_\+vertex\+\_\+indices} & map from vertex indices to variable vertices \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_ac8609893ab1164edfcdb6ec950a3d445}\label{powell__sabin__local__to__global__indexing_8h_ac8609893ab1164edfcdb6ec950a3d445} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_global\_edge\_gradient\_variable\_index@{generate\_global\_edge\_gradient\_variable\_index}}
+\index{generate\_global\_edge\_gradient\_variable\_index@{generate\_global\_edge\_gradient\_variable\_index}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_global\_edge\_gradient\_variable\_index()}{generate\_global\_edge\_gradient\_variable\_index()}}
+{\footnotesize\ttfamily int generate\+\_\+global\+\_\+edge\+\_\+gradient\+\_\+variable\+\_\+index (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+variable\+\_\+vertices,  }\item[{int}]{edge\+\_\+index,  }\item[{int}]{coord,  }\item[{int}]{dimension = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+Compute the index of an edge gradient variable in a global DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num\+\_\+variable\+\_\+vertices} & number of variable vertices for the optimization \\
+\hline
+\mbox{\texttt{ in}}  & {\em edge\+\_\+index} & index of the edge in the mesh \\
+\hline
+\mbox{\texttt{ in}}  & {\em coord} & coordinate of the variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em dimension} & number of coordinate dimensions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index of the variable in the global DOF vector 
+\end{DoxyReturn}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_adcf94900d467ff5e78ed1d134e9a1e4f}\label{powell__sabin__local__to__global__indexing_8h_adcf94900d467ff5e78ed1d134e9a1e4f} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_global\_vertex\_gradient\_variable\_index@{generate\_global\_vertex\_gradient\_variable\_index}}
+\index{generate\_global\_vertex\_gradient\_variable\_index@{generate\_global\_vertex\_gradient\_variable\_index}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_global\_vertex\_gradient\_variable\_index()}{generate\_global\_vertex\_gradient\_variable\_index()}}
+{\footnotesize\ttfamily int generate\+\_\+global\+\_\+vertex\+\_\+gradient\+\_\+variable\+\_\+index (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+variable\+\_\+vertices,  }\item[{int}]{vertex\+\_\+index,  }\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{dimension = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+Compute the index of a vertex gradient variable in a global DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num\+\_\+variable\+\_\+vertices} & number of variable vertices for the optimization \\
+\hline
+\mbox{\texttt{ in}}  & {\em vertex\+\_\+index} & index of the vertex in the mesh \\
+\hline
+\mbox{\texttt{ in}}  & {\em row} & row of the gradient matrix variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em col} & column of the gradient matrix variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em dimension} & number of coordinate dimensions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index of the variable in the global DOF vector 
+\end{DoxyReturn}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a288662677c9bbae19ee64d6c989a42c9}\label{powell__sabin__local__to__global__indexing_8h_a288662677c9bbae19ee64d6c989a42c9} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_global\_vertex\_position\_variable\_index@{generate\_global\_vertex\_position\_variable\_index}}
+\index{generate\_global\_vertex\_position\_variable\_index@{generate\_global\_vertex\_position\_variable\_index}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_global\_vertex\_position\_variable\_index()}{generate\_global\_vertex\_position\_variable\_index()}}
+{\footnotesize\ttfamily int generate\+\_\+global\+\_\+vertex\+\_\+position\+\_\+variable\+\_\+index (\begin{DoxyParamCaption}\item[{int}]{vertex\+\_\+index,  }\item[{int}]{coord,  }\item[{int}]{dimension = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+Compute the index of a vertex position variable in a global DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vertex\+\_\+index} & index of the vertex in the mesh \\
+\hline
+\mbox{\texttt{ in}}  & {\em coord} & coordinate of the variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em dimension} & number of coordinate dimensions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index of the variable in the global DOF vector 
+\end{DoxyReturn}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_ad0c4759c204abc2a08ccf3bc861e5db5}\label{powell__sabin__local__to__global__indexing_8h_ad0c4759c204abc2a08ccf3bc861e5db5} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_local\_edge\_gradient\_variable\_index@{generate\_local\_edge\_gradient\_variable\_index}}
+\index{generate\_local\_edge\_gradient\_variable\_index@{generate\_local\_edge\_gradient\_variable\_index}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_local\_edge\_gradient\_variable\_index()}{generate\_local\_edge\_gradient\_variable\_index()}}
+{\footnotesize\ttfamily size\+\_\+t generate\+\_\+local\+\_\+edge\+\_\+gradient\+\_\+variable\+\_\+index (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{face\+\_\+edge\+\_\+index,  }\item[{size\+\_\+t}]{coord,  }\item[{size\+\_\+t}]{dimension = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+Compute the index of a edge gradient variable in a local DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em face\+\_\+vertex\+\_\+index} & index of the edge in the face \\
+\hline
+\mbox{\texttt{ in}}  & {\em coord} & coordinate of the variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em dimension} & number of coordinate dimensions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index of the variable in the local DOF vector 
+\end{DoxyReturn}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_ac18ece1cefff94dd859aad4fd2005db0}\label{powell__sabin__local__to__global__indexing_8h_ac18ece1cefff94dd859aad4fd2005db0} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_local\_vertex\_gradient\_variable\_index@{generate\_local\_vertex\_gradient\_variable\_index}}
+\index{generate\_local\_vertex\_gradient\_variable\_index@{generate\_local\_vertex\_gradient\_variable\_index}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_local\_vertex\_gradient\_variable\_index()}{generate\_local\_vertex\_gradient\_variable\_index()}}
+{\footnotesize\ttfamily size\+\_\+t generate\+\_\+local\+\_\+vertex\+\_\+gradient\+\_\+variable\+\_\+index (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{face\+\_\+vertex\+\_\+index,  }\item[{size\+\_\+t}]{row,  }\item[{size\+\_\+t}]{col,  }\item[{size\+\_\+t}]{dimension = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+Compute the index of a vertex gradient variable in a local DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em face\+\_\+vertex\+\_\+index} & index of the vertex in the face \\
+\hline
+\mbox{\texttt{ in}}  & {\em row} & row of the gradient matrix variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em col} & column of the gradient matrix variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em dimension} & number of coordinate dimensions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index of the variable in the local DOF vector 
+\end{DoxyReturn}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a09af358b4e7c80d24906a454d25651cd}\label{powell__sabin__local__to__global__indexing_8h_a09af358b4e7c80d24906a454d25651cd} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_local\_vertex\_position\_variable\_index@{generate\_local\_vertex\_position\_variable\_index}}
+\index{generate\_local\_vertex\_position\_variable\_index@{generate\_local\_vertex\_position\_variable\_index}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_local\_vertex\_position\_variable\_index()}{generate\_local\_vertex\_position\_variable\_index()}}
+{\footnotesize\ttfamily size\+\_\+t generate\+\_\+local\+\_\+vertex\+\_\+position\+\_\+variable\+\_\+index (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{face\+\_\+vertex\+\_\+index,  }\item[{size\+\_\+t}]{coord,  }\item[{size\+\_\+t}]{dimension = {\ttfamily 3} }\end{DoxyParamCaption})}
+
+Compute the index of a vertex position variable in a local DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em face\+\_\+vertex\+\_\+index} & index of the vertex in the face \\
+\hline
+\mbox{\texttt{ in}}  & {\em coord} & coordinate of the variable \\
+\hline
+\mbox{\texttt{ in}}  & {\em dimension} & number of coordinate dimensions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index of the variable in the local DOF vector 
+\end{DoxyReturn}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a6e100f7532c0157510e4bcc2258fafb2}\label{powell__sabin__local__to__global__indexing_8h_a6e100f7532c0157510e4bcc2258fafb2} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_six\_split\_local\_to\_global\_map@{generate\_six\_split\_local\_to\_global\_map}}
+\index{generate\_six\_split\_local\_to\_global\_map@{generate\_six\_split\_local\_to\_global\_map}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_six\_split\_local\_to\_global\_map()}{generate\_six\_split\_local\_to\_global\_map()}}
+{\footnotesize\ttfamily void generate\+\_\+six\+\_\+split\+\_\+local\+\_\+to\+\_\+global\+\_\+map (\begin{DoxyParamCaption}\item[{const std\+::array$<$ int, 3 $>$ \&}]{global\+\_\+vertex\+\_\+indices,  }\item[{int}]{num\+\_\+variable\+\_\+vertices,  }\item[{std\+::vector$<$ int $>$ \&}]{local\+\_\+to\+\_\+global\+\_\+map }\end{DoxyParamCaption})}
+
+Given the global vertex indices of a triangle, compute the map from the local DOF vector indices for this triangle to their indices in the global DOF vector for the six-\/split
+
+This is used as a subroutine for the twelve-\/split local to global map.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em global\+\_\+vertex\+\_\+indices} & global indices of the triangle vertices \\
+\hline
+\mbox{\texttt{ in}}  & {\em num\+\_\+variable\+\_\+vertices} & number of variable vertices \\
+\hline
+\mbox{\texttt{ out}}  & {\em local\+\_\+to\+\_\+global\+\_\+map} & map from local to global DOF indices \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a1ed00063a4005007d3f1f6a5809e5b1b}\label{powell__sabin__local__to__global__indexing_8h_a1ed00063a4005007d3f1f6a5809e5b1b} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_six\_split\_variable\_value\_vector@{generate\_six\_split\_variable\_value\_vector}}
+\index{generate\_six\_split\_variable\_value\_vector@{generate\_six\_split\_variable\_value\_vector}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_six\_split\_variable\_value\_vector()}{generate\_six\_split\_variable\_value\_vector()}}
+{\footnotesize\ttfamily void generate\+\_\+six\+\_\+split\+\_\+variable\+\_\+value\+\_\+vector (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Spatial\+Vector $>$ \&}]{vertex\+\_\+positions,  }\item[{const std\+::vector$<$ Matrix2x3r $>$ \&}]{vertex\+\_\+gradients,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+vertices,  }\item[{Vector\+Xr \&}]{variable\+\_\+values }\end{DoxyParamCaption})}
+
+Given vertex positions and gradients and a list of variable vertices, assemble the vector of global vertex degrees of freedom
+
+This is the complete list of degrees of freedom for the six split, and it is a subset of the degrees of freedom for the twelve split.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vertex\+\_\+positions} & list of vertex position values \\
+\hline
+\mbox{\texttt{ in}}  & {\em vertex\+\_\+gradients} & list of vertex gradient matrices \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+vertices} & list of variable vertex indices \\
+\hline
+\mbox{\texttt{ out}}  & {\em variable\+\_\+values} & vertex DOF vector \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a06df9a9379397214eac19bf5ef76d3a3}\label{powell__sabin__local__to__global__indexing_8h_a06df9a9379397214eac19bf5ef76d3a3} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_twelve\_split\_local\_to\_global\_map@{generate\_twelve\_split\_local\_to\_global\_map}}
+\index{generate\_twelve\_split\_local\_to\_global\_map@{generate\_twelve\_split\_local\_to\_global\_map}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_twelve\_split\_local\_to\_global\_map()}{generate\_twelve\_split\_local\_to\_global\_map()}}
+{\footnotesize\ttfamily void generate\+\_\+twelve\+\_\+split\+\_\+local\+\_\+to\+\_\+global\+\_\+map (\begin{DoxyParamCaption}\item[{const std\+::array$<$ int, 3 $>$ \&}]{global\+\_\+vertex\+\_\+indices,  }\item[{const std\+::array$<$ int, 3 $>$ \&}]{global\+\_\+edge\+\_\+indices,  }\item[{int}]{num\+\_\+variable\+\_\+vertices,  }\item[{std\+::vector$<$ int $>$ \&}]{local\+\_\+to\+\_\+global\+\_\+map }\end{DoxyParamCaption})}
+
+Given the global vertex and edge indices of a triangle, compute the map from the local DOF vector indices for this triangle to their indices in the global DOF vector for the twelve-\/split.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em global\+\_\+vertex\+\_\+indices} & global indices of the triangle vertices \\
+\hline
+\mbox{\texttt{ in}}  & {\em global\+\_\+vertex\+\_\+indices} & global indices of the triangle edges \\
+\hline
+\mbox{\texttt{ in}}  & {\em num\+\_\+variable\+\_\+vertices} & number of variable vertices \\
+\hline
+\mbox{\texttt{ out}}  & {\em local\+\_\+to\+\_\+global\+\_\+map} & map from local to global DOF indices \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a91cbfe9dab367e54af4df8f8a52148f6}\label{powell__sabin__local__to__global__indexing_8h_a91cbfe9dab367e54af4df8f8a52148f6} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!generate\_twelve\_split\_variable\_value\_vector@{generate\_twelve\_split\_variable\_value\_vector}}
+\index{generate\_twelve\_split\_variable\_value\_vector@{generate\_twelve\_split\_variable\_value\_vector}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{generate\_twelve\_split\_variable\_value\_vector()}{generate\_twelve\_split\_variable\_value\_vector()}}
+{\footnotesize\ttfamily void generate\+\_\+twelve\+\_\+split\+\_\+variable\+\_\+value\+\_\+vector (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Spatial\+Vector $>$ \&}]{vertex\+\_\+positions,  }\item[{const std\+::vector$<$ Matrix2x3r $>$ \&}]{vertex\+\_\+gradients,  }\item[{const std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&}]{edge\+\_\+gradients,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+vertices,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+edges,  }\item[{const \mbox{\hyperlink{class_halfedge}{Halfedge}} \&}]{halfedge,  }\item[{const std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Index, Eigen\+::\+Index $>$ $>$ \&}]{he\+\_\+to\+\_\+corner,  }\item[{Vector\+Xr \&}]{variable\+\_\+values }\end{DoxyParamCaption})}
+
+Given vertex positions and gradients, edge gradients, and lists of variable vertices and edges assemble the vector of global degrees of freedom for the twelve split
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vertex\+\_\+positions} & list of vertex position values \\
+\hline
+\mbox{\texttt{ in}}  & {\em vertex\+\_\+gradients} & list of vertex gradient matrices \\
+\hline
+\mbox{\texttt{ in}}  & {\em edge\+\_\+gradients} & list of edge gradient normal vectors \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+vertices} & list of variable vertex indices \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+edges} & list of variable edge indices \\
+\hline
+\mbox{\texttt{ in}}  & {\em halfedge} & halfedge data structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em he\+\_\+to\+\_\+corner} & map from halfedges to opposite triangle corners \\
+\hline
+\mbox{\texttt{ out}}  & {\em variable\+\_\+values} & twelve-\/split DOF vector \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_af97ba6cf360335a27711de72c5c29752}\label{powell__sabin__local__to__global__indexing_8h_af97ba6cf360335a27711de72c5c29752} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!update\_edge\_gradient\_variables@{update\_edge\_gradient\_variables}}
+\index{update\_edge\_gradient\_variables@{update\_edge\_gradient\_variables}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{update\_edge\_gradient\_variables()}{update\_edge\_gradient\_variables()}}
+{\footnotesize\ttfamily void update\+\_\+edge\+\_\+gradient\+\_\+variables (\begin{DoxyParamCaption}\item[{const Vector\+Xr \&}]{variable\+\_\+values,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+vertices,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+edges,  }\item[{const \mbox{\hyperlink{class_halfedge}{Halfedge}} \&}]{halfedge,  }\item[{const std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Index, Eigen\+::\+Index $>$ $>$ \&}]{he\+\_\+to\+\_\+corner,  }\item[{std\+::vector$<$ std\+::array$<$ Spatial\+Vector, 3 $>$ $>$ \&}]{edge\+\_\+gradients }\end{DoxyParamCaption})}
+
+Extract edge gradients from the global DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em variable\+\_\+values} & twelve-\/split DOF vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+vertices} & list of variable vertex indices \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+edges} & list of variable edge indices \\
+\hline
+\mbox{\texttt{ in}}  & {\em halfedge} & halfedge data structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em he\+\_\+to\+\_\+corner} & map from halfedges to opposite triangle corners \\
+\hline
+\mbox{\texttt{ out}}  & {\em edge\+\_\+gradients} & list of edge gradient values \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_aafae89ad411eaeeeacd196a4f6602d66}\label{powell__sabin__local__to__global__indexing_8h_aafae89ad411eaeeeacd196a4f6602d66} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!update\_energy\_quadratic@{update\_energy\_quadratic}}
+\index{update\_energy\_quadratic@{update\_energy\_quadratic}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{update\_energy\_quadratic()}{update\_energy\_quadratic()}}
+{\footnotesize\ttfamily template$<$typename Gradient , typename Hessian $>$ \\
+void update\+\_\+energy\+\_\+quadratic (\begin{DoxyParamCaption}\item[{const double \&}]{local\+\_\+energy,  }\item[{const Gradient \&}]{local\+\_\+derivatives,  }\item[{const Hessian \&}]{local\+\_\+hessian,  }\item[{const std\+::vector$<$ int $>$ \&}]{local\+\_\+to\+\_\+global\+\_\+map,  }\item[{double \&}]{energy,  }\item[{Vector\+Xr \&}]{derivatives,  }\item[{std\+::vector$<$ Eigen\+::\+Triplet$<$ double $>$ $>$ \&}]{hessian\+\_\+entries }\end{DoxyParamCaption})}
+
+Update global energy, derivatives, and hessian with local per face values
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em local\+\_\+energy} & local energy value \\
+\hline
+\mbox{\texttt{ in}}  & {\em local\+\_\+derivatives} & local energy gradient \\
+\hline
+\mbox{\texttt{ in}}  & {\em local\+\_\+hessian} & local energy Hessian \\
+\hline
+\mbox{\texttt{ in}}  & {\em local\+\_\+to\+\_\+global\+\_\+map} & map from local to global DOF indices \\
+\hline
+\mbox{\texttt{ out}}  & {\em energy} & global energy value \\
+\hline
+\mbox{\texttt{ out}}  & {\em derivatives} & global energy gradient \\
+\hline
+\mbox{\texttt{ out}}  & {\em hessian} & global energy Hessian \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_a81f84a7632b3c17c1d6361363fb80883}\label{powell__sabin__local__to__global__indexing_8h_a81f84a7632b3c17c1d6361363fb80883} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!update\_position\_variables@{update\_position\_variables}}
+\index{update\_position\_variables@{update\_position\_variables}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{update\_position\_variables()}{update\_position\_variables()}}
+{\footnotesize\ttfamily void update\+\_\+position\+\_\+variables (\begin{DoxyParamCaption}\item[{const Vector\+Xr \&}]{variable\+\_\+values,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+vertices,  }\item[{std\+::vector$<$ Spatial\+Vector $>$ \&}]{vertex\+\_\+positions }\end{DoxyParamCaption})}
+
+Extract vertex positions from the global DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em variable\+\_\+values} & twelve-\/split DOF vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+vertices} & list of variable vertex indices \\
+\hline
+\mbox{\texttt{ out}}  & {\em vertex\+\_\+positions} & list of vertex position values \\
+\hline
+\end{DoxyParams}
+\Hypertarget{powell__sabin__local__to__global__indexing_8h_acc36dd05cc58d2ef98b964b293ea7069}\label{powell__sabin__local__to__global__indexing_8h_acc36dd05cc58d2ef98b964b293ea7069} 
+\index{powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}!update\_vertex\_gradient\_variables@{update\_vertex\_gradient\_variables}}
+\index{update\_vertex\_gradient\_variables@{update\_vertex\_gradient\_variables}!powell\_sabin\_local\_to\_global\_indexing.h@{powell\_sabin\_local\_to\_global\_indexing.h}}
+\doxysubsubsection{\texorpdfstring{update\_vertex\_gradient\_variables()}{update\_vertex\_gradient\_variables()}}
+{\footnotesize\ttfamily void update\+\_\+vertex\+\_\+gradient\+\_\+variables (\begin{DoxyParamCaption}\item[{const Vector\+Xr \&}]{variable\+\_\+values,  }\item[{const std\+::vector$<$ int $>$ \&}]{variable\+\_\+vertices,  }\item[{std\+::vector$<$ Matrix2x3r $>$ \&}]{vertex\+\_\+gradients }\end{DoxyParamCaption})}
+
+Extract vertex gradients from the global DOF vector.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em variable\+\_\+values} & twelve-\/split DOF vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em variable\+\_\+vertices} & list of variable vertex indices \\
+\hline
+\mbox{\texttt{ out}}  & {\em vertex\+\_\+gradients} & list of vertex gradient values \\
+\hline
+\end{DoxyParams}

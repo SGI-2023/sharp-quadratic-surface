@@ -1,0 +1,155 @@
+\doxysection{test\+\_\+rational\+\_\+function.\+cpp}
+\hypertarget{test__rational__function_8cpp_source}{}\label{test__rational__function_8cpp_source}\index{src/tests/test\_rational\_function.cpp@{src/tests/test\_rational\_function.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <catch2/catch\_test\_macros.hpp>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Eigen/Core>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}rational\_function.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}generate\_shapes.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ TEST\_CASE\ (\ \textcolor{stringliteral}{"{}The\ derivative\ of\ a\ rational\ function\ can\ be\ found"{}},\ \textcolor{stringliteral}{"{}[rational\_function]"{}})}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Zero\ function"{}})}
+\DoxyCodeLine{00015\ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ Eigen::Matrix<double,\ 2,\ 1>\ P\_coeffs;}
+\DoxyCodeLine{00017\ \ \ \ \ Eigen::Matrix<double,\ 2,\ 1>\ Q\_coeffs;}
+\DoxyCodeLine{00018\ \ \ \ \ P\_coeffs\ <<\ 0,\ 0;}
+\DoxyCodeLine{00019\ \ \ \ \ Q\_coeffs\ <<\ 1,\ 0;}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<1,\ 1>}}\ F(P\_coeffs,\ Q\_coeffs);}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<2,\ 1>}}\ F\_derivative;}
+\DoxyCodeLine{00022\ \ \ \ \ F.\mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\_derivative}}(F\_derivative);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00025\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(0.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00026\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00027\ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Constant\ function"{}})}
+\DoxyCodeLine{00030\ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ Eigen::Matrix<double,\ 2,\ 1>\ P\_coeffs;}
+\DoxyCodeLine{00032\ \ \ \ \ Eigen::Matrix<double,\ 2,\ 1>\ Q\_coeffs;}
+\DoxyCodeLine{00033\ \ \ \ \ P\_coeffs\ <<\ 1,\ 0;}
+\DoxyCodeLine{00034\ \ \ \ \ Q\_coeffs\ <<\ 1,\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<1,\ 1>}}\ F(P\_coeffs,\ Q\_coeffs);}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<2,\ 1>}}\ F\_derivative;}
+\DoxyCodeLine{00037\ \ \ \ \ F.\mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\_derivative}}(F\_derivative);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00040\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(0.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00041\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00042\ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Linear\ function"{}})}
+\DoxyCodeLine{00045\ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ Eigen::Matrix<double,\ 2,\ 1>\ P\_coeffs;}
+\DoxyCodeLine{00047\ \ \ \ \ Eigen::Matrix<double,\ 2,\ 1>\ Q\_coeffs;}
+\DoxyCodeLine{00048\ \ \ \ \ P\_coeffs\ <<\ -\/1,\ 2;}
+\DoxyCodeLine{00049\ \ \ \ \ Q\_coeffs\ <<\ 1,\ 0;}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<1,\ 1>}}\ F(P\_coeffs,\ Q\_coeffs);}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<2,\ 1>}}\ F\_derivative;}
+\DoxyCodeLine{00052\ \ \ \ \ F.\mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\_derivative}}(F\_derivative);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(0),\ 2.0)\ );}
+\DoxyCodeLine{00055\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(0.0)(0),\ 2.0)\ );}
+\DoxyCodeLine{00056\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(0),\ 2.0)\ );}
+\DoxyCodeLine{00057\ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Quadratic\ function"{}})}
+\DoxyCodeLine{00060\ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ P\_coeffs;}
+\DoxyCodeLine{00062\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ Q\_coeffs;}
+\DoxyCodeLine{00063\ \ \ \ \ P\_coeffs\ <<\ 1,\ -\/2,\ 1;}
+\DoxyCodeLine{00064\ \ \ \ \ Q\_coeffs\ <<\ 1,\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<2,\ 1>}}\ F(P\_coeffs,\ Q\_coeffs);}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 1>}}\ F\_derivative;}
+\DoxyCodeLine{00067\ \ \ \ \ F.\mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\_derivative}}(F\_derivative);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(0),\ -\/4.0)\ );}
+\DoxyCodeLine{00070\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(0.0)(0),\ -\/2.0)\ );}
+\DoxyCodeLine{00071\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00072\ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Inverse\ monomial\ function"{}})}
+\DoxyCodeLine{00075\ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ P\_coeffs;}
+\DoxyCodeLine{00077\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ Q\_coeffs;}
+\DoxyCodeLine{00078\ \ \ \ \ P\_coeffs\ <<\ 1,\ 0,\ 0;}
+\DoxyCodeLine{00079\ \ \ \ \ Q\_coeffs\ <<\ 0,\ 0,\ 1;}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<2,\ 1>}}\ F(P\_coeffs,\ Q\_coeffs);}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 1>}}\ F\_derivative;}
+\DoxyCodeLine{00082\ \ \ \ \ F.\mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\_derivative}}(F\_derivative);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(0),\ 2.0)\ );}
+\DoxyCodeLine{00085\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(0),\ -\/2.0)\ );}
+\DoxyCodeLine{00086\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(2.0)(0),\ -\/0.25)\ );}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Inverse\ quadratic\ function"{}})}
+\DoxyCodeLine{00090\ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ P\_coeffs;}
+\DoxyCodeLine{00092\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ Q\_coeffs;}
+\DoxyCodeLine{00093\ \ \ \ \ P\_coeffs\ <<\ 1,\ 0,\ 0;}
+\DoxyCodeLine{00094\ \ \ \ \ Q\_coeffs\ <<\ 1,\ 0,\ 1;}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<2,\ 1>}}\ F(P\_coeffs,\ Q\_coeffs);}
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 1>}}\ F\_derivative;}
+\DoxyCodeLine{00097\ \ \ \ \ F.\mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\_derivative}}(F\_derivative);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{//\ -\/2t\ /\ (1\ +\ t\string^2)\string^2}}
+\DoxyCodeLine{00100\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(0),\ 0.5)\ );}
+\DoxyCodeLine{00101\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(0.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00102\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(0),\ -\/0.5)\ );}
+\DoxyCodeLine{00103\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(2.0)(0),\ -\/0.16)\ );}
+\DoxyCodeLine{00104\ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Rational\ function"{}})}
+\DoxyCodeLine{00107\ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ P\_coeffs;}
+\DoxyCodeLine{00109\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ Q\_coeffs;}
+\DoxyCodeLine{00110\ \ \ \ \ P\_coeffs\ <<\ 1,\ 1,\ 0;}
+\DoxyCodeLine{00111\ \ \ \ \ Q\_coeffs\ <<\ 1,\ 0,\ 1;}
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<2,\ 1>}}\ F(P\_coeffs,\ Q\_coeffs);}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 1>}}\ F\_derivative;}
+\DoxyCodeLine{00114\ \ \ \ \ F.\mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\_derivative}}(F\_derivative);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ (1\ +\ t\string^2)\ -\/\ (1\ +\ t)(2t)}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{//\ (1\ -\/\ 2t\ -\/\ t\string^2)\ /\ (1\ +\ t\string^2)\string^2}}
+\DoxyCodeLine{00118\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(0),\ 0.5)\ );}
+\DoxyCodeLine{00119\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(0.0)(0),\ 1.0)\ );}
+\DoxyCodeLine{00120\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(0),\ -\/0.5)\ );}
+\DoxyCodeLine{00121\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(2.0)(0),\ -\/0.28)\ );}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ SECTION\ (\ \textcolor{stringliteral}{"{}Planar\ rational\ function"{}})}
+\DoxyCodeLine{00125\ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 2>\ P\_coeffs;}
+\DoxyCodeLine{00127\ \ \ \ \ Eigen::Matrix<double,\ 3,\ 1>\ Q\_coeffs;}
+\DoxyCodeLine{00128\ \ \ \ \ P\_coeffs\ <<\ 1,\ 1,\ 0,\ 1;}
+\DoxyCodeLine{00129\ \ \ \ \ Q\_coeffs\ <<\ 1,\ 0,\ 1;}
+\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<2,\ 2>}}\ F(P\_coeffs,\ Q\_coeffs);}
+\DoxyCodeLine{00131\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\ F\_derivative;}
+\DoxyCodeLine{00132\ \ \ \ \ F.\mbox{\hyperlink{class_rational_function_aed8013bffe064d357c6e9fd645e12910}{compute\_derivative}}(F\_derivative);}
+\DoxyCodeLine{00133\ \ \ \ \ spdlog::debug(\textcolor{stringliteral}{"{}Function\ \{\}"{}},\ F);}
+\DoxyCodeLine{00134\ \ \ \ \ spdlog::debug(\textcolor{stringliteral}{"{}Derivative\ \{\}"{}},\ F\_derivative);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{//\ -\/2t\ /\ (1\ +\ t\string^2)\string^2\ }}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ (1\ -\/\ 2t\ -\/\ t\string^2)\ /\ (1\ +\ t\string^2)\string^2}}
+\DoxyCodeLine{00138\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(0),\ 0.5)\ );}
+\DoxyCodeLine{00139\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(0.0)(0),\ 0.0)\ );}
+\DoxyCodeLine{00140\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(0),\ -\/0.5)\ );}
+\DoxyCodeLine{00141\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(2.0)(0),\ -\/0.16)\ );}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(-\/1.0)(1),\ 0.5)\ );}
+\DoxyCodeLine{00144\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(0.0)(1),\ 1.0)\ );}
+\DoxyCodeLine{00145\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(1.0)(1),\ -\/0.5)\ );}
+\DoxyCodeLine{00146\ \ \ \ \ REQUIRE(\ float\_equal(F\_derivative(2.0)(1),\ -\/0.28)\ );}
+\DoxyCodeLine{00147\ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \}}
+
+\end{DoxyCode}

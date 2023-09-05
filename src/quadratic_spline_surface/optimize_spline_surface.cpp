@@ -380,10 +380,119 @@ std::vector<std::pair<int, int>>
 compute_split_vertex_correspondence(
   const std::vector<SpatialVector>& vertex_positions
 ) {
-  std::pair<int, int> placeholder1 {0, 0};
-  std::vector<std::pair<int, int>> placeholder2 {placeholder1};
-  return placeholder2;
+  std::vector<std::pair<int, int>> vertex_correspondence {};  
+
+  // TODO: replace with a hashset for faster performance
+  std::vector<SpatialVector> seen_positions {};
+
+  unsigned long i;
+  for (i = 0; i < vertex_positions.size(); ++i) {
+
+    // check to see if the ith vertex is in the same location as another
+    unsigned long j;
+    for (j = 0; j < i; ++j) {
+      // vector pointing from one vertex to another 
+      Eigen::Matrix<double, 3, 1> distance_vector = (vertex_positions[i] - vertex_positions[j]).transpose();
+
+      if (dot_product(distance_vector, distance_vector) < 1e-10) {
+        std::pair<int, int> correspondence_pair {i, j};
+        vertex_correspondence.push_back(correspondence_pair);
+      }
+    }
+  }
+  
+  
+  return vertex_correspondence;
 }
+
+Eigen::Triplet<double>
+transpose_triplet(const Eigen::Triplet<double>& triplet) {
+  Eigen::Triplet<double> ret {triplet.col(), triplet.row(), triplet.value()};
+  return ret;
+}
+
+// Union find implementation from https://github.com/kartikkukreja/blog-codes/blob/master/src/Union%20Find%20%28Disjoint%20Set%29%20Data%20Structure.cpp
+
+class UF    {
+    int *id, cnt, *sz;
+public:
+	// Create an empty union find data structure with N isolated sets.
+    UF(int N)   {
+        cnt = N;
+	id = new int[N];
+	sz = new int[N];
+        for(int i=0; i<N; i++)	{
+            id[i] = i;
+	    sz[i] = 1;
+	}
+    }
+    ~UF()	{
+	delete [] id;
+	delete [] sz;
+    }
+	// Return the id of component corresponding to object p.
+    int find(int p)	{
+        int root = p;
+        while (root != id[root])
+            root = id[root];
+        while (p != root) {
+            int newp = id[p];
+            id[p] = root;
+            p = newp;
+        }
+        return root;
+    }
+	// Replace sets containing x and y with their union.
+    void merge(int x, int y)	{
+        int i = find(x);
+        int j = find(y);
+        if (i == j) return;
+		
+		// make smaller root point to larger one
+        if   (sz[i] < sz[j])	{ 
+		id[i] = j; 
+		sz[j] += sz[i]; 
+	} else	{ 
+		id[j] = i; 
+		sz[i] += sz[j]; 
+	}
+        cnt--;
+    }
+	// Are objects x and y in the same set?
+    bool connected(int x, int y)    {
+        return find(x) == find(y);
+    }
+	// Return the number of disjoint sets.
+    int count() {
+        return cnt;
+    }
+};
+
+
+std::vector<std::pair<int, int>>
+merge_vertex_correspondences(std::vector<std::pair<int, int>> vertex_correspondences, size_t num_vertices)
+{
+  UF vertex_UF = UF(num_vertices);
+  //std::vector<std::vector<int>> merged_vertex_correspondences;
+  std::vector<std::pair<int, int>> merged_vertex_correspondences;
+
+  // Merge vertices by iterating over the pairs (i, j) and calling merge(i, j)
+  // Note: There's no need to handle the i == j case separately; the Union-Find structure handles it
+  for (size_t i = 0; i < vertex_correspondences.size(); ++i) {
+    vertex_UF.merge(vertex_correspondences[i].first, vertex_correspondences[i].second);
+  }
+
+  // add all distinct pairs into merged_vertexx_correspondences
+  for (size_t i = 0; i < num_vertices; ++i) {
+    size_t root = (size_t)vertex_UF.find(i);
+    if (root == i) continue; // non distinct pair
+    merged_vertex_correspondences.push_back(std::pair<int, int>(root, i));
+  }
+
+  // TODO: delete vertex_UF
+  return merged_vertex_correspondences;
+}
+
 
 // Compute the energy system for a twelve-split spline
 void
@@ -407,8 +516,19 @@ compute_twelve_split_energy_quadratic(
     9 * num_variable_vertices + 3 * num_variable_edges;
   energy = 0;
   derivatives.setZero(num_independent_variables);
+
+  std::vector<std::pair<int, int>> vertex_correspondence = 
+    compute_split_vertex_correspondence(vertex_positions);
+
+  vertex_correspondence = 
+    merge_vertex_correspondences(vertex_correspondence, vertex_positions.size());
+
+  // 6 since each pair of vertices needs 3 constraints one for x y and z
+  // Each constraint is 2 constants, 1 and -1 since 1 is being subtracted
+  // from the other. And then 2 because the KKT matrix has 2 copies of the constraint matrix, A and A^T.
+  // THIS NEES TO BE CHANGED WHEN WE ADD GRADIENT CONSTRAINTS
   std::vector<Eigen::Triplet<double>> hessian_entries;
-  hessian_entries.reserve(36 * num_independent_variables);
+  hessian_entries.reserve((36 * num_independent_variables) + (2 * 6 * vertex_correspondence.size()));
 
   for (AffineManifold::Index face_index = 0; face_index < manifold.num_faces();
        ++face_index) {
@@ -558,12 +678,68 @@ compute_twelve_split_energy_quadratic(
       hessian_entries);
   }
 
-  std::vector<std::pair<int, int>> vertex_corrspondence = 
-  compute_split_vertex_correspondence(vertex_positions);
+  // std::vector<Eigen::Triplet<double>> constraint_matrix_entries;
+  // 6 since each pair of vertices needs 3 constraints one for x y and z
+  // Each constraint is 2 constants, 1 and -1 since 1 is being subtracted
+  // from the other.
+  // constraint_matrix_entries.reserve(6 * vertex_correspondence.size());
+
+  std::cout << "vertex_correspondence.size():" << std::endl;
+  std::cout << vertex_correspondence.size() << std::endl;
+
+  std::cout << "vertex_correspondence:" << std::endl;
+
+  for (size_t i = 0; i < vertex_correspondence.size(); ++i) {
+    std::cout << "vertex pair " << i + 1 << ":" << std::endl;
+    std::cout << vertex_correspondence[i].first << ", " << vertex_correspondence[i].second << std::endl;
+  }
+
+  int num_constraints = 0;
+  // iterate through all pairs of split verts
+  for (size_t pair_idx = 0; pair_idx < vertex_correspondence.size(); ++pair_idx) {
+    // vertex_correspondence[idx] = (v1, v2)
+    int v1_idx_global = vertex_correspondence[pair_idx].first;
+    int v2_idx_global = vertex_correspondence[pair_idx].second;
+
+    // i indexes dimension so i = (0, 1, 2) corresponds to handling x y and z constraints
+    for (int i = 0; i < 3; ++i) {
+      // insert 1s corresponding to all the coords of v1 in block A
+      Eigen::Triplet<double> constraint_entry_pos 
+        {num_independent_variables + (3 * pair_idx) + i, generate_global_vertex_position_variable_index(v1_idx_global, i, 3), 1};
+      hessian_entries.push_back(constraint_entry_pos);
+
+      // insert 1s into block A^T
+      hessian_entries.push_back(transpose_triplet(constraint_entry_pos));
+  
+      // insert -1s corresponding to all the coords of v2 in block A
+      Eigen::Triplet<double> constraint_entry_neg
+        {num_independent_variables + (3 * pair_idx) + i, generate_global_vertex_position_variable_index(v2_idx_global, i, 3), -1};
+      hessian_entries.push_back(constraint_entry_neg);
+
+      // insert -1s into block A^T
+      hessian_entries.push_back(transpose_triplet(constraint_entry_neg));
+
+      num_constraints += 1;
+    }
+  }
 
   // Set hessian from the triplets
-  hessian.resize(num_independent_variables, num_independent_variables);
+  // TODO: refactor name since this is no longer a hessian matrix
+
+  std::cout << "num_independent_variables: " << num_independent_variables << std::endl;
+  std::cout << "num_constraints: " << num_constraints << std::endl;
+  std::cout << "num_independent_variables + num_constraints :" << (num_independent_variables + num_constraints) << std::endl;
+
+
+  hessian.resize(num_independent_variables + num_constraints, num_independent_variables + num_constraints);
   hessian.setFromTriplets(hessian_entries.begin(), hessian_entries.end());
+
+  // std::cout << "hessian" << std::endl;
+  // std::cout << Eigen::MatrixXd(hessian) << std::endl;
+
+  std::cout << "hessian invertible" << std::endl;
+  // Eigen::FullPivLU<Eigen::MatrixXd> lu (hessian);
+  // std::cout << lu.isInvertible() << std::endl;
 }
 
 void
@@ -633,7 +809,7 @@ build_twelve_split_spline_energy_system(
   double& energy,
   VectorXr& derivatives,
   Eigen::SparseMatrix<double>& hessian,
-  Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>& hessian_inverse)
+  MatrixInverse& hessian_inverse)
 {
   int num_vertices = initial_V.rows();
   int num_faces = affine_manifold.num_faces();
@@ -706,7 +882,7 @@ optimize_twelve_split_spline_surface(
   const std::vector<int>& variable_vertices,
   const std::vector<int>& variable_edges,
   const Eigen::SparseMatrix<double>& fit_matrix,
-  const Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>&
+  const MatrixInverse&
     hessian_inverse,
   MatrixXr& optimized_V,
   std::vector<Matrix2x3r>& optimized_vertex_gradients,
@@ -740,9 +916,47 @@ optimize_twelve_split_spline_surface(
                                               initial_variable_values);
   spdlog::trace("Initial variable value vector:\n{}", initial_variable_values);
 
+  // create a vector of 0s with the right size for the fit_matrix
+  VectorXr initial_variable_values_expanded;
+  initial_variable_values_expanded.resize(fit_matrix.cols());
+  initial_variable_values_expanded.setZero();
+
+  // copy intial_variable_values entries into expadned version
+  for (long i = 0; i < initial_variable_values.size(); ++i) {
+    initial_variable_values_expanded[i] = initial_variable_values[i];
+  }
+
   // Solve hessian system to get optimized values
-  VectorXr right_hand_side = fit_matrix * initial_variable_values;
+  VectorXr right_hand_side = fit_matrix * initial_variable_values_expanded;
+
+  /*
+  for (long i = 0; i < right_hand_side.size(); ++i) {
+    std::cout << right_hand_side[i] << " ";
+  }
+  */
+
+ /*
+  Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
+
+  std::cout << "initial_variable_values_expanded.size(): " << initial_variable_values_expanded.size() << std::endl;
+  std::cout << "initial_variable_values:" << std::endl;
+  std::cout << initial_variable_values.format(CleanFmt) <<std::endl;
+  std::cout << "Fit Matrix Size: " << fit_matrix.rows() << " x " << fit_matrix.cols()<< std::endl;
+  std::cout << "fit_matrix: " << std::endl;
+  // std::cout << Eigen::MatrixXd(fit_matrix).format(CleanFmt) << std::endl;
+  std::cout << "Right Hand Side Size: " << right_hand_side.size() << std::endl;
+  std::cout << "right_hand_side:" << std::endl;
+  std::cout << right_hand_side.format(CleanFmt) << std::endl;
+  std::cout << "Inverse Size:" << hessian_inverse.rows() << " x " << hessian_inverse.cols() << std::endl;
+  */
   VectorXr optimized_variable_values = hessian_inverse.solve(right_hand_side);
+
+  std::cout << "optimized_variable_values" << std::endl;
+  for (long i = 0; i < optimized_variable_values.size(); ++i) {
+    // std::cout << optimized_variable_values[i] << " ";
+  }
+
+  // std::cout << optimized_variable_values << std::endl;
 
   // Update variables
   std::vector<SpatialVector> optimized_vertex_positions = vertex_positions;
@@ -771,7 +985,7 @@ generate_optimized_twelve_split_position_data(
   const Eigen::MatrixXd& V,
   const AffineManifold& affine_manifold,
   const Eigen::SparseMatrix<double>& fit_matrix,
-  const Eigen::CholmodSupernodalLLT<Eigen::SparseMatrix<double>>&
+  const MatrixInverse&
     hessian_inverse,
   std::vector<std::array<TriangleCornerFunctionData, 3>>& corner_data,
   std::vector<std::array<TriangleMidpointFunctionData, 3>>& midpoint_data)

@@ -1,0 +1,410 @@
+\doxysection{Quadratic\+Spline\+Surface\+Patch Class Reference}
+\hypertarget{class_quadratic_spline_surface_patch}{}\label{class_quadratic_spline_surface_patch}\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+
+
+{\ttfamily \#include $<$quadratic\+\_\+spline\+\_\+surface\+\_\+patch.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_quadratic_spline_surface_patch_a21295d4423bffa27f0c205b4891ca570}\label{class_quadratic_spline_surface_patch_a21295d4423bffa27f0c205b4891ca570} 
+{\bfseries Quadratic\+Spline\+Surface\+Patch} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_quadratic_spline_surface_patch_ab300452f9f3864ebe79b961d08bf99dc}{Quadratic\+Spline\+Surface\+Patch}} (const Matrix6x3r \&surface\+\_\+mapping\+\_\+coeffs, const \mbox{\hyperlink{class_convex_polygon}{Convex\+Polygon}} \&domain)
+\item 
+int \mbox{\hyperlink{class_quadratic_spline_surface_patch_a438288b50de89414b107f29615abc0bb}{dimension}} () const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a85e45fd65b2ab6dff7d8961c262b5e08}{mark\+\_\+cone}} (int cone\+\_\+index)
+\item 
+bool \mbox{\hyperlink{class_quadratic_spline_surface_patch_a1c115c83e75f446629019967d8e32bb7}{has\+\_\+cone}} () const
+\item 
+int \mbox{\hyperlink{class_quadratic_spline_surface_patch_a9dad7e95f9e75c5fed6b87b123b0cbd0}{get\+\_\+cone}} () const
+\item 
+Matrix6x3r const \& \mbox{\hyperlink{class_quadratic_spline_surface_patch_aeee2f2bb94e0deef59b2e00631191112}{get\+\_\+surface\+\_\+mapping}} () const
+\item 
+Matrix6x3r const \& \mbox{\hyperlink{class_quadratic_spline_surface_patch_a968f33e18743cde35a2613dcabd9f550}{get\+\_\+normal\+\_\+mapping}} () const
+\item 
+Matrix6x3r const \& \mbox{\hyperlink{class_quadratic_spline_surface_patch_a4f7699f81306b3b1cd0982142477547b}{get\+\_\+normalized\+\_\+surface\+\_\+mapping}} () const
+\item 
+Matrix6x3r const \& \mbox{\hyperlink{class_quadratic_spline_surface_patch_a2f10d967cbf1330fdcf4fcc1302bfa06}{get\+\_\+bezier\+\_\+points}} () const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a695a46d4016c603219bb9ee8966f2122}{get\+\_\+bounding\+\_\+box}} (Spatial\+Vector \&min\+\_\+point, Spatial\+Vector \&max\+\_\+point) const
+\begin{DoxyCompactList}\small\item\em Compute the bounding box for the surface patch. \end{DoxyCompactList}\item 
+Spatial\+Vector const \& \mbox{\hyperlink{class_quadratic_spline_surface_patch_a9da9644e28c5c508db90aeae5188657f}{get\+\_\+bounding\+\_\+box\+\_\+min\+\_\+point}} () const
+\begin{DoxyCompactList}\small\item\em Compute the minimum point of the bounding box for the surface patch. \end{DoxyCompactList}\item 
+\Hypertarget{class_quadratic_spline_surface_patch_a20f2c12fd1e045441d16e68e92376667}\label{class_quadratic_spline_surface_patch_a20f2c12fd1e045441d16e68e92376667} 
+double {\bfseries get\+\_\+bbox\+\_\+x\+\_\+min} () const
+\item 
+\Hypertarget{class_quadratic_spline_surface_patch_ac8e132a2e622f4104b399065304957e2}\label{class_quadratic_spline_surface_patch_ac8e132a2e622f4104b399065304957e2} 
+double {\bfseries get\+\_\+bbox\+\_\+y\+\_\+min} () const
+\item 
+Spatial\+Vector const \& \mbox{\hyperlink{class_quadratic_spline_surface_patch_a7a24320f584ea7b8cd906707d100b65d}{get\+\_\+bounding\+\_\+box\+\_\+max\+\_\+point}} () const
+\begin{DoxyCompactList}\small\item\em Compute the maximum point of the bounding box for the surface patch. \end{DoxyCompactList}\item 
+\Hypertarget{class_quadratic_spline_surface_patch_ad8e1003ec23413169e2005c9d735e578}\label{class_quadratic_spline_surface_patch_ad8e1003ec23413169e2005c9d735e578} 
+double {\bfseries get\+\_\+bbox\+\_\+x\+\_\+max} () const
+\item 
+\Hypertarget{class_quadratic_spline_surface_patch_a3917c9e50134ab7d2916abea45b3c481}\label{class_quadratic_spline_surface_patch_a3917c9e50134ab7d2916abea45b3c481} 
+double {\bfseries get\+\_\+bbox\+\_\+y\+\_\+max} () const
+\item 
+\mbox{\hyperlink{class_convex_polygon}{Convex\+Polygon}} const \& \mbox{\hyperlink{class_quadratic_spline_surface_patch_a1b0b8a202f406a34ebae5c359ab19a07}{get\+\_\+domain}} () const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a6d33a7302447ddd8b12c8815841e8d8d}{get\+\_\+patch\+\_\+boundaries}} (std\+::array$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$, 3 $>$ \&patch\+\_\+boundaries) const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_af87363b9abd8969c55a9e5b4b556dfa1}{normalize\+\_\+patch\+\_\+domain}} (\mbox{\hyperlink{class_quadratic_spline_surface_patch}{Quadratic\+Spline\+Surface\+Patch}} \&normalized\+\_\+spline\+\_\+surface\+\_\+patch) const
+\item 
+Planar\+Point \mbox{\hyperlink{class_quadratic_spline_surface_patch_afb0024f43b442c826c2e8b4c3d81d7a1}{denormalize\+\_\+domain\+\_\+point}} (Planar\+Point \&normalized\+\_\+domain\+\_\+point) const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a036ad5735e2677bdfe87a74a7f2df7fa}{evaluate}} (const Planar\+Point \&domain\+\_\+point, Spatial\+Vector \&surface\+\_\+point) const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a07271a43a22d3ff1bf32c9ef86e3cb23}{evaluate\+\_\+normal}} (const Planar\+Point \&domain\+\_\+point, Spatial\+Vector \&surface\+\_\+normal) const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a7876eeb81236af4498628101ee28259b}{sample}} (size\+\_\+t sampling\+\_\+density, std\+::vector$<$ Spatial\+Vector $>$ \&spline\+\_\+surface\+\_\+patch\+\_\+points) const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a5c5d5d369ca96d4d88dbcb482567e0d3}{triangulate}} (size\+\_\+t num\+\_\+refinements, Eigen\+::\+Matrix\+Xd \&V, Eigen\+::\+Matrix\+Xi \&F, Eigen\+::\+Matrix\+Xd \&N) const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_aac7c4d6cb7b00097bd35f072c2236a7c}{add\+\_\+patch\+\_\+to\+\_\+viewer}} (std\+::string patch\+\_\+name=\"{}surface\+\_\+patch\"{}) const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a47994829e034f7d808a9164308c5cff5}{serialize}} (std\+::ostream \&out) const
+\item 
+void \mbox{\hyperlink{class_quadratic_spline_surface_patch_a802bd25d4df0766d2dcf5abce4f710c8}{write\+\_\+patch}} (const std\+::string \&filename) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_quadratic_spline_surface_patch_afe0fbd0e26b8cdbb91861a71d8284635}\label{class_quadratic_spline_surface_patch_afe0fbd0e26b8cdbb91861a71d8284635} 
+std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&out, const \mbox{\hyperlink{class_quadratic_spline_surface_patch}{Quadratic\+Spline\+Surface\+Patch}} \&spline\+\_\+surface\+\_\+patch)
+\begin{DoxyCompactList}\small\item\em Overloaded insertion operator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A quadratic surface patch with convex polygonal domain.
+
+Supports\+:
+\begin{DoxyItemize}
+\item evaluation and sampling of points and normals on the surface
+\item triangulation
+\item conversion to Bezier form
+\item bounding box computation
+\item boundary curve parameterization
+\item cone point annotation
+\item (de)serialization 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_quadratic_spline_surface_patch_ab300452f9f3864ebe79b961d08bf99dc}\label{class_quadratic_spline_surface_patch_ab300452f9f3864ebe79b961d08bf99dc} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{QuadraticSplineSurfacePatch()}{QuadraticSplineSurfacePatch()}}
+{\footnotesize\ttfamily Quadratic\+Spline\+Surface\+Patch\+::\+Quadratic\+Spline\+Surface\+Patch (\begin{DoxyParamCaption}\item[{const Matrix6x3r \&}]{surface\+\_\+mapping\+\_\+coeffs,  }\item[{const \mbox{\hyperlink{class_convex_polygon}{Convex\+Polygon}} \&}]{domain }\end{DoxyParamCaption})}
+
+Construct the patch from a domain polygon surface coefficients in order\+: a\+\_\+0 a\+\_\+u a\+\_\+v a\+\_\+uv a\+\_\+uu a\+\_\+vv
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em surface\+\_\+mapping\+\_\+coeffs} & surface mapping coefficients \\
+\hline
+\mbox{\texttt{ in}}  & {\em domain} & uv domain boundaries \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_quadratic_spline_surface_patch_aac7c4d6cb7b00097bd35f072c2236a7c}\label{class_quadratic_spline_surface_patch_aac7c4d6cb7b00097bd35f072c2236a7c} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!add\_patch\_to\_viewer@{add\_patch\_to\_viewer}}
+\index{add\_patch\_to\_viewer@{add\_patch\_to\_viewer}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{add\_patch\_to\_viewer()}{add\_patch\_to\_viewer()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::add\+\_\+patch\+\_\+to\+\_\+viewer (\begin{DoxyParamCaption}\item[{std\+::string}]{patch\+\_\+name = {\ttfamily \"{}surface\+\_\+patch\"{}} }\end{DoxyParamCaption}) const}
+
+Add triangulated patch to the polyscope viewer.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em patch\+\_\+name} & name to assign the patch in the viewer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_afb0024f43b442c826c2e8b4c3d81d7a1}\label{class_quadratic_spline_surface_patch_afb0024f43b442c826c2e8b4c3d81d7a1} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!denormalize\_domain\_point@{denormalize\_domain\_point}}
+\index{denormalize\_domain\_point@{denormalize\_domain\_point}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{denormalize\_domain\_point()}{denormalize\_domain\_point()}}
+{\footnotesize\ttfamily Planar\+Point Quadratic\+Spline\+Surface\+Patch\+::denormalize\+\_\+domain\+\_\+point (\begin{DoxyParamCaption}\item[{Planar\+Point \&}]{normalized\+\_\+domain\+\_\+point }\end{DoxyParamCaption}) const}
+
+Given a normalized domain point in the triangle u + v \texorpdfstring{$<$}{<}= 1, map it to the corresponding point in the patch domain
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em normalized\+\_\+domain\+\_\+point} & normalized (barycentric) domain point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+corresponding point in the domain triangle 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a438288b50de89414b107f29615abc0bb}\label{class_quadratic_spline_surface_patch_a438288b50de89414b107f29615abc0bb} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!dimension@{dimension}}
+\index{dimension@{dimension}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{dimension()}{dimension()}}
+{\footnotesize\ttfamily int Quadratic\+Spline\+Surface\+Patch\+::dimension (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get the dimension of the surface patch ambient space
+
+\begin{DoxyReturn}{Returns}
+dimension of the ambient space 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a036ad5735e2677bdfe87a74a7f2df7fa}\label{class_quadratic_spline_surface_patch_a036ad5735e2677bdfe87a74a7f2df7fa} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::evaluate (\begin{DoxyParamCaption}\item[{const Planar\+Point \&}]{domain\+\_\+point,  }\item[{Spatial\+Vector \&}]{surface\+\_\+point }\end{DoxyParamCaption}) const}
+
+Evaluate the surface at a given domain point.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em domain\+\_\+point} & domain evaluation point \\
+\hline
+\mbox{\texttt{ in}}  & {\em surface\+\_\+point} & image of the domain point on the surface \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_a07271a43a22d3ff1bf32c9ef86e3cb23}\label{class_quadratic_spline_surface_patch_a07271a43a22d3ff1bf32c9ef86e3cb23} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!evaluate\_normal@{evaluate\_normal}}
+\index{evaluate\_normal@{evaluate\_normal}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{evaluate\_normal()}{evaluate\_normal()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::evaluate\+\_\+normal (\begin{DoxyParamCaption}\item[{const Planar\+Point \&}]{domain\+\_\+point,  }\item[{Spatial\+Vector \&}]{surface\+\_\+normal }\end{DoxyParamCaption}) const}
+
+Evaluate the surface normal at a given domain point.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em domain\+\_\+point} & domain evaluation point \\
+\hline
+\mbox{\texttt{ in}}  & {\em surface\+\_\+point} & surface normal at the image of the domain point \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_a2f10d967cbf1330fdcf4fcc1302bfa06}\label{class_quadratic_spline_surface_patch_a2f10d967cbf1330fdcf4fcc1302bfa06} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_bezier\_points@{get\_bezier\_points}}
+\index{get\_bezier\_points@{get\_bezier\_points}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_bezier\_points()}{get\_bezier\_points()}}
+{\footnotesize\ttfamily Matrix6x3r const  \& Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+bezier\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get the surface mapping coefficients with normalized domain.
+
+Compute them if they haven\textquotesingle{}t been computed yet
+
+\begin{DoxyReturn}{Returns}
+reference to the bezier points 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a695a46d4016c603219bb9ee8966f2122}\label{class_quadratic_spline_surface_patch_a695a46d4016c603219bb9ee8966f2122} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_bounding\_box@{get\_bounding\_box}}
+\index{get\_bounding\_box@{get\_bounding\_box}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_bounding\_box()}{get\_bounding\_box()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+bounding\+\_\+box (\begin{DoxyParamCaption}\item[{Spatial\+Vector \&}]{min\+\_\+point,  }\item[{Spatial\+Vector \&}]{max\+\_\+point }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compute the bounding box for the surface patch. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em min\+\_\+point} & minimum coordinates bounding box point \\
+\hline
+\mbox{\texttt{ out}}  & {\em max\+\_\+point} & maximum coordinates bounding box point \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_a7a24320f584ea7b8cd906707d100b65d}\label{class_quadratic_spline_surface_patch_a7a24320f584ea7b8cd906707d100b65d} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_bounding\_box\_max\_point@{get\_bounding\_box\_max\_point}}
+\index{get\_bounding\_box\_max\_point@{get\_bounding\_box\_max\_point}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_bounding\_box\_max\_point()}{get\_bounding\_box\_max\_point()}}
+{\footnotesize\ttfamily Spatial\+Vector const  \& Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+bounding\+\_\+box\+\_\+max\+\_\+point (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compute the maximum point of the bounding box for the surface patch. 
+
+\begin{DoxyReturn}{Returns}
+max\+\_\+point\+: maximum coordinates bounding box point 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a9da9644e28c5c508db90aeae5188657f}\label{class_quadratic_spline_surface_patch_a9da9644e28c5c508db90aeae5188657f} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_bounding\_box\_min\_point@{get\_bounding\_box\_min\_point}}
+\index{get\_bounding\_box\_min\_point@{get\_bounding\_box\_min\_point}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_bounding\_box\_min\_point()}{get\_bounding\_box\_min\_point()}}
+{\footnotesize\ttfamily Spatial\+Vector const  \& Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+bounding\+\_\+box\+\_\+min\+\_\+point (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compute the minimum point of the bounding box for the surface patch. 
+
+\begin{DoxyReturn}{Returns}
+min\+\_\+point\+: minimum coordinates bounding box point 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a9dad7e95f9e75c5fed6b87b123b0cbd0}\label{class_quadratic_spline_surface_patch_a9dad7e95f9e75c5fed6b87b123b0cbd0} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_cone@{get\_cone}}
+\index{get\_cone@{get\_cone}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_cone()}{get\_cone()}}
+{\footnotesize\ttfamily int Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+cone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get the cone index, or -\/1 if none exists
+
+\begin{DoxyReturn}{Returns}
+true iff the patch has a cone 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a1b0b8a202f406a34ebae5c359ab19a07}\label{class_quadratic_spline_surface_patch_a1b0b8a202f406a34ebae5c359ab19a07} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_domain@{get\_domain}}
+\index{get\_domain@{get\_domain}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_domain()}{get\_domain()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_convex_polygon}{Convex\+Polygon}} const  \& Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+domain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get the convex domain of the patch.
+
+\begin{DoxyReturn}{Returns}
+reference to the convex domain 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a968f33e18743cde35a2613dcabd9f550}\label{class_quadratic_spline_surface_patch_a968f33e18743cde35a2613dcabd9f550} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_normal\_mapping@{get\_normal\_mapping}}
+\index{get\_normal\_mapping@{get\_normal\_mapping}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_normal\_mapping()}{get\_normal\_mapping()}}
+{\footnotesize\ttfamily Matrix6x3r const  \& Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+normal\+\_\+mapping (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get the surface normal mapping coefficients
+
+\begin{DoxyReturn}{Returns}
+reference to the surface normal mapping 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a4f7699f81306b3b1cd0982142477547b}\label{class_quadratic_spline_surface_patch_a4f7699f81306b3b1cd0982142477547b} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_normalized\_surface\_mapping@{get\_normalized\_surface\_mapping}}
+\index{get\_normalized\_surface\_mapping@{get\_normalized\_surface\_mapping}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_normalized\_surface\_mapping()}{get\_normalized\_surface\_mapping()}}
+{\footnotesize\ttfamily Matrix6x3r const  \& Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+normalized\+\_\+surface\+\_\+mapping (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get the surface mapping coefficients with normalized domain.
+
+Compute them if they haven\textquotesingle{}t been computed yet
+
+\begin{DoxyReturn}{Returns}
+reference to the normalized surface mapping 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a6d33a7302447ddd8b12c8815841e8d8d}\label{class_quadratic_spline_surface_patch_a6d33a7302447ddd8b12c8815841e8d8d} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_patch\_boundaries@{get\_patch\_boundaries}}
+\index{get\_patch\_boundaries@{get\_patch\_boundaries}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_patch\_boundaries()}{get\_patch\_boundaries()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+patch\+\_\+boundaries (\begin{DoxyParamCaption}\item[{std\+::array$<$ \mbox{\hyperlink{class_rational_function}{Rational\+Function}}$<$ 4, 3 $>$, 3 $>$ \&}]{patch\+\_\+boundaries }\end{DoxyParamCaption}) const}
+
+Get the patch boundaries as spatial curves.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em patch\+\_\+boundaries} & patch boundary spatial curves \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_aeee2f2bb94e0deef59b2e00631191112}\label{class_quadratic_spline_surface_patch_aeee2f2bb94e0deef59b2e00631191112} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!get\_surface\_mapping@{get\_surface\_mapping}}
+\index{get\_surface\_mapping@{get\_surface\_mapping}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{get\_surface\_mapping()}{get\_surface\_mapping()}}
+{\footnotesize\ttfamily Matrix6x3r const  \& Quadratic\+Spline\+Surface\+Patch\+::get\+\_\+surface\+\_\+mapping (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get the surface mapping coefficients
+
+\begin{DoxyReturn}{Returns}
+reference to the surface mapping 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a1c115c83e75f446629019967d8e32bb7}\label{class_quadratic_spline_surface_patch_a1c115c83e75f446629019967d8e32bb7} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!has\_cone@{has\_cone}}
+\index{has\_cone@{has\_cone}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{has\_cone()}{has\_cone()}}
+{\footnotesize\ttfamily bool Quadratic\+Spline\+Surface\+Patch\+::has\+\_\+cone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Determine if the patch has a cone
+
+\begin{DoxyReturn}{Returns}
+true iff the patch has a cone 
+\end{DoxyReturn}
+\Hypertarget{class_quadratic_spline_surface_patch_a85e45fd65b2ab6dff7d8961c262b5e08}\label{class_quadratic_spline_surface_patch_a85e45fd65b2ab6dff7d8961c262b5e08} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!mark\_cone@{mark\_cone}}
+\index{mark\_cone@{mark\_cone}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{mark\_cone()}{mark\_cone()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::mark\+\_\+cone (\begin{DoxyParamCaption}\item[{int}]{cone\+\_\+index }\end{DoxyParamCaption})}
+
+Mark one of the vertices as a cone
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em cone\+\_\+index} & index of the cone in the triangle \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_af87363b9abd8969c55a9e5b4b556dfa1}\label{class_quadratic_spline_surface_patch_af87363b9abd8969c55a9e5b4b556dfa1} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!normalize\_patch\_domain@{normalize\_patch\_domain}}
+\index{normalize\_patch\_domain@{normalize\_patch\_domain}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{normalize\_patch\_domain()}{normalize\_patch\_domain()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::normalize\+\_\+patch\+\_\+domain (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_quadratic_spline_surface_patch}{Quadratic\+Spline\+Surface\+Patch}} \&}]{normalized\+\_\+spline\+\_\+surface\+\_\+patch }\end{DoxyParamCaption}) const}
+
+Construct a spline surface patch with the same image but where the domain is normalized to the triangle u + v \texorpdfstring{$<$}{<}= 1 in the positive quadrant.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em normalized\+\_\+spline\+\_\+surface\+\_\+patch} & normalized patch \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_a7876eeb81236af4498628101ee28259b}\label{class_quadratic_spline_surface_patch_a7876eeb81236af4498628101ee28259b} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!sample@{sample}}
+\index{sample@{sample}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{sample()}{sample()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::sample (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{sampling\+\_\+density,  }\item[{std\+::vector$<$ Spatial\+Vector $>$ \&}]{spline\+\_\+surface\+\_\+patch\+\_\+points }\end{DoxyParamCaption}) const}
+
+Sample points on the surface.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em sampling\+\_\+density} & sampling density parameter \\
+\hline
+\mbox{\texttt{ out}}  & {\em spline\+\_\+surface\+\_\+patch\+\_\+points} & sampled points on the surface \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_a47994829e034f7d808a9164308c5cff5}\label{class_quadratic_spline_surface_patch_a47994829e034f7d808a9164308c5cff5} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!serialize@{serialize}}
+\index{serialize@{serialize}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::serialize (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const}
+
+Write the patch information to the output stream in the format c a\+\_\+0 a\+\_\+u a\+\_\+v a\+\_\+uv a\+\_\+uu a\+\_\+vv p1 p1\+\_\+u p1\+\_\+v p2 p2\+\_\+u p2\+\_\+v p3 p3\+\_\+u p3\+\_\+v
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em out} & stream to write serialization to \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_a5c5d5d369ca96d4d88dbcb482567e0d3}\label{class_quadratic_spline_surface_patch_a5c5d5d369ca96d4d88dbcb482567e0d3} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!triangulate@{triangulate}}
+\index{triangulate@{triangulate}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{triangulate()}{triangulate()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::triangulate (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{num\+\_\+refinements,  }\item[{Eigen\+::\+Matrix\+Xd \&}]{V,  }\item[{Eigen\+::\+Matrix\+Xi \&}]{F,  }\item[{Eigen\+::\+Matrix\+Xd \&}]{N }\end{DoxyParamCaption}) const}
+
+Triangulate the surface patch.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num\+\_\+refinements} & number of refinements of the domain to perform \\
+\hline
+\mbox{\texttt{ out}}  & {\em V} & triangulated patch vertex positions \\
+\hline
+\mbox{\texttt{ out}}  & {\em F} & triangulated patch faces \\
+\hline
+\mbox{\texttt{ out}}  & {\em N} & triangulated patch vertex normals \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_quadratic_spline_surface_patch_a802bd25d4df0766d2dcf5abce4f710c8}\label{class_quadratic_spline_surface_patch_a802bd25d4df0766d2dcf5abce4f710c8} 
+\index{QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}!write\_patch@{write\_patch}}
+\index{write\_patch@{write\_patch}!QuadraticSplineSurfacePatch@{QuadraticSplineSurfacePatch}}
+\doxysubsubsection{\texorpdfstring{write\_patch()}{write\_patch()}}
+{\footnotesize\ttfamily void Quadratic\+Spline\+Surface\+Patch\+::write\+\_\+patch (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption}) const}
+
+Write patch to file.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em filename} & file to write serialized patch to \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/quadratic\+\_\+spline\+\_\+surface/quadratic\+\_\+spline\+\_\+surface\+\_\+patch.\+h\item 
+src/quadratic\+\_\+spline\+\_\+surface/quadratic\+\_\+spline\+\_\+surface\+\_\+patch.\+cpp\end{DoxyCompactItemize}

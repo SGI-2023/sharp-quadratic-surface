@@ -1,0 +1,1046 @@
+\doxysection{common.\+h}
+\hypertarget{common_8h_source}{}\label{common_8h_source}\index{src/core/common.h@{src/core/common.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \#define\ SPDLOG\_ACTIVE\_LEVEL\ SPDLOG\_LEVEL\_OFF}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}autodiff.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}polyscope/polyscope.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}polyscope/surface\_mesh.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}spdlog/fmt/ostr.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}spdlog/spdlog.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <Eigen/Core>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <Eigen/LU>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <unsupported/Eigen/AutoDiff>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <igl/is\_edge\_manifold.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <igl/is\_vertex\_manifold.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <igl/remove\_unreferenced.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <igl/vertex\_components.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ Global\ epsilons}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ const\ double\ MAX\_PRECISION\ =\ 1e-\/8;}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ FLOAT\_EQUAL\_PRECISION;\ \ \ \ \ \ \textcolor{comment}{//\ Epsilon\ for\ default\ float}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ ADJACENT\_CONTOUR\_PRECISION;\ \textcolor{comment}{//\ Epsilon\ for\ chaining\ contours}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00039\ \ \ PLANAR\_BOUNDING\_BOX\_PRECISION;\ \textcolor{comment}{//\ Epsilon\ for\ curve-\/curve\ bounding\ box\ padding}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00041\ \ \ FIND\_INTERSECTIONS\_BEZIER\_CLIPPING\_PRECISION;\ \textcolor{comment}{//\ Epsilon\ for\ Bezier\ clipping}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ intersections}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ DISCRETIZATION\_LEVEL;\ \textcolor{comment}{//\ Spline\ surface\ discretization\ level}}
+\DoxyCodeLine{00045\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ HASH\_TABLE\_SIZE\ =\ 70;\ \textcolor{comment}{//\ Size\ of\ spline\ surface\ hash\ table}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ Real\ number\ representations}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ Eigen::VectorXd\ VectorXr;}
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ Eigen::RowVectorXd\ OneFormXr;}
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 1,\ 2>\ PlanarPoint;}
+\DoxyCodeLine{00051\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 1,\ 3>\ SpatialVector;}
+\DoxyCodeLine{00052\ \textcolor{keyword}{typedef}\ Eigen::MatrixXd\ MatrixXr;}
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 2,\ 3>\ Matrix2x3r;}
+\DoxyCodeLine{00054\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 2,\ 2>\ Matrix2x2r;}
+\DoxyCodeLine{00055\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 3,\ 2>\ Matrix3x2r;}
+\DoxyCodeLine{00056\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 3,\ 3>\ Matrix3x3r;}
+\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ std::array<int,\ 2>\ Edge;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ Bivariate\ quadratic\ matrices}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 6,\ 1>\ Vector6r;}
+\DoxyCodeLine{00061\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 6,\ 3>\ Matrix6x3r;}
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 6,\ Eigen::Dynamic>\ Matrix6xXr;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ Typedefs\ from\ ConTess}}
+\DoxyCodeLine{00065\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{double}\ real\_t;}
+\DoxyCodeLine{00066\ \textcolor{keyword}{using\ }Color\ =\ Eigen::Vector4f;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ Variable\ representation}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ Eigen::Dynamic,\ 1>\ DynamicGradient;}
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ Eigen::Dynamic,\ Eigen::Dynamic>\ DynamicHessian;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ Six\ Split}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 27,\ 1>\ SixSplitGradient;}
+\DoxyCodeLine{00074\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 27,\ 27>\ SixSplitHessian;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ Twelve\ Split}}
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 36,\ 1>\ TwelveSplitGradient;}
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ Eigen::Matrix<double,\ 36,\ 36>\ TwelveSplitHessian;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ Colors}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 3,\ 1>\ MINT\_GREEN(0.170,\ 0.673,\ 0.292);}
+\DoxyCodeLine{00082\ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 3,\ 1>\ SKY\_BLUE(0.297,\ 0.586,\ 0.758);}
+\DoxyCodeLine{00083\ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 3,\ 1>\ OFF\_WHITE(0.896,\ 0.932,\ 0.997);}
+\DoxyCodeLine{00084\ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 3,\ 1>\ GOLD\_YELLOW(0.670,\ 0.673,\ 0.292);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ Algebraic\ constrained\ values}}
+\DoxyCodeLine{00087\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MAX\_PATCH\_RAY\_INTERSECTIONS\ =\ 4;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{comment}{//\ ***********************}}
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ Floating\ point\ equality}}
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ ***********************}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00099\ float\_equal\_zero(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ eps\ =\ FLOAT\_EQUAL\_PRECISION)}
+\DoxyCodeLine{00100\ \{}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordflow}{return}\ abs(x)\ <\ eps;}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00111\ float\_equal(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ eps\ =\ FLOAT\_EQUAL\_PRECISION)}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordflow}{return}\ float\_equal\_zero(x\ -\/\ y,\ eps);}
+\DoxyCodeLine{00114\ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00125\ vector\_equal(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ v,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ w,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ eps\ =\ FLOAT\_EQUAL\_PRECISION)}
+\DoxyCodeLine{00128\ \{}
+\DoxyCodeLine{00129\ \ \ \textcolor{comment}{//\ Two\ vectors\ of\ different\ sizes\ are\ not\ equal}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordflow}{if}\ (v.size()\ !=\ w.size())}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{//\ Check\ each\ component}}
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ v.size();\ ++i)\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{if}\ (!float\_equal(v[i],\ w[i],\ eps))}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00137\ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00140\ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ num\_coeffs>}
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00151\ column\_vector\_equal(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ num\_coeffs,\ 1>\&\ v,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ num\_coeffs,\ 1>\&\ w,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ eps\ =\ FLOAT\_EQUAL\_PRECISION)}
+\DoxyCodeLine{00154\ \{}
+\DoxyCodeLine{00155\ \ \ \textcolor{comment}{//\ Two\ vectors\ of\ different\ sizes\ are\ not\ equal}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordflow}{if}\ (v.size()\ !=\ w.size())}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \textcolor{comment}{//\ Check\ each\ component}}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ v.size();\ ++i)\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{if}\ (!float\_equal(v[i],\ w[i],\ eps))}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00163\ \ \ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00166\ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00174\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00175\ matrix\_equal(\textcolor{keyword}{const}\ MatrixXr\&\ A,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MatrixXr\&\ B,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ eps\ =\ FLOAT\_EQUAL\_PRECISION)}
+\DoxyCodeLine{00178\ \{}
+\DoxyCodeLine{00179\ \ \ \textcolor{comment}{//\ Two\ matrices\ of\ different\ sizes\ are\ not\ equal}}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordflow}{if}\ (A.rows()\ !=\ B.rows())}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordflow}{if}\ (A.cols()\ !=\ B.cols())}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \textcolor{comment}{//\ Check\ each\ component}}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ A.rows();\ ++i)\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ j\ =\ 0;\ j\ <\ A.cols();\ ++j)\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!float\_equal(A(i,\ j),\ B(i,\ j),\ eps))}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00194\ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{comment}{//\ ******}}
+\DoxyCodeLine{00197\ \textcolor{comment}{//\ Viewer}}
+\DoxyCodeLine{00198\ \textcolor{comment}{//\ ******}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00204\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00205\ view\_mesh(\textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,\ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F)}
+\DoxyCodeLine{00206\ \{}
+\DoxyCodeLine{00207\ \ \ polyscope::init();}
+\DoxyCodeLine{00208\ \ \ polyscope::registerSurfaceMesh(\textcolor{stringliteral}{"{}surface"{}},\ V,\ F);}
+\DoxyCodeLine{00209\ \ \ polyscope::show();}
+\DoxyCodeLine{00210\ \ \ polyscope::removeAllStructures();}
+\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00219\ view\_parametrized\_mesh(\textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXd\&\ uv)}
+\DoxyCodeLine{00222\ \{}
+\DoxyCodeLine{00223\ \ \ polyscope::init();}
+\DoxyCodeLine{00224\ \ \ polyscope::registerSurfaceMesh(\textcolor{stringliteral}{"{}surface"{}},\ V,\ F);}
+\DoxyCodeLine{00225\ \ \ polyscope::getSurfaceMesh(\textcolor{stringliteral}{"{}surface"{}})-\/>addVertexParameterizationQuantity(}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{stringliteral}{"{}parameterization"{}},\ uv);}
+\DoxyCodeLine{00227\ \ \ polyscope::show();}
+\DoxyCodeLine{00228\ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00231\ screenshot\_mesh(}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{00233\ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{00234\ \ \ \textcolor{keyword}{const}\ std::string\&\ filename,}
+\DoxyCodeLine{00235\ \ \ SpatialVector\ camera\_position\ =\ SpatialVector(0,\ 0,\ 0),}
+\DoxyCodeLine{00236\ \ \ SpatialVector\ camera\_target\ =\ SpatialVector(0,\ 0,\ 2),}
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordtype}{bool}\ use\_orthographic\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00238\ \{}
+\DoxyCodeLine{00239\ \ \ polyscope::init();}
+\DoxyCodeLine{00240\ \ \ polyscope::registerSurfaceMesh(\textcolor{stringliteral}{"{}surface"{}},\ V,\ F)}
+\DoxyCodeLine{00241\ \ \ \ \ -\/>setEdgeWidth(1)}
+\DoxyCodeLine{00242\ \ \ \ \ -\/>setSurfaceColor(glm::vec3(0.670,\ 0.673,\ 0.292));}
+\DoxyCodeLine{00243\ \ \ polyscope::options::groundPlaneMode\ =\ polyscope::GroundPlaneMode::ShadowOnly;}
+\DoxyCodeLine{00244\ \ \ glm::vec3\ glm\_camera\_position\ =\ \{\ camera\_position[0],}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ camera\_position[1],}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ camera\_position[2]\ \};}
+\DoxyCodeLine{00247\ \ \ glm::vec3\ glm\_camera\_target\ =\ \{\ camera\_target[0],}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ camera\_target[1],}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ camera\_target[2]\ \};}
+\DoxyCodeLine{00250\ \ \ polyscope::view::lookAt(glm\_camera\_position,\ glm\_camera\_target);}
+\DoxyCodeLine{00251\ \ \ \textcolor{keywordflow}{if}\ (use\_orthographic)\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ polyscope::view::projectionMode\ =\ polyscope::ProjectionMode::Orthographic;}
+\DoxyCodeLine{00253\ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00255\ \ \ \ \ polyscope::view::projectionMode\ =\ polyscope::ProjectionMode::Perspective;}
+\DoxyCodeLine{00256\ \ \ \}}
+\DoxyCodeLine{00257\ \ \ polyscope::screenshot(filename);}
+\DoxyCodeLine{00258\ \}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{comment}{//\ ****************}}
+\DoxyCodeLine{00261\ \textcolor{comment}{//\ Basic\ arithmetic}}
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ ****************}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00270\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00271\ sgn(\textcolor{keywordtype}{double}\ x)}
+\DoxyCodeLine{00272\ \{}
+\DoxyCodeLine{00273\ \ \ \textcolor{keywordflow}{return}\ (x\ >\ 0)\ -\/\ (x\ <\ 0);}
+\DoxyCodeLine{00274\ \}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00281\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00282\ power(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{int}\ p)}
+\DoxyCodeLine{00283\ \{}
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordtype}{double}\ xp\ =\ 1.0;}
+\DoxyCodeLine{00285\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ p;\ ++i)\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ xp\ *=\ x;}
+\DoxyCodeLine{00287\ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \textcolor{keywordflow}{return}\ xp;}
+\DoxyCodeLine{00290\ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00298\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00299\ compute\_discriminant(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b,\ \textcolor{keywordtype}{double}\ c)}
+\DoxyCodeLine{00300\ \{}
+\DoxyCodeLine{00301\ \ \ \textcolor{keywordflow}{return}\ (b\ *\ b)\ -\/\ (4.0\ *\ a\ *\ c);}
+\DoxyCodeLine{00302\ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \textcolor{comment}{//\ ********************}}
+\DoxyCodeLine{00305\ \textcolor{comment}{//\ Basic\ linear\ algebra}}
+\DoxyCodeLine{00306\ \textcolor{comment}{//\ ********************}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00314\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Scalar,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00315\ Scalar}
+\DoxyCodeLine{00316\ dot\_product(Eigen::Matrix<Scalar,\ dimension,\ 1>\ v,}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::Matrix<Scalar,\ dimension,\ 1>\ w)}
+\DoxyCodeLine{00318\ \{}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordflow}{return}\ v.dot(w);}
+\DoxyCodeLine{00320\ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00328\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Scalar>}
+\DoxyCodeLine{00329\ Eigen::Matrix<Scalar,\ 3,\ 1>}
+\DoxyCodeLine{00330\ cross\_product(Eigen::Matrix<Scalar,\ 3,\ 1>\ v,\ Eigen::Matrix<Scalar,\ 3,\ 1>\ w)}
+\DoxyCodeLine{00331\ \{}
+\DoxyCodeLine{00332\ \ \ Eigen::Matrix<Scalar,\ 3,\ 1>\ n(3);}
+\DoxyCodeLine{00333\ \ \ n(0)\ =\ v(1)\ *\ w(2)\ -\/\ v(2)\ *\ w(1);}
+\DoxyCodeLine{00334\ \ \ n(1)\ =\ -\/(v(0)\ *\ w(2)\ -\/\ v(2)\ *\ w(0));}
+\DoxyCodeLine{00335\ \ \ n(2)\ =\ v(0)\ *\ w(1)\ -\/\ v(1)\ *\ w(0);}
+\DoxyCodeLine{00336\ \ \ \textcolor{keywordflow}{return}\ n;}
+\DoxyCodeLine{00337\ \}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00346\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Scalar>}
+\DoxyCodeLine{00347\ Scalar}
+\DoxyCodeLine{00348\ triple\_product(Eigen::Matrix<Scalar,\ 3,\ 1>\ u,}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::Matrix<Scalar,\ 3,\ 1>\ v,}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::Matrix<Scalar,\ 3,\ 1>\ w)}
+\DoxyCodeLine{00351\ \{}
+\DoxyCodeLine{00352\ \ \ Eigen::Matrix<Scalar,\ 3,\ 1>\ vxw\ =\ cross\_product<Scalar>(v,\ w);}
+\DoxyCodeLine{00353\ \ \ \textcolor{keywordflow}{return}\ dot\_product<Scalar,\ 3>(u,\ vxw);}
+\DoxyCodeLine{00354\ \}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00364\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Scalar,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00365\ Eigen::Matrix<Scalar,\ dimension,\ 1>}
+\DoxyCodeLine{00366\ normalize(Eigen::Matrix<Scalar,\ dimension,\ 1>\ v)}
+\DoxyCodeLine{00367\ \{}
+\DoxyCodeLine{00368\ \ \ \textcolor{comment}{//\ Do\ nothing\ for\ empty\ vectors}}
+\DoxyCodeLine{00369\ \ \ \textcolor{keywordflow}{if}\ (v.size()\ ==\ 0)}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \textcolor{comment}{//\ Get\ the\ norma\ and\ check\ if\ it's\ zero}}
+\DoxyCodeLine{00373\ \ \ Scalar\ v\_norm\ =\ v.norm();}
+\DoxyCodeLine{00374\ \ \ \textcolor{keywordflow}{if}\ (float\_equal\_zero(v.norm()))}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \textcolor{keywordflow}{return}\ v\ /\ v\_norm;}
+\DoxyCodeLine{00378\ \}}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00386\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00387\ Eigen::Matrix<double,\ 1,\ dimension>}
+\DoxyCodeLine{00388\ elementary\_basis\_vector(\textcolor{keywordtype}{int}\ i)}
+\DoxyCodeLine{00389\ \{}
+\DoxyCodeLine{00390\ \ \ \textcolor{comment}{//\ Initialize\ zero\ vector}}
+\DoxyCodeLine{00391\ \ \ Eigen::Matrix<double,\ 1,\ dimension>\ basis\_vector;}
+\DoxyCodeLine{00392\ \ \ basis\_vector.setZero();}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \textcolor{comment}{//\ Return\ zero\ if\ i\ exceeds\ what\ is\ possible\ for\ the\ dimension}}
+\DoxyCodeLine{00395\ \ \ \textcolor{keywordflow}{if}\ ((i\ >=\ dimension)\ ||\ (i\ <\ 0))}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordflow}{return}\ basis\_vector;}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \ \ \textcolor{comment}{//\ Set\ ith\ coordinate\ to\ 1}}
+\DoxyCodeLine{00399\ \ \ basis\_vector(i)\ =\ 1.0;}
+\DoxyCodeLine{00400\ \ \ \textcolor{keywordflow}{return}\ basis\_vector;}
+\DoxyCodeLine{00401\ \}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00407\ \textcolor{keyword}{inline}\ PlanarPoint}
+\DoxyCodeLine{00408\ reflect\_across\_x\_axis(\textcolor{keyword}{const}\ PlanarPoint\&\ vector)}
+\DoxyCodeLine{00409\ \{}
+\DoxyCodeLine{00410\ \ \ PlanarPoint\ reflected\_vector;}
+\DoxyCodeLine{00411\ \ \ reflected\_vector[0]\ =\ vector[0];}
+\DoxyCodeLine{00412\ \ \ reflected\_vector[1]\ =\ -\/vector[1];}
+\DoxyCodeLine{00413\ \ \ \textcolor{keywordflow}{return}\ reflected\_vector;}
+\DoxyCodeLine{00414\ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00423\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00424\ rotate\_vector(\textcolor{keyword}{const}\ SpatialVector\&\ vector,}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ SpatialVector\&\ axis\_of\_rotation,}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ angle,}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SpatialVector\&\ rotated\_vector)}
+\DoxyCodeLine{00428\ \{}
+\DoxyCodeLine{00429\ \ \ \textcolor{comment}{//\ Do\ nothing\ for\ the\ zero\ axis\ of\ rotation}}
+\DoxyCodeLine{00430\ \ \ \textcolor{keywordflow}{if}\ (float\_equal\_zero(axis\_of\_rotation.norm()))\ \{}
+\DoxyCodeLine{00431\ \ \ \ \ rotated\_vector\ =\ vector;}
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00433\ \ \ \}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \textcolor{comment}{//\ Rewrite\ variables\ in\ more\ compact\ notation\ and\ ensure\ the\ axis\ is\ normal}}
+\DoxyCodeLine{00436\ \ \ SpatialVector\ \textcolor{keyword}{const}\&\ v\ =\ vector;}
+\DoxyCodeLine{00437\ \ \ SpatialVector\ \textcolor{keyword}{const}\&\ k\ =\ axis\_of\_rotation\ /\ axis\_of\_rotation.norm();}
+\DoxyCodeLine{00438\ \ \ \textcolor{keywordtype}{double}\ theta\ =\ angle;}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \textcolor{comment}{//\ Build\ rotated\ vector\ w\ from\ three\ components\ along\ v,\ k,}}
+\DoxyCodeLine{00441\ \ \ SpatialVector\ n\ =\ cross\_product<double>(k,\ v);}
+\DoxyCodeLine{00442\ \ \ SpatialVector\ w\_v\ =\ std::cos(theta)\ *\ v;}
+\DoxyCodeLine{00443\ \ \ SpatialVector\ w\_k\ =\ dot\_product<double,\ 3>(k,\ v)\ *\ (1\ -\/\ std::cos(theta))\ *\ k;}
+\DoxyCodeLine{00444\ \ \ SpatialVector\ w\_n\ =\ std::sin(theta)\ *\ n;}
+\DoxyCodeLine{00445\ \ \ rotated\_vector\ =\ w\_v\ +\ w\_k\ +\ w\_n;}
+\DoxyCodeLine{00446\ \}}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00455\ \textcolor{keyword}{inline}\ SpatialVector}
+\DoxyCodeLine{00456\ rotate\_vector(\textcolor{keyword}{const}\ SpatialVector\&\ vector,}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ SpatialVector\&\ axis\_of\_rotation,}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ angle)}
+\DoxyCodeLine{00459\ \{}
+\DoxyCodeLine{00460\ \ \ SpatialVector\ rotated\_vector;}
+\DoxyCodeLine{00461\ \ \ rotate\_vector(vector,\ axis\_of\_rotation,\ angle,\ rotated\_vector);}
+\DoxyCodeLine{00462\ \ \ \textcolor{keywordflow}{return}\ rotated\_vector;}
+\DoxyCodeLine{00463\ \}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00471\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Scalar,\ \textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00472\ Eigen::Matrix<Scalar,\ dimension,\ 1>}
+\DoxyCodeLine{00473\ project\_vector\_to\_plane(\textcolor{keyword}{const}\ Eigen::Matrix<Scalar,\ dimension,\ 1>\&\ vector,}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<Scalar,\ dimension,\ 1>\&\ plane\_normal)}
+\DoxyCodeLine{00475\ \{}
+\DoxyCodeLine{00476\ \ \ Scalar\ vector\_normal\_component\ =}
+\DoxyCodeLine{00477\ \ \ \ \ dot\_product<double,\ dimension>(vector,\ plane\_normal);}
+\DoxyCodeLine{00478\ \ \ Scalar\ normal\_length\_sq\ =}
+\DoxyCodeLine{00479\ \ \ \ \ dot\_product<double,\ dimension>(plane\_normal,\ plane\_normal);}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \textcolor{comment}{//\ Do\ nothing\ for\ the\ zero\ plane\ normal}}
+\DoxyCodeLine{00482\ \ \ \textcolor{keywordflow}{if}\ (normal\_length\_sq\ ==\ Scalar(0.0))}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordflow}{return}\ vector;}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \ \ \textcolor{comment}{//\ Project\ vector}}
+\DoxyCodeLine{00486\ \ \ \textcolor{keywordflow}{return}\ vector\ -\/\ (vector\_normal\_component\ /\ normal\_length\_sq)\ *\ plane\_normal;}
+\DoxyCodeLine{00487\ \}}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ \textcolor{comment}{//\ **************}}
+\DoxyCodeLine{00490\ \textcolor{comment}{//\ Vector\ methods}}
+\DoxyCodeLine{00491\ \textcolor{comment}{//\ **************}}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00494\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00495\ vector\_min(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ v)}
+\DoxyCodeLine{00496\ \{}
+\DoxyCodeLine{00497\ \ \ \textcolor{keywordflow}{if}\ (v.size()\ ==\ 0)}
+\DoxyCodeLine{00498\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \ \ \textcolor{keywordtype}{double}\ v\_min\ =\ v[0];}
+\DoxyCodeLine{00501\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 1;\ i\ <\ v.size();\ ++i)\ \{}
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{keywordflow}{if}\ (v[i]\ <\ v\_min)}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ v\_min\ =\ v[i];}
+\DoxyCodeLine{00504\ \ \ \}}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \ \ \textcolor{keywordflow}{return}\ v\_min;}
+\DoxyCodeLine{00507\ \}}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00510\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00511\ vector\_max(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ v)}
+\DoxyCodeLine{00512\ \{}
+\DoxyCodeLine{00513\ \ \ \textcolor{keywordflow}{if}\ (v.size()\ ==\ 0)}
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00516\ \ \ \textcolor{keywordtype}{double}\ v\_max\ =\ v[0];}
+\DoxyCodeLine{00517\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 1;\ i\ <\ v.size();\ ++i)\ \{}
+\DoxyCodeLine{00518\ \ \ \ \ \textcolor{keywordflow}{if}\ (v[i]\ >\ v\_max)}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ v\_max\ =\ v[i];}
+\DoxyCodeLine{00520\ \ \ \}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \textcolor{keywordflow}{return}\ v\_max;}
+\DoxyCodeLine{00523\ \}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00526\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00527\ column\_vector\_min(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ dimension,\ 1>\&\ v)}
+\DoxyCodeLine{00528\ \{}
+\DoxyCodeLine{00529\ \ \ \textcolor{keywordflow}{if}\ (v.size()\ ==\ 0)}
+\DoxyCodeLine{00530\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \ \ \textcolor{keywordtype}{double}\ v\_min\ =\ v[0];}
+\DoxyCodeLine{00533\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 1;\ i\ <\ v.size();\ ++i)\ \{}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keywordflow}{if}\ (v[i]\ <\ v\_min)}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ v\_min\ =\ v[i];}
+\DoxyCodeLine{00536\ \ \ \}}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \textcolor{keywordflow}{return}\ v\_min;}
+\DoxyCodeLine{00539\ \}}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00542\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00543\ column\_vector\_max(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ dimension,\ 1>\&\ v)}
+\DoxyCodeLine{00544\ \{}
+\DoxyCodeLine{00545\ \ \ \textcolor{keywordflow}{if}\ (v.size()\ ==\ 0)}
+\DoxyCodeLine{00546\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \ \ \textcolor{keywordtype}{double}\ v\_max\ =\ v[0];}
+\DoxyCodeLine{00549\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 1;\ i\ <\ v.size();\ ++i)\ \{}
+\DoxyCodeLine{00550\ \ \ \ \ \textcolor{keywordflow}{if}\ (v[i]\ >\ v\_max)}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ v\_max\ =\ v[i];}
+\DoxyCodeLine{00552\ \ \ \}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \ \ \textcolor{keywordflow}{return}\ v\_max;}
+\DoxyCodeLine{00555\ \}}
+\DoxyCodeLine{00556\ }
+\DoxyCodeLine{00557\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00558\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00559\ vector\_contains(\textcolor{keyword}{const}\ std::vector<T>\&\ vec,\ \textcolor{keyword}{const}\ T\ item)}
+\DoxyCodeLine{00560\ \{}
+\DoxyCodeLine{00561\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vec.size();\ ++i)\ \{}
+\DoxyCodeLine{00562\ \ \ \ \ \textcolor{keywordflow}{if}\ (vec[i]\ ==\ item)}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00564\ \ \ \}}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00567\ \}}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Index>}
+\DoxyCodeLine{00570\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00571\ convert\_index\_vector\_to\_boolean\_array(\textcolor{keyword}{const}\ std::vector<Index>\&\ index\_vector,}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Index\ num\_indices,}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<bool>\&\ boolean\_array)}
+\DoxyCodeLine{00574\ \{}
+\DoxyCodeLine{00575\ \ \ boolean\_array.resize(num\_indices,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00576\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ index\_vector.size();\ ++i)\ \{}
+\DoxyCodeLine{00577\ \ \ \ \ boolean\_array[index\_vector[i]]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00578\ \ \ \}}
+\DoxyCodeLine{00579\ \}}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00585\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00586\ convert\_boolean\_array\_to\_index\_vector(\textcolor{keyword}{const}\ std::vector<bool>\&\ boolean\_array,}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<size\_t>\&\ index\_vector)}
+\DoxyCodeLine{00588\ \{}
+\DoxyCodeLine{00589\ \ \ \textcolor{keywordtype}{size\_t}\ num\_indices\ =\ boolean\_array.size();}
+\DoxyCodeLine{00590\ \ \ index\_vector.clear();}
+\DoxyCodeLine{00591\ \ \ index\_vector.reserve(num\_indices);}
+\DoxyCodeLine{00592\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ num\_indices;\ ++i)\ \{}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keywordflow}{if}\ (boolean\_array[i])\ \{}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ index\_vector.push\_back(i);}
+\DoxyCodeLine{00595\ \ \ \ \ \}}
+\DoxyCodeLine{00596\ \ \ \}}
+\DoxyCodeLine{00597\ \}}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Index>}
+\DoxyCodeLine{00600\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00601\ index\_vector\_complement(\textcolor{keyword}{const}\ std::vector<Index>\&\ index\_vector,}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Index\ num\_indices,}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Index>\&\ complement\_vector)}
+\DoxyCodeLine{00604\ \{}
+\DoxyCodeLine{00605\ \ \ \textcolor{comment}{//\ Build\ index\ boolean\ array}}
+\DoxyCodeLine{00606\ \ \ std::vector<bool>\ boolean\_array;}
+\DoxyCodeLine{00607\ \ \ convert\_index\_vector\_to\_boolean\_array(}
+\DoxyCodeLine{00608\ \ \ \ \ index\_vector,\ num\_indices,\ boolean\_array);}
+\DoxyCodeLine{00609\ }
+\DoxyCodeLine{00610\ \ \ \textcolor{comment}{//\ Build\ complement}}
+\DoxyCodeLine{00611\ \ \ complement\_vector.clear();}
+\DoxyCodeLine{00612\ \ \ complement\_vector.reserve(num\_indices\ -\/\ index\_vector.size());}
+\DoxyCodeLine{00613\ \ \ \textcolor{keywordflow}{for}\ (Index\ i\ =\ 0;\ i\ <\ num\_indices;\ ++i)\ \{}
+\DoxyCodeLine{00614\ \ \ \ \ \textcolor{keywordflow}{if}\ (!boolean\_array[i])\ \{}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ complement\_vector.push\_back(i);}
+\DoxyCodeLine{00616\ \ \ \ \ \}}
+\DoxyCodeLine{00617\ \ \ \}}
+\DoxyCodeLine{00618\ \}}
+\DoxyCodeLine{00619\ }
+\DoxyCodeLine{00620\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00621\ convert\_signed\_vector\_to\_unsigned(\textcolor{keyword}{const}\ std::vector<int>\&\ signed\_vector,}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<size\_t>\&\ unsigned\_vector)}
+\DoxyCodeLine{00623\ \{}
+\DoxyCodeLine{00624\ \ \ \textcolor{keywordtype}{size\_t}\ vector\_size\ =\ signed\_vector.size();}
+\DoxyCodeLine{00625\ \ \ unsigned\_vector.resize(vector\_size);}
+\DoxyCodeLine{00626\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vector\_size;\ ++i)\ \{}
+\DoxyCodeLine{00627\ \ \ \ \ unsigned\_vector[i]\ =\ signed\_vector[i];}
+\DoxyCodeLine{00628\ \ \ \}}
+\DoxyCodeLine{00629\ \}}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00631\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00632\ convert\_unsigned\_vector\_to\_signed(\textcolor{keyword}{const}\ std::vector<size\_t>\&\ unsigned\_vector,}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\&\ signed\_vector)}
+\DoxyCodeLine{00634\ \{}
+\DoxyCodeLine{00635\ \ \ \textcolor{keywordtype}{size\_t}\ vector\_size\ =\ unsigned\_vector.size();}
+\DoxyCodeLine{00636\ \ \ signed\_vector.resize(vector\_size);}
+\DoxyCodeLine{00637\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vector\_size;\ ++i)\ \{}
+\DoxyCodeLine{00638\ \ \ \ \ signed\_vector[i]\ =\ unsigned\_vector[i];}
+\DoxyCodeLine{00639\ \ \ \}}
+\DoxyCodeLine{00640\ \}}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00642\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Index>}
+\DoxyCodeLine{00643\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00644\ remove\_vector\_values(\textcolor{keyword}{const}\ std::vector<Index>\&\ indices\_to\_remove,}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<T>\&\ vec,}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<T>\&\ subvec)}
+\DoxyCodeLine{00647\ \{}
+\DoxyCodeLine{00648\ \ \ \textcolor{comment}{//\ Remove\ faces\ adjacent\ to\ cones}}
+\DoxyCodeLine{00649\ \ \ std::vector<Index>\ indices\_to\_keep;}
+\DoxyCodeLine{00650\ \ \ index\_vector\_complement<Index>(}
+\DoxyCodeLine{00651\ \ \ \ \ indices\_to\_remove,\ vec.size(),\ indices\_to\_keep);}
+\DoxyCodeLine{00652\ \ \ subvec.resize(indices\_to\_keep.size());}
+\DoxyCodeLine{00653\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ indices\_to\_keep.size();\ ++i)\ \{}
+\DoxyCodeLine{00654\ \ \ \ \ subvec[i]\ =\ vec[indices\_to\_keep[i]];}
+\DoxyCodeLine{00655\ \ \ \}}
+\DoxyCodeLine{00656\ \}}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00659\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00660\ copy\_to\_planar\_point(\textcolor{keyword}{const}\ std::vector<T>\&\ input\_vector,}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<PlanarPoint>\&\ output\_vector)}
+\DoxyCodeLine{00662\ \{}
+\DoxyCodeLine{00663\ \ \ output\_vector.resize(input\_vector.size());}
+\DoxyCodeLine{00664\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ input\_vector.size();\ ++i)\ \{}
+\DoxyCodeLine{00665\ \ \ \ \ output\_vector[i]\ <<\ input\_vector[i][0],\ input\_vector[i][1];}
+\DoxyCodeLine{00666\ \ \ \}}
+\DoxyCodeLine{00667\ \}}
+\DoxyCodeLine{00668\ }
+\DoxyCodeLine{00669\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00670\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00671\ copy\_to\_spatial\_vector(\textcolor{keyword}{const}\ std::vector<T>\&\ input\_vector,}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<SpatialVector>\&\ output\_vector)}
+\DoxyCodeLine{00673\ \{}
+\DoxyCodeLine{00674\ \ \ output\_vector.resize(input\_vector.size());}
+\DoxyCodeLine{00675\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ input\_vector.size();\ ++i)\ \{}
+\DoxyCodeLine{00676\ \ \ \ \ output\_vector[i]\ <<\ input\_vector[i][0],\ input\_vector[i][1],}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ input\_vector[i][2];}
+\DoxyCodeLine{00678\ \ \ \}}
+\DoxyCodeLine{00679\ \}}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00682\ \textcolor{keyword}{inline}\ std::string}
+\DoxyCodeLine{00683\ formatted\_vector(\textcolor{keyword}{const}\ std::vector<T>\&\ vec,\ std::string\ delim\ =\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{00684\ \{}
+\DoxyCodeLine{00685\ \ \ std::stringstream\ vector\_string;}
+\DoxyCodeLine{00686\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vec.size();\ ++i)\ \{}
+\DoxyCodeLine{00687\ \ \ \ \ vector\_string\ <<\ vec[i]\ <<\ delim;}
+\DoxyCodeLine{00688\ \ \ \}}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \ \ \textcolor{keywordflow}{return}\ vector\_string.str();}
+\DoxyCodeLine{00691\ \}}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00699\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00700\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00701\ write\_vector(\textcolor{keyword}{const}\ std::vector<T>\&\ vec,}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ filename,}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ delim\ =\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{00704\ \{}
+\DoxyCodeLine{00705\ \ \ std::ofstream\ output\_file;}
+\DoxyCodeLine{00706\ \ \ output\_file.open(filename,\ std::ios::out\ |\ std::ios::trunc);}
+\DoxyCodeLine{00707\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vec.size();\ ++i)\ \{}
+\DoxyCodeLine{00708\ \ \ \ \ output\_file\ <<\ vec[i]\ <<\ delim;}
+\DoxyCodeLine{00709\ \ \ \}}
+\DoxyCodeLine{00710\ \ \ output\_file.close();}
+\DoxyCodeLine{00711\ \}}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00720\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00721\ write\_float\_vector(\textcolor{keyword}{const}\ std::vector<double>\&\ vec,}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ filename,}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ delim\ =\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}},}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ prec\ =\ 17)}
+\DoxyCodeLine{00725\ \{}
+\DoxyCodeLine{00726\ \ \ std::ofstream\ output\_file;}
+\DoxyCodeLine{00727\ \ \ output\_file.open(filename,\ std::ios::out\ |\ std::ios::trunc);}
+\DoxyCodeLine{00728\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vec.size();\ ++i)\ \{}
+\DoxyCodeLine{00729\ \ \ \ \ output\_file\ <<\ std::setprecision(prec)\ <<\ vec[i]\ <<\ delim;}
+\DoxyCodeLine{00730\ \ \ \}}
+\DoxyCodeLine{00731\ \ \ output\_file.close();}
+\DoxyCodeLine{00732\ \}}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00735\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00736\ append(std::vector<T>\&\ vec,\ std::vector<T>\&\ vec\_to\_add)}
+\DoxyCodeLine{00737\ \{}
+\DoxyCodeLine{00738\ \ \ vec.insert(vec.end(),\ vec\_to\_add.begin(),\ vec\_to\_add.end());}
+\DoxyCodeLine{00739\ \}}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00741\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00742\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00743\ nested\_vector\_size(std::vector<std::vector<T>>\ v)}
+\DoxyCodeLine{00744\ \{}
+\DoxyCodeLine{00745\ \ \ \textcolor{keywordtype}{size\_t}\ count\ =\ 0;}
+\DoxyCodeLine{00746\ }
+\DoxyCodeLine{00747\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ v.size();\ ++i)\ \{}
+\DoxyCodeLine{00748\ \ \ \ \ count\ +=\ v[i].size();}
+\DoxyCodeLine{00749\ \ \ \}}
+\DoxyCodeLine{00750\ }
+\DoxyCodeLine{00751\ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00752\ \}}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00754\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00755\ \textcolor{keyword}{inline}\ MatrixXr}
+\DoxyCodeLine{00756\ convert\_nested\_vector\_to\_matrix(\textcolor{keyword}{const}\ std::vector<T>\&\ vec)}
+\DoxyCodeLine{00757\ \{}
+\DoxyCodeLine{00758\ \ \ \textcolor{keywordtype}{size\_t}\ n\ =\ vec.size();}
+\DoxyCodeLine{00759\ \ \ \textcolor{keywordflow}{if}\ (n\ <=\ 0)}
+\DoxyCodeLine{00760\ \ \ \ \ \textcolor{keywordflow}{return}\ MatrixXr();}
+\DoxyCodeLine{00761\ \ \ MatrixXr\ matrix(vec.size(),\ vec[0].size());}
+\DoxyCodeLine{00762\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00763\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ inner\_vec\_size\ =\ vec[i].size();}
+\DoxyCodeLine{00764\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ inner\_vec\_size;\ ++j)\ \{}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ matrix(i,\ j)\ =\ vec[i][j];}
+\DoxyCodeLine{00766\ \ \ \ \ \}}
+\DoxyCodeLine{00767\ \ \ \}}
+\DoxyCodeLine{00768\ }
+\DoxyCodeLine{00769\ \ \ \textcolor{keywordflow}{return}\ matrix;}
+\DoxyCodeLine{00770\ \}}
+\DoxyCodeLine{00771\ }
+\DoxyCodeLine{00772\ \textcolor{keyword}{inline}\ Eigen::MatrixXd}
+\DoxyCodeLine{00773\ convert\_nested\_vector\_to\_matrix(\textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ vec)}
+\DoxyCodeLine{00774\ \{}
+\DoxyCodeLine{00775\ \ \ \textcolor{keywordtype}{size\_t}\ n\ =\ vec.size();}
+\DoxyCodeLine{00776\ \ \ \textcolor{keywordflow}{if}\ (n\ <=\ 0)}
+\DoxyCodeLine{00777\ \ \ \ \ \textcolor{keywordflow}{return}\ Eigen::MatrixXd();}
+\DoxyCodeLine{00778\ \ \ \textcolor{keywordtype}{size\_t}\ m\ =\ vec[0].size();}
+\DoxyCodeLine{00779\ \ \ Eigen::MatrixXd\ matrix(vec.size(),\ vec[0].size());}
+\DoxyCodeLine{00780\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00781\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ m;\ ++j)\ \{}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ matrix(i,\ j)\ =\ vec[i][j];}
+\DoxyCodeLine{00783\ \ \ \ \ \}}
+\DoxyCodeLine{00784\ \ \ \}}
+\DoxyCodeLine{00785\ }
+\DoxyCodeLine{00786\ \ \ \textcolor{keywordflow}{return}\ matrix;}
+\DoxyCodeLine{00787\ \}}
+\DoxyCodeLine{00788\ }
+\DoxyCodeLine{00789\ \textcolor{keyword}{inline}\ Eigen::MatrixXi}
+\DoxyCodeLine{00790\ convert\_nested\_vector\_to\_matrix(\textcolor{keyword}{const}\ std::vector<std::vector<int>>\&\ vec)}
+\DoxyCodeLine{00791\ \{}
+\DoxyCodeLine{00792\ \ \ \textcolor{keywordtype}{size\_t}\ n\ =\ vec.size();}
+\DoxyCodeLine{00793\ \ \ \textcolor{keywordflow}{if}\ (n\ <=\ 0)}
+\DoxyCodeLine{00794\ \ \ \ \ \textcolor{keywordflow}{return}\ Eigen::MatrixXi();}
+\DoxyCodeLine{00795\ \ \ \textcolor{keywordtype}{size\_t}\ m\ =\ vec[0].size();}
+\DoxyCodeLine{00796\ \ \ Eigen::MatrixXi\ matrix(vec.size(),\ vec[0].size());}
+\DoxyCodeLine{00797\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00798\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ m;\ ++j)\ \{}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ matrix(i,\ j)\ =\ vec[i][j];}
+\DoxyCodeLine{00800\ \ \ \ \ \}}
+\DoxyCodeLine{00801\ \ \ \}}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00803\ \ \ \textcolor{keywordflow}{return}\ matrix;}
+\DoxyCodeLine{00804\ \}}
+\DoxyCodeLine{00805\ }
+\DoxyCodeLine{00806\ \textcolor{comment}{//\ **************}}
+\DoxyCodeLine{00807\ \textcolor{comment}{//\ Matrix\ methods}}
+\DoxyCodeLine{00808\ \textcolor{comment}{//\ **************}}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00810\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00811\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00812\ append\_matrix(T\&\ matrix,\ T\&\ matrix\_to\_add)}
+\DoxyCodeLine{00813\ \{}
+\DoxyCodeLine{00814\ \ \ \textcolor{keywordtype}{int}\ i\ =\ matrix.rows();}
+\DoxyCodeLine{00815\ \ \ \textcolor{keywordtype}{int}\ j\ =\ matrix.cols();}
+\DoxyCodeLine{00816\ \ \ \textcolor{keywordtype}{int}\ p\ =\ matrix\_to\_add.rows();}
+\DoxyCodeLine{00817\ \ \ \textcolor{keywordtype}{int}\ q\ =\ matrix\_to\_add.cols();}
+\DoxyCodeLine{00818\ }
+\DoxyCodeLine{00819\ \ \ \textcolor{keywordflow}{if}\ (j\ ==\ 0)\ \{}
+\DoxyCodeLine{00820\ \ \ \ \ matrix\ =\ matrix\_to\_add;}
+\DoxyCodeLine{00821\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00822\ \ \ \ \ assert(j\ ==\ q);}
+\DoxyCodeLine{00823\ \ \ \ \ matrix.conservativeResize(i\ +\ p,\ j);}
+\DoxyCodeLine{00824\ \ \ \ \ matrix.block(i,\ 0,\ p,\ q)\ =\ matrix\_to\_add;}
+\DoxyCodeLine{00825\ \ \ \}}
+\DoxyCodeLine{00826\ \}}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00828\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Derived>}
+\DoxyCodeLine{00829\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00830\ flatten\_matrix\_by\_row(\textcolor{keyword}{const}\ Eigen::EigenBase<Derived>\&\ mat,}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\&\ vec)}
+\DoxyCodeLine{00832\ \{}
+\DoxyCodeLine{00833\ \ \ \textcolor{keywordtype}{size\_t}\ row\_length\ =\ mat.cols();}
+\DoxyCodeLine{00834\ \ \ \textcolor{keywordtype}{size\_t}\ num\_entries\ =\ mat.rows()\ *\ mat.cols();}
+\DoxyCodeLine{00835\ \ \ vec.resize(num\_entries);}
+\DoxyCodeLine{00836\ }
+\DoxyCodeLine{00837\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ mat.rows();\ ++i)\ \{}
+\DoxyCodeLine{00838\ \ \ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ j\ =\ 0;\ j\ <\ mat.cols();\ ++j)\ \{}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ flat\_index\ =\ row\_length\ *\ i\ +\ j;}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ vec[flat\_index]\ =\ mat(i,\ j);}
+\DoxyCodeLine{00841\ \ \ \ \ \}}
+\DoxyCodeLine{00842\ \ \ \}}
+\DoxyCodeLine{00843\ \}}
+\DoxyCodeLine{00844\ }
+\DoxyCodeLine{00845\ \textcolor{comment}{//\ Read\ a\ 4x4\ matrix\ from\ file}}
+\DoxyCodeLine{00849\ \textcolor{comment}{}\textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ read\_camera\_matrix(}
+\DoxyCodeLine{00850\ \ \ \textcolor{keyword}{const}\ std::string\ \&filename,}
+\DoxyCodeLine{00851\ \ \ Eigen::Matrix<double,\ 4,\ 4>\&\ mat}
+\DoxyCodeLine{00852\ )\ \{}
+\DoxyCodeLine{00853\ \ \ \textcolor{comment}{//\ Open\ file}}
+\DoxyCodeLine{00854\ \ \ std::ifstream\ input\_file(filename);}
+\DoxyCodeLine{00855\ \ \ \textcolor{keywordflow}{if}\ (!input\_file)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00856\ }
+\DoxyCodeLine{00857\ \ \ \textcolor{comment}{//\ Read\ file}}
+\DoxyCodeLine{00858\ \ \ std::string\ line;}
+\DoxyCodeLine{00859\ \ \ \textcolor{keywordtype}{int}\ row\ =\ 0;}
+\DoxyCodeLine{00860\ \ \ \textcolor{keywordflow}{while}\ (std::getline(input\_file,\ line))}
+\DoxyCodeLine{00861\ \ \ \{}
+\DoxyCodeLine{00862\ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00863\ \ \ \ \ std::string\ cell;}
+\DoxyCodeLine{00864\ \ \ \ \ \textcolor{keywordtype}{int}\ col\ =\ 0;}
+\DoxyCodeLine{00865\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(iss,\ cell,\ \textcolor{charliteral}{','}))}
+\DoxyCodeLine{00866\ \ \ \ \ \{}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ mat(row,\ col)\ =\ std::stod(cell);}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ ++col;}
+\DoxyCodeLine{00869\ \ \ \ \ \}}
+\DoxyCodeLine{00870\ \ \ \ \ ++row;}
+\DoxyCodeLine{00871\ \ \ \}}
+\DoxyCodeLine{00872\ }
+\DoxyCodeLine{00873\ \ \ \textcolor{comment}{//\ Close\ file}}
+\DoxyCodeLine{00874\ \ \ input\_file.close();}
+\DoxyCodeLine{00875\ \}}
+\DoxyCodeLine{00876\ }
+\DoxyCodeLine{00877\ \textcolor{comment}{//\ ****************}}
+\DoxyCodeLine{00878\ \textcolor{comment}{//\ Pythonic\ methods}}
+\DoxyCodeLine{00879\ \textcolor{comment}{//\ ****************}}
+\DoxyCodeLine{00880\ }
+\DoxyCodeLine{00881\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00882\ generate\_linspace(\textcolor{keywordtype}{double}\ t\_0,\ \textcolor{keywordtype}{double}\ t\_1,\ \textcolor{keywordtype}{size\_t}\ num\_points,\ VectorXr\&\ linspace)}
+\DoxyCodeLine{00883\ \{}
+\DoxyCodeLine{00884\ \ \ linspace.resize(num\_points);}
+\DoxyCodeLine{00885\ \ \ \textcolor{keywordflow}{if}\ (num\_points\ <\ 2)}
+\DoxyCodeLine{00886\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00887\ }
+\DoxyCodeLine{00888\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ num\_points;\ ++i)\ \{}
+\DoxyCodeLine{00889\ \ \ \ \ \textcolor{keywordtype}{double}\ delta\_t\ =\ (t\_1\ -\/\ t\_0)\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(num\_points\ -\/\ 1);}
+\DoxyCodeLine{00890\ \ \ \ \ linspace[i]\ =\ t\_0\ +\ delta\_t\ *\ i;}
+\DoxyCodeLine{00891\ \ \ \}}
+\DoxyCodeLine{00892\ \}}
+\DoxyCodeLine{00893\ }
+\DoxyCodeLine{00894\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00895\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00896\ arange(\textcolor{keywordtype}{size\_t}\ size,\ std::vector<T>\&\ arange\_vec)}
+\DoxyCodeLine{00897\ \{}
+\DoxyCodeLine{00898\ \ \ arange\_vec.resize(size);}
+\DoxyCodeLine{00899\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ size;\ ++i)\ \{}
+\DoxyCodeLine{00900\ \ \ \ \ arange\_vec[i]\ =\ T(i);}
+\DoxyCodeLine{00901\ \ \ \}}
+\DoxyCodeLine{00902\ \}}
+\DoxyCodeLine{00903\ }
+\DoxyCodeLine{00904\ \textcolor{comment}{//\ *******************}}
+\DoxyCodeLine{00905\ \textcolor{comment}{//\ Basic\ mesh\ topology}}
+\DoxyCodeLine{00906\ \textcolor{comment}{//\ *******************}}
+\DoxyCodeLine{00907\ }
+\DoxyCodeLine{00908\ \textcolor{comment}{//\ Return\ true\ iff\ the\ face\ contains\ the\ given\ vertex}}
+\DoxyCodeLine{00909\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00910\ contains\_vertex(Eigen::VectorXi\ face,\ \textcolor{keywordtype}{int}\ vertex\_index)}
+\DoxyCodeLine{00911\ \{}
+\DoxyCodeLine{00912\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ face.size();\ ++i)\ \{}
+\DoxyCodeLine{00913\ \ \ \ \ \textcolor{keywordflow}{if}\ (face[i]\ ==\ vertex\_index)}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00915\ \ \ \}}
+\DoxyCodeLine{00916\ }
+\DoxyCodeLine{00917\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00918\ \}}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00920\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00921\ find\_face\_vertex\_index(Eigen::VectorXi\ face,\ \textcolor{keywordtype}{int}\ vertex\_index)}
+\DoxyCodeLine{00922\ \{}
+\DoxyCodeLine{00923\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ face.size();\ ++i)\ \{}
+\DoxyCodeLine{00924\ \ \ \ \ \textcolor{keywordflow}{if}\ (face[i]\ ==\ vertex\_index)}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00926\ \ \ \}}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00928\ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00929\ \}}
+\DoxyCodeLine{00930\ }
+\DoxyCodeLine{00935\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00936\ is\_manifold(\textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F)}
+\DoxyCodeLine{00937\ \{}
+\DoxyCodeLine{00938\ \ \ \textcolor{comment}{//\ Check\ edge\ manifold\ condition}}
+\DoxyCodeLine{00939\ \ \ \textcolor{keywordflow}{if}\ (!igl::is\_edge\_manifold(F))\ \{}
+\DoxyCodeLine{00940\ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Mesh\ is\ not\ edge\ manifold"{}});}
+\DoxyCodeLine{00941\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00942\ \ \ \}}
+\DoxyCodeLine{00943\ }
+\DoxyCodeLine{00944\ \ \ \textcolor{comment}{//\ Check\ vertex\ manifold\ condition}}
+\DoxyCodeLine{00945\ \ \ Eigen::VectorXi\ invalid\_vertices;}
+\DoxyCodeLine{00946\ \ \ \textcolor{keywordflow}{if}\ (!igl::is\_vertex\_manifold(F,\ invalid\_vertices))\ \{}
+\DoxyCodeLine{00947\ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Mesh\ is\ not\ edge\ manifold"{}});}
+\DoxyCodeLine{00948\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00949\ \ \ \}}
+\DoxyCodeLine{00950\ }
+\DoxyCodeLine{00951\ \ \ \textcolor{comment}{//\ Check\ single\ component}}
+\DoxyCodeLine{00952\ \ \ Eigen::MatrixXi\ component\_ids;}
+\DoxyCodeLine{00953\ \ \ igl::vertex\_components(F,\ component\_ids);}
+\DoxyCodeLine{00954\ \ \ \textcolor{keywordflow}{if}\ ((component\_ids.maxCoeff()\ -\/\ component\_ids.minCoeff())\ >\ 0)\ \{}
+\DoxyCodeLine{00955\ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Mesh\ has\ multiple\ components"{}});}
+\DoxyCodeLine{00956\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00957\ \ \ \}}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00959\ \ \ \textcolor{comment}{//\ Manifold\ otherwise}}
+\DoxyCodeLine{00960\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00961\ \}}
+\DoxyCodeLine{00962\ }
+\DoxyCodeLine{00963\ \textcolor{comment}{//\ *******************}}
+\DoxyCodeLine{00964\ \textcolor{comment}{//\ Basic\ mesh\ geometry}}
+\DoxyCodeLine{00965\ \textcolor{comment}{//\ *******************}}
+\DoxyCodeLine{00966\ }
+\DoxyCodeLine{00973\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00974\ area\_from\_length(\textcolor{keywordtype}{double}\ l0,\ \textcolor{keywordtype}{double}\ l1,\ \textcolor{keywordtype}{double}\ l2)}
+\DoxyCodeLine{00975\ \{}
+\DoxyCodeLine{00976\ \ \ \textcolor{comment}{//\ Return\ the\ area\ (or\ zero\ if\ there\ is\ a\ triangle\ inequality\ violation)}}
+\DoxyCodeLine{00977\ \ \ \textcolor{keywordtype}{double}\ s\ =\ 0.5\ *\ (l0\ +\ l1\ +\ l2);\ \textcolor{comment}{//\ semi-\/perimeter}}
+\DoxyCodeLine{00978\ \ \ \textcolor{keywordtype}{double}\ area\ =\ std::sqrt(std::max(s\ *\ (s\ -\/\ l0)\ *\ (s\ -\/\ l1)\ *\ (s\ -\/\ l2),\ 0.0));}
+\DoxyCodeLine{00979\ \ \ assert(!std::isnan(area));}
+\DoxyCodeLine{00980\ \ \ \textcolor{keywordflow}{return}\ area;}
+\DoxyCodeLine{00981\ \}}
+\DoxyCodeLine{00982\ }
+\DoxyCodeLine{00989\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{00990\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{00991\ area\_from\_positions(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ p0,}
+\DoxyCodeLine{00992\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ p1,}
+\DoxyCodeLine{00993\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ p2)}
+\DoxyCodeLine{00994\ \{}
+\DoxyCodeLine{00995\ \ \ \textcolor{keywordtype}{double}\ l0\ =\ (p2\ -\/\ p1).norm();}
+\DoxyCodeLine{00996\ \ \ ;}
+\DoxyCodeLine{00997\ \ \ \textcolor{keywordtype}{double}\ l1\ =\ (p0\ -\/\ p2).norm();}
+\DoxyCodeLine{00998\ \ \ ;}
+\DoxyCodeLine{00999\ \ \ \textcolor{keywordtype}{double}\ l2\ =\ (p1\ -\/\ p0).norm();}
+\DoxyCodeLine{01000\ \ \ ;}
+\DoxyCodeLine{01001\ \ \ \textcolor{keywordflow}{return}\ area\_from\_length(l0,\ l1,\ l2);}
+\DoxyCodeLine{01002\ \}}
+\DoxyCodeLine{01003\ }
+\DoxyCodeLine{01013\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{01014\ angle\_from\_length(\textcolor{keywordtype}{double}\ edge\_length\_opposite\_corner,}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ first\_adjacent\_edge\_length,}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ second\_adjacent\_edge\_length)}
+\DoxyCodeLine{01017\ \{}
+\DoxyCodeLine{01018\ \ \ \textcolor{comment}{//\ Rename\ variables\ for\ readability}}
+\DoxyCodeLine{01019\ \ \ \textcolor{keywordtype}{double}\ l0\ =\ edge\_length\_opposite\_corner;}
+\DoxyCodeLine{01020\ \ \ \textcolor{keywordtype}{double}\ l1\ =\ first\_adjacent\_edge\_length;}
+\DoxyCodeLine{01021\ \ \ \textcolor{keywordtype}{double}\ l2\ =\ second\_adjacent\_edge\_length;}
+\DoxyCodeLine{01022\ }
+\DoxyCodeLine{01023\ \ \ \textcolor{comment}{//\ Compute\ the\ angle}}
+\DoxyCodeLine{01024\ \ \ \textcolor{comment}{//\ FIXME\ Avoid\ potential\ division\ by\ 0}}
+\DoxyCodeLine{01025\ \ \ \textcolor{keywordtype}{double}\ Ijk\ =\ (-\/l0\ *\ l0\ +\ l1\ *\ l1\ +\ l2\ *\ l2);}
+\DoxyCodeLine{01026\ \ \ \textcolor{keywordflow}{return}\ acos(std::min<double>(std::max(Ijk\ /\ (2.0\ *\ l1\ *\ l2),\ -\/1.0),\ 1.0));}
+\DoxyCodeLine{01027\ \}}
+\DoxyCodeLine{01028\ }
+\DoxyCodeLine{01038\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{01039\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{01040\ angle\_from\_positions(}
+\DoxyCodeLine{01041\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ angle\_corner\_position,}
+\DoxyCodeLine{01042\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ second\_corner\_position,}
+\DoxyCodeLine{01043\ \ \ \textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ third\_corner\_position)}
+\DoxyCodeLine{01044\ \{}
+\DoxyCodeLine{01045\ \ \ \textcolor{keywordtype}{double}\ l0\ =\ (third\_corner\_position\ -\/\ second\_corner\_position).norm();}
+\DoxyCodeLine{01046\ \ \ \textcolor{keywordtype}{double}\ l1\ =\ (second\_corner\_position\ -\/\ angle\_corner\_position).norm();}
+\DoxyCodeLine{01047\ \ \ \textcolor{keywordtype}{double}\ l2\ =\ (third\_corner\_position\ -\/\ angle\_corner\_position).norm();}
+\DoxyCodeLine{01048\ \ \ \textcolor{keywordflow}{return}\ angle\_from\_length(l0,\ l1,\ l2);}
+\DoxyCodeLine{01049\ \}}
+\DoxyCodeLine{01050\ }
+\DoxyCodeLine{01060\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}}
+\DoxyCodeLine{01061\ interval\_lerp(\textcolor{keywordtype}{double}\ t\_min\_0,}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_max\_0,}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_min\_1,}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_max\_1,}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_0)}
+\DoxyCodeLine{01066\ \{}
+\DoxyCodeLine{01067\ \ \ \textcolor{comment}{//\ Return\ the\ midpoint\ of\ the\ image\ if\ the\ input\ domain\ is\ trivial}}
+\DoxyCodeLine{01068\ \ \ \textcolor{keywordflow}{if}\ (float\_equal(t\_min\_0,\ t\_max\_0))\ \{}
+\DoxyCodeLine{01069\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.5\ *\ (t\_min\_1\ +\ t\_max\_1);}
+\DoxyCodeLine{01070\ \ \ \}}
+\DoxyCodeLine{01071\ }
+\DoxyCodeLine{01072\ \ \ \textcolor{comment}{//\ Perform\ the\ interpolation}}
+\DoxyCodeLine{01073\ \ \ \textcolor{keywordtype}{double}\ r\_0\ =\ t\_max\_0\ -\/\ t\_min\_0;}
+\DoxyCodeLine{01074\ \ \ \textcolor{keywordtype}{double}\ r\_1\ =\ t\_max\_1\ -\/\ t\_min\_1;}
+\DoxyCodeLine{01075\ \ \ \textcolor{keywordtype}{double}\ t\_1\ =\ t\_min\_1\ +\ (r\_1\ /\ r\_0)\ *\ (t\_0\ -\/\ t\_min\_0);}
+\DoxyCodeLine{01076\ \ \ \textcolor{keywordflow}{return}\ t\_1;}
+\DoxyCodeLine{01077\ \}}
+\DoxyCodeLine{01078\ }
+\DoxyCodeLine{01086\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Vector,\ \textcolor{keyword}{typename}\ Matrix>}
+\DoxyCodeLine{01087\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01088\ compute\_point\_cloud\_bounding\_box(\textcolor{keyword}{const}\ Matrix\&\ points,}
+\DoxyCodeLine{01089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector\&\ min\_point,}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector\&\ max\_point)}
+\DoxyCodeLine{01091\ \{}
+\DoxyCodeLine{01092\ \ \ Eigen::Index\ num\_points\ =\ points.rows();}
+\DoxyCodeLine{01093\ \ \ Eigen::Index\ dimension\ =\ points.cols();}
+\DoxyCodeLine{01094\ \ \ \textcolor{keywordflow}{if}\ (num\_points\ ==\ 0)}
+\DoxyCodeLine{01095\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01096\ \ \ \textcolor{keywordflow}{if}\ (dimension\ ==\ 0)}
+\DoxyCodeLine{01097\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01098\ }
+\DoxyCodeLine{01099\ \ \ \textcolor{comment}{//\ Get\ minimum\ and\ maximum\ coordinates\ for\ the\ points}}
+\DoxyCodeLine{01100\ \ \ min\_point\ =\ points.row(0);}
+\DoxyCodeLine{01101\ \ \ max\_point\ =\ points.row(0);}
+\DoxyCodeLine{01102\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ pi\ =\ 0;\ pi\ <\ num\_points;\ ++pi)\ \{}
+\DoxyCodeLine{01103\ \ \ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ j\ =\ 0;\ j\ <\ dimension;\ ++j)\ \{}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ min\_point[j]\ =\ std::min<double>(min\_point[j],\ points(pi,\ j));}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ max\_point[j]\ =\ std::max<double>(max\_point[j],\ points(pi,\ j));}
+\DoxyCodeLine{01106\ \ \ \ \ \}}
+\DoxyCodeLine{01107\ \ \ \}}
+\DoxyCodeLine{01108\ \}}
+\DoxyCodeLine{01109\ }
+\DoxyCodeLine{01110\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Index>}
+\DoxyCodeLine{01111\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01112\ remove\_mesh\_faces(\textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Index>\&\ faces\_to\_remove,}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\&\ V\_submesh,}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXi\&\ F\_submesh)}
+\DoxyCodeLine{01117\ \{}
+\DoxyCodeLine{01118\ \ \ std::vector<Index>\ faces\_to\_keep;}
+\DoxyCodeLine{01119\ \ \ index\_vector\_complement<Index>(faces\_to\_remove,\ F.rows(),\ faces\_to\_keep);}
+\DoxyCodeLine{01120\ \ \ Eigen::MatrixXi\ F\_unsimplified\_submesh(faces\_to\_keep.size(),\ F.cols());}
+\DoxyCodeLine{01121\ \ \ F\_unsimplified\_submesh.resize(faces\_to\_keep.size(),\ 3);}
+\DoxyCodeLine{01122\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ faces\_to\_keep.size();\ ++i)\ \{}
+\DoxyCodeLine{01123\ \ \ \ \ F\_unsimplified\_submesh.row(i)\ =\ F.row(faces\_to\_keep[i]);}
+\DoxyCodeLine{01124\ \ \ \}}
+\DoxyCodeLine{01125\ }
+\DoxyCodeLine{01126\ \ \ \textcolor{comment}{//\ Remove\ unreferenced\ vertices\ and\ update\ face\ indices}}
+\DoxyCodeLine{01127\ \ \ Eigen::MatrixXi\ I,\ J;}
+\DoxyCodeLine{01128\ \ \ igl::remove\_unreferenced(V,\ F\_unsimplified\_submesh,\ V\_submesh,\ F\_submesh,\ I);}
+\DoxyCodeLine{01129\ \ \ SPDLOG\_TRACE(\textcolor{stringliteral}{"{}Final\ mesh\ has\ \{\}\ faces\ and\ \{\}\ vertices"{}},}
+\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F\_submesh.rows(),}
+\DoxyCodeLine{01131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_submesh.rows());}
+\DoxyCodeLine{01132\ \}}
+\DoxyCodeLine{01133\ }
+\DoxyCodeLine{01134\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ VertexIndex,\ \textcolor{keyword}{typename}\ FaceIndex>}
+\DoxyCodeLine{01135\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01136\ remove\_mesh\_vertices(\textcolor{keyword}{const}\ Eigen::MatrixXd\&\ V,}
+\DoxyCodeLine{01137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXi\&\ F,}
+\DoxyCodeLine{01138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<VertexIndex>\&\ vertices\_to\_remove,}
+\DoxyCodeLine{01139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\&\ V\_submesh,}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXi\&\ F\_submesh,}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<FaceIndex>\&\ faces\_to\_remove)}
+\DoxyCodeLine{01142\ \{}
+\DoxyCodeLine{01143\ \ \ SPDLOG\_TRACE(\textcolor{stringliteral}{"{}Removing\ \{\}\ vertices\ from\ mesh\ with\ \{\}\ faces\ and\ \{\}\ vertices"{}},}
+\DoxyCodeLine{01144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertices\_to\_remove.size(),}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F.rows(),}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V.rows());}
+\DoxyCodeLine{01147\ }
+\DoxyCodeLine{01148\ \ \ \textcolor{comment}{//\ Tag\ faces\ adjacent\ to\ the\ vertices\ to\ remove}}
+\DoxyCodeLine{01149\ \ \ faces\_to\_remove.clear();}
+\DoxyCodeLine{01150\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ face\_index\ =\ 0;\ face\_index\ <\ F.rows();\ ++face\_index)\ \{}
+\DoxyCodeLine{01151\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vertices\_to\_remove.size();\ ++i)\ \{}
+\DoxyCodeLine{01152\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (contains\_vertex(F.row(face\_index),\ vertices\_to\_remove[i]))\ \{}
+\DoxyCodeLine{01153\ \ \ \ \ \ \ \ \ faces\_to\_remove.push\_back(face\_index);}
+\DoxyCodeLine{01154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01155\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01156\ \ \ \ \ \}}
+\DoxyCodeLine{01157\ \ \ \}}
+\DoxyCodeLine{01158\ \ \ spdlog::trace(\textcolor{stringliteral}{"{}Removing\ \{\}\ faces"{}},\ faces\_to\_remove.size());}
+\DoxyCodeLine{01159\ }
+\DoxyCodeLine{01160\ \ \ \textcolor{comment}{//\ Remove\ faces\ adjacent\ to\ cones}}
+\DoxyCodeLine{01161\ \ \ remove\_mesh\_faces(V,\ F,\ faces\_to\_remove,\ V\_submesh,\ F\_submesh);}
+\DoxyCodeLine{01162\ \}}
+\DoxyCodeLine{01163\ }
+\DoxyCodeLine{01164\ \textcolor{comment}{//\ *********************}}
+\DoxyCodeLine{01165\ \textcolor{comment}{//\ Filepath\ manipulation}}
+\DoxyCodeLine{01166\ \textcolor{comment}{//\ *********************}}
+\DoxyCodeLine{01167\ }
+\DoxyCodeLine{01168\ \textcolor{keyword}{inline}\ std::string}
+\DoxyCodeLine{01169\ join\_path(\textcolor{keyword}{const}\ std::string\&\ first\_path,\ \textcolor{keyword}{const}\ std::string\&\ second\_path)}
+\DoxyCodeLine{01170\ \{}
+\DoxyCodeLine{01171\ \ \ \textcolor{keywordflow}{if}\ (first\_path.back()\ ==\ \textcolor{charliteral}{'/'})\ \{}
+\DoxyCodeLine{01172\ \ \ \ \ \textcolor{keywordflow}{return}\ first\_path\ +\ second\_path;}
+\DoxyCodeLine{01173\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01174\ \ \ \ \ std::string\ path\ =\ first\_path\ +\ \textcolor{stringliteral}{"{}/"{}};}
+\DoxyCodeLine{01175\ \ \ \ \ \textcolor{keywordflow}{return}\ path\ +\ second\_path;}
+\DoxyCodeLine{01176\ \ \ \}}
+\DoxyCodeLine{01177\ \}}
+\DoxyCodeLine{01178\ }
+\DoxyCodeLine{01179\ \textcolor{comment}{//\ **********}}
+\DoxyCodeLine{01180\ \textcolor{comment}{//\ Nan\ checks}}
+\DoxyCodeLine{01181\ \textcolor{comment}{//\ **********}}
+\DoxyCodeLine{01182\ }
+\DoxyCodeLine{01183\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{01184\ matrix\_contains\_nan(\textcolor{keyword}{const}\ MatrixXr\&\ mat)}
+\DoxyCodeLine{01185\ \{}
+\DoxyCodeLine{01186\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ mat.rows();\ ++i)\ \{}
+\DoxyCodeLine{01187\ \ \ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ j\ =\ 0;\ j\ <\ mat.cols();\ ++j)\ \{}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(mat(i,\ j)))}
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01190\ \ \ \ \ \}}
+\DoxyCodeLine{01191\ \ \ \}}
+\DoxyCodeLine{01192\ }
+\DoxyCodeLine{01193\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01194\ \}}
+\DoxyCodeLine{01195\ }
+\DoxyCodeLine{01196\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ dimension>}
+\DoxyCodeLine{01197\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{01198\ vector\_contains\_nan(\textcolor{keyword}{const}\ Eigen::Matrix<double,\ 1,\ dimension>\&\ vec)}
+\DoxyCodeLine{01199\ \{}
+\DoxyCodeLine{01200\ \ \ \textcolor{keywordflow}{for}\ (Eigen::Index\ i\ =\ 0;\ i\ <\ vec.size();\ ++i)\ \{}
+\DoxyCodeLine{01201\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(vec[i]))}
+\DoxyCodeLine{01202\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01203\ \ \ \}}
+\DoxyCodeLine{01204\ }
+\DoxyCodeLine{01205\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01206\ \}}
+\DoxyCodeLine{01207\ }
+\DoxyCodeLine{01208\ \textcolor{comment}{//\ TODO\ Move\ elsewhere}}
+\DoxyCodeLine{01209\ }
+\DoxyCodeLine{01210\ \textcolor{keyword}{inline}\ std::vector<Edge>}
+\DoxyCodeLine{01211\ convert\_polylines\_to\_edges(\textcolor{keyword}{const}\ std::vector<std::vector<int>>\&\ polylines)}
+\DoxyCodeLine{01212\ \{}
+\DoxyCodeLine{01213\ \ \ std::vector<Edge>\ edges;}
+\DoxyCodeLine{01214\ \ \ edges.reserve(10\ *\ polylines.size());}
+\DoxyCodeLine{01215\ }
+\DoxyCodeLine{01216\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ polylines.size();\ ++i)\ \{}
+\DoxyCodeLine{01217\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 1;\ j\ <\ polylines[i].size();\ ++j)\ \{}
+\DoxyCodeLine{01218\ \ \ \ \ \ \ Edge\ edge\ =\ \{\ polylines[i][j\ -\/\ 1],\ polylines[i][j]\ \};}
+\DoxyCodeLine{01219\ \ \ \ \ \ \ edges.push\_back(edge);}
+\DoxyCodeLine{01220\ \ \ \ \ \}}
+\DoxyCodeLine{01221\ \ \ \}}
+\DoxyCodeLine{01222\ }
+\DoxyCodeLine{01223\ \ \ \textcolor{keywordflow}{return}\ edges;}
+\DoxyCodeLine{01224\ \}}
+
+\end{DoxyCode}

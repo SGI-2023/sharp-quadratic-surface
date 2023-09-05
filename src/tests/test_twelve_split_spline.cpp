@@ -17,8 +17,8 @@ bool test_twelve_split_quadratic_reproduction(
     double uu_coeff,
     double vv_coeff
 ) {
-  Eigen::MatrixXd V(3, 2);
-  Eigen::MatrixXi F(1, 3);
+  Eigen::MatrixXd V(3, 2); // create 3x2 double matrix V
+  Eigen::MatrixXi F(1, 3); // create 1x3 int matrix F
   V <<
     1.0,  0.0,
     0.0,  1.0,

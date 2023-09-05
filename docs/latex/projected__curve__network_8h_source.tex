@@ -1,0 +1,530 @@
+\doxysection{projected\+\_\+curve\+\_\+network.\+h}
+\hypertarget{projected__curve__network_8h_source}{}\label{projected__curve__network_8h_source}\index{src/contour\_network/projected\_curve\_network.h@{src/contour\_network/projected\_curve\_network.h}}
+\mbox{\hyperlink{projected__curve__network_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Adobe\ Research.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ To\ view\ a\ copy\ of\ the\ license,\ visit\ LICENSE.md.}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{abstract__curve__network_8h}{abstract\_curve\_network.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}common.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}conic.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}intersection\_data.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}rational\_function.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}svg.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{enum\ class}\ SVGOutputMode}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ uniform\_segments,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ All\ contours\ in\ uniform\ color}}
+\DoxyCodeLine{00021\ \ \ uniform\_visible\_segments,\ \ \ \ \textcolor{comment}{//\ Visible\ contours\ in\ uniform\ color}}
+\DoxyCodeLine{00022\ \ \ contrast\_invisible\_segments,\ \textcolor{comment}{//\ Visible\ and\ invisible\ segments\ in\ a\ different}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ color}}
+\DoxyCodeLine{00024\ \ \ random\_chains,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Chains\ in\ random\ colors}}
+\DoxyCodeLine{00025\ \ \ uniform\_chains,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Chains\ in\ uniform\ color}}
+\DoxyCodeLine{00026\ \ \ uniform\_visible\_chains,\ \ \ \ \ \ \textcolor{comment}{//\ Visible\ chains\ in\ uniform\ color}}
+\DoxyCodeLine{00027\ \ \ uniform\_visible\_curves,\ \textcolor{comment}{//\ Visible\ curves\ with\ no\ breaks\ at\ special\ points}}
+\DoxyCodeLine{00028\ \ \ uniform\_closed\_curves,\ \ \textcolor{comment}{//\ All\ closed\ curves\ with\ no\ breaks\ at\ special\ points}}
+\DoxyCodeLine{00029\ \ \ uniform\_simplified\_visible\_curves\ \textcolor{comment}{//\ All\ visible\ closed\ curves\ with}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ simplification}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_segment_geometry}{SegmentGeometry}}}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{class_segment_geometry}{SegmentGeometry}}()\ \{\}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{class_segment_geometry}{SegmentGeometry}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_conic}{Conic}}\&\ parameter\_curve,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}\&\ spatial\_curve,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\&\ planar\_curve,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::map<std::string,\ int>\ segment\_labels)}
+\DoxyCodeLine{00043\ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ m\_planar\_curve\ =\ planar\_curve;}
+\DoxyCodeLine{00045\ \ \ \ \ m\_spatial\_curve\ =\ spatial\_curve;}
+\DoxyCodeLine{00046\ \ \ \ \ m\_parameter\_curve\ =\ parameter\_curve;}
+\DoxyCodeLine{00047\ \ \ \ \ m\_segment\_labels\ =\ segment\_labels;}
+\DoxyCodeLine{00048\ \ \ \ \ m\_quantitative\_invisibility\ =\ -\/1;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{if}\ (!is\_valid\_segment\_geometry())\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Invalid\ segment\ made"{}});}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{comment}{//\ Geometric\ data}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\ \textcolor{keyword}{const}\&\ get\_planar\_curve()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00057\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{return}\ m\_planar\_curve;}
+\DoxyCodeLine{00059\ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}\ \textcolor{keyword}{const}\&\ get\_spatial\_curve()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00062\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ m\_spatial\_curve;}
+\DoxyCodeLine{00064\ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{class_conic}{Conic}}\ \textcolor{keyword}{const}\&\ get\_parameter\_curve()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_parameter\_curve;\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{void}\ set\_segment\_label(\textcolor{keyword}{const}\ std::string\&\ label\_name,\ \textcolor{keywordtype}{int}\ new\_segment\_label)}
+\DoxyCodeLine{00069\ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ m\_segment\_labels[label\_name]\ =\ new\_segment\_label;}
+\DoxyCodeLine{00071\ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{int}\ get\_segment\_label(\textcolor{keyword}{const}\ std::string\&\ label\_name)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00074\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ m\_segment\_labels.at(label\_name);}
+\DoxyCodeLine{00076\ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ set\_quantitative\_invisibility(\textcolor{keywordtype}{int}\ new\_quantitative\_invisibility)}
+\DoxyCodeLine{00079\ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_quantitative\_invisibility\ <\ 0)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Cannot\ set\ negative\ segment\ QI"{}});}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ m\_quantitative\_invisibility\ =\ new\_quantitative\_invisibility;}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{int}\ get\_quantitative\_invisibility()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00088\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ m\_quantitative\_invisibility;}
+\DoxyCodeLine{00090\ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ operator<<(std::ostream\&\ out,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_segment_geometry}{SegmentGeometry}}\&\ segment\_geometry)}
+\DoxyCodeLine{00094\ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}Parameter\ curve\ segment:\ "{}}\ <<\ segment\_geometry.get\_parameter\_curve()}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00097\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}Spatial\ curve\ segment:\ "{}}\ <<\ segment\_geometry.get\_spatial\_curve()}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00099\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}Planar\ curve\ segment:\ "{}}\ <<\ segment\_geometry.get\_planar\_curve()}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{comment}{//\ Split\ segment\ into\ two\ new\ segments\ at\ a\ given\ knot\ value}}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{void}\ split\_at\_knot(\textcolor{keywordtype}{double}\ knot,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_segment_geometry}{SegmentGeometry}}\&\ lower\_segment,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_segment_geometry}{SegmentGeometry}}\&\ upper\_segment)}
+\DoxyCodeLine{00109\ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{comment}{//\ Split\ all\ three\ segment\ curves\ at\ the\ knot}}
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{class_conic}{Conic}}\ lower\_parameter\_curve;}
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}\ lower\_spatial\_curve;}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\ lower\_planar\_curve;}
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{class_conic}{Conic}}\ upper\_parameter\_curve;}
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}\ upper\_spatial\_curve;}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\ upper\_planar\_curve;}
+\DoxyCodeLine{00117\ \ \ \ \ m\_parameter\_curve.\mbox{\hyperlink{class_rational_function_a45563906524c67e3868d847b52b7b96c}{split\_at\_knot}}(}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ knot,\ lower\_parameter\_curve,\ upper\_parameter\_curve);}
+\DoxyCodeLine{00119\ \ \ \ \ m\_planar\_curve.\mbox{\hyperlink{class_rational_function_a45563906524c67e3868d847b52b7b96c}{split\_at\_knot}}(knot,\ lower\_planar\_curve,\ upper\_planar\_curve);}
+\DoxyCodeLine{00120\ \ \ \ \ m\_spatial\_curve.\mbox{\hyperlink{class_rational_function_a45563906524c67e3868d847b52b7b96c}{split\_at\_knot}}(}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ knot,\ lower\_spatial\_curve,\ upper\_spatial\_curve);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ Build\ new\ segments\ from\ the\ split\ curves}}
+\DoxyCodeLine{00124\ \ \ \ \ lower\_segment\ =\ \mbox{\hyperlink{class_segment_geometry}{SegmentGeometry}}(lower\_parameter\_curve,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lower\_spatial\_curve,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lower\_planar\_curve,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_segment\_labels);}
+\DoxyCodeLine{00128\ \ \ \ \ upper\_segment\ =\ \mbox{\hyperlink{class_segment_geometry}{SegmentGeometry}}(upper\_parameter\_curve,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ upper\_spatial\_curve,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ upper\_planar\_curve,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_segment\_labels);}
+\DoxyCodeLine{00132\ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\ m\_planar\_curve;}
+\DoxyCodeLine{00136\ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}\ m\_spatial\_curve;}
+\DoxyCodeLine{00137\ \ \ \mbox{\hyperlink{class_conic}{Conic}}\ m\_parameter\_curve;}
+\DoxyCodeLine{00138\ \ \ std::map<std::string,\ int>\ m\_segment\_labels;}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{int}\ m\_quantitative\_invisibility;}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{bool}\ is\_valid\_segment\_geometry()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00142\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{double}\ t0\ =\ m\_planar\_curve.domain().get\_lower\_bound();}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{double}\ t1\ =\ m\_planar\_curve.domain().get\_upper\_bound();}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_spatial\_curve.domain().get\_lower\_bound()\ !=\ t0)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Lower\ bound\ error"{}});}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_parameter\_curve.domain().get\_lower\_bound()\ !=\ t0)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Lower\ bound\ error"{}});}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_spatial\_curve.domain().get\_upper\_bound()\ !=\ t1)\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Upper\ bound\ error"{}});}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_parameter\_curve.domain().get\_upper\_bound()\ !=\ t1)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Upper\ bound\ error"{}});}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00163\ \ \ \}}
+\DoxyCodeLine{00164\ \};}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_node_geometry}{NodeGeometry}}}
+\DoxyCodeLine{00167\ \{}
+\DoxyCodeLine{00168\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00169\ \ \ \mbox{\hyperlink{class_node_geometry}{NodeGeometry}}()}
+\DoxyCodeLine{00170\ \ \ \{}
+\DoxyCodeLine{00171\ \ \ \ \ m\_node\_type\ =\ knot;}
+\DoxyCodeLine{00172\ \ \ \ \ m\_quantitative\_invisibility\ =\ -\/1;}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{void}\ mark\_as\_knot()\ \{\ m\_node\_type\ =\ knot;\ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{void}\ mark\_as\_marked\_knot()\ \{\ m\_node\_type\ =\ marked\_knot;\ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{void}\ mark\_as\_boundary\_cusp()\ \{\ m\_node\_type\ =\ boundary\_cusp;\ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{void}\ mark\_as\_interior\_cusp()\ \{\ m\_node\_type\ =\ interior\_cusp;\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{void}\ mark\_as\_intersection()\ \{\ m\_node\_type\ =\ intersection;\ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{void}\ mark\_as\_path\_start\_node()\ \{\ m\_node\_type\ =\ path\_start\_node;\ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{void}\ mark\_as\_path\_end\_node()\ \{\ m\_node\_type\ =\ path\_end\_node;\ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \textcolor{keywordtype}{bool}\ is\_knot()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (m\_node\_type\ ==\ knot);\ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordtype}{bool}\ is\_marked\_knot()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (m\_node\_type\ ==\ marked\_knot);\ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{bool}\ is\_intersection()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (m\_node\_type\ ==\ intersection);\ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{bool}\ is\_interior\_cusp()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (m\_node\_type\ ==\ interior\_cusp);\ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordtype}{bool}\ is\_boundary\_cusp()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (m\_node\_type\ ==\ boundary\_cusp);\ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordtype}{bool}\ is\_path\_start\_node()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (m\_node\_type\ ==\ path\_start\_node);\ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordtype}{bool}\ is\_path\_end\_node()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (m\_node\_type\ ==\ path\_end\_node);\ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{void}\ set\_quantitative\_invisibility(\textcolor{keywordtype}{int}\ new\_quantitative\_invisibility)}
+\DoxyCodeLine{00204\ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ m\_qi\_set\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_quantitative\_invisibility\ <\ 0)\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ spdlog::error(\textcolor{stringliteral}{"{}Cannot\ set\ negative\ node\ QI"{}});}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ m\_quantitative\_invisibility\ =\ new\_quantitative\_invisibility;}
+\DoxyCodeLine{00211\ \ \ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{int}\ get\_quantitative\_invisibility()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00214\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{return}\ m\_quantitative\_invisibility;}
+\DoxyCodeLine{00216\ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordtype}{bool}\ quantitative\_invisibility\_is\_set()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_qi\_set;\ \}}
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{void}\ mark\_quantitative\_invisibility\_as\_set()\ \{\ m\_qi\_set\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ std::string\ formatted\_node()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00222\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_node\_type\ ==\ knot)}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}knot"{}};}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_node\_type\ ==\ marked\_knot)}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}marked\_knot"{}};}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_node\_type\ ==\ boundary\_cusp)}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}boundary\_cusp"{}};}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_node\_type\ ==\ interior\_cusp)}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}interior\_cusp"{}};}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_node\_type\ ==\ intersection)}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}intersection"{}};}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_node\_type\ ==\ path\_end\_node)}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}path\_end\_node"{}};}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_node\_type\ ==\ path\_start\_node)}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}path\_start\_node"{}};}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}unknown"{}};}
+\DoxyCodeLine{00239\ \ \ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00242\ \ \ \textcolor{comment}{//\ Geometric\ data}}
+\DoxyCodeLine{00243\ \ \ \textcolor{comment}{//\ TODO\ boundary\ and\ interior\ cusps\ are\ no\ longer\ clear\ in\ the\ general}}
+\DoxyCodeLine{00244\ \ \ \textcolor{comment}{//\ context.\ Should\ rename\ to\ something\ more\ general\ like\ C1\ cusp\ and\ C0}}
+\DoxyCodeLine{00245\ \ \ \textcolor{comment}{//\ cusp,\ etc.}}
+\DoxyCodeLine{00246\ \ \ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00247\ \ \ \{}
+\DoxyCodeLine{00248\ \ \ \ \ knot,}
+\DoxyCodeLine{00249\ \ \ \ \ marked\_knot,}
+\DoxyCodeLine{00250\ \ \ \ \ boundary\_cusp,}
+\DoxyCodeLine{00251\ \ \ \ \ interior\_cusp,}
+\DoxyCodeLine{00252\ \ \ \ \ intersection,}
+\DoxyCodeLine{00253\ \ \ \ \ path\_end\_node,}
+\DoxyCodeLine{00254\ \ \ \ \ path\_start\_node}
+\DoxyCodeLine{00255\ \ \ \}\ m\_node\_type;}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \textcolor{keywordtype}{int}\ m\_quantitative\_invisibility;}
+\DoxyCodeLine{00258\ \ \ \textcolor{keywordtype}{bool}\ m\_qi\_set\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00259\ \};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00263\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_projected_curve_network}{ProjectedCurveNetwork}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_abstract_curve_network}{AbstractCurveNetwork}}}
+\DoxyCodeLine{00264\ \{}
+\DoxyCodeLine{00265\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00267\ \ \ \mbox{\hyperlink{class_projected_curve_network_ab083dae41453f54ac1d1eff036b10176}{ProjectedCurveNetwork}}();}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00287\ \ \ \mbox{\hyperlink{class_projected_curve_network_ab083dae41453f54ac1d1eff036b10176}{ProjectedCurveNetwork}}(}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Conic>\&\ parameter\_segments,}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ spatial\_segments,}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}>\&\ planar\_segments,}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::map<std::string,\ int>>\&\ segment\_labels,}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<int>>\&\ chains,}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ chain\_labels,}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\ interior\_cusps,}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<bool>\&\ has\_cusp\_at\_base,}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ intersections,}
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<size\_t>>\&\ intersection\_indices,}
+\DoxyCodeLine{00298\ \ \ \ \ std::vector<std::vector<IntersectionData>>\&\ intersection\_data,}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{int}\ num\_intersections);}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \textcolor{comment}{//\ Counts}}
+\DoxyCodeLine{00302\ \ \ AbstractCurveNetwork::SegmentIndex\ num\_segments()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00303\ \ \ AbstractCurveNetwork::NodeIndex\ num\_nodes()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \textcolor{comment}{//\ Segment\ geometry}}
+\DoxyCodeLine{00306\ \ \ \mbox{\hyperlink{class_conic}{Conic}}\ \textcolor{keyword}{const}\&\ segment\_parameter\_curve(SegmentIndex\ segment\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00307\ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}\ \textcolor{keyword}{const}\&\ segment\_planar\_curve(}
+\DoxyCodeLine{00308\ \ \ \ \ SegmentIndex\ segment\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00309\ \ \ \mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}\ \textcolor{keyword}{const}\&\ segment\_spatial\_curve(}
+\DoxyCodeLine{00310\ \ \ \ \ SegmentIndex\ segment\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordtype}{int}\ get\_segment\_label(SegmentIndex\ segment\_index,}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ label\_name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00313\ \ \ \textcolor{keywordtype}{int}\ get\_segment\_quantitative\_invisibility(SegmentIndex\ segment\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00314\ \ \ \textcolor{keywordtype}{void}\ set\_segment\_quantitative\_invisibility(SegmentIndex\ segment\_index,}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ new\_quantitative\_invisibility);}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00320\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_abbd6f139415155f8eb1e3789a16f78b6}{enumerate\_parameter\_curves}}(std::vector<Conic>\&\ parameter\_curves)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00325\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_a9d2d6ba763ae0b708e411df733a5af60}{enumerate\_spatial\_curves}}(}
+\DoxyCodeLine{00326\ \ \ \ \ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ spatial\_curves)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00331\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_a407dd34d486947157e9868cf8bc389c9}{enumerate\_planar\_curves}}(}
+\DoxyCodeLine{00332\ \ \ \ \ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}>\&\ planar\_curves)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00347\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_a47e81d2abba8eccdb89851dbd76a28d7}{enumerate\_spatial\_nodes}}(}
+\DoxyCodeLine{00348\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_knot\_nodes,}
+\DoxyCodeLine{00349\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_marked\_knot\_nodes,}
+\DoxyCodeLine{00350\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_intersection\_nodes,}
+\DoxyCodeLine{00351\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_interior\_cusp\_nodes,}
+\DoxyCodeLine{00352\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_boundary\_cusp\_nodes,}
+\DoxyCodeLine{00353\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_path\_start\_nodes,}
+\DoxyCodeLine{00354\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_path\_end\_nodes)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00368\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_a4a3349e5459135138380bf1d8c754841}{enumerate\_planar\_nodes}}(}
+\DoxyCodeLine{00369\ \ \ \ \ std::vector<PlanarPoint>\&\ planar\_knot\_nodes,}
+\DoxyCodeLine{00370\ \ \ \ \ std::vector<PlanarPoint>\&\ planar\_marked\_knot\_nodes,}
+\DoxyCodeLine{00371\ \ \ \ \ std::vector<PlanarPoint>\&\ planar\_intersection\_nodes,}
+\DoxyCodeLine{00372\ \ \ \ \ std::vector<PlanarPoint>\&\ planar\_interior\_cusp\_nodes,}
+\DoxyCodeLine{00373\ \ \ \ \ std::vector<PlanarPoint>\&\ planar\_boundary\_cusp\_nodes,}
+\DoxyCodeLine{00374\ \ \ \ \ std::vector<PlanarPoint>\&\ planar\_path\_start\_nodes,}
+\DoxyCodeLine{00375\ \ \ \ \ std::vector<PlanarPoint>\&\ planar\_path\_end\_nodes)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \textcolor{keywordtype}{void}\ enumerate\_cusp\_spatial\_tangents(}
+\DoxyCodeLine{00378\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_interior\_cusp\_in\_tangents,}
+\DoxyCodeLine{00379\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_interior\_cusp\_out\_tangents,}
+\DoxyCodeLine{00380\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_boundary\_cusp\_in\_tangents,}
+\DoxyCodeLine{00381\ \ \ \ \ std::vector<SpatialVector>\&\ spatial\_boundary\_cusp\_out\_tangents)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00386\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_a7a32429fb4760c8477277c82571b6a65}{enumerate\_quantitative\_invisibility}}(}
+\DoxyCodeLine{00387\ \ \ \ \ std::vector<int>\&\ quantitative\_invisibility)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00392\ \ \ std::vector<int>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{class_projected_curve_network_a1ebb2cc149008923b4721cac27569e3c}{get\_chain\_start\_nodes}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \textcolor{comment}{//\ Node\ geometry}}
+\DoxyCodeLine{00395\ \ \ \textcolor{keywordtype}{bool}\ is\_knot\_node(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00396\ \ \ \textcolor{keywordtype}{bool}\ is\_marked\_knot\_node(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00397\ \ \ \textcolor{keywordtype}{bool}\ is\_intersection\_node(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00398\ \ \ \textcolor{keywordtype}{bool}\ is\_interior\_cusp\_node(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00399\ \ \ \textcolor{keywordtype}{bool}\ is\_boundary\_cusp\_node(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00400\ \ \ \textcolor{keywordtype}{bool}\ is\_path\_start\_node(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00401\ \ \ \textcolor{keywordtype}{bool}\ is\_path\_end\_node(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00402\ \ \ PlanarPoint\ node\_planar\_point(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00403\ \ \ SpatialVector\ node\_spatial\_point(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00404\ \ \ SpatialVector\ node\_spatial\_in\_tangent(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00405\ \ \ SpatialVector\ node\_spatial\_out\_tangent(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00406\ \ \ SpatialVector\ node\_spatial\_tangent(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00407\ \ \ PlanarPoint\ node\_planar\_in\_tangent(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00408\ \ \ PlanarPoint\ node\_planar\_out\_tangent(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00409\ \ \ PlanarPoint\ node\_planar\_tangent(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00410\ \ \ \textcolor{keywordtype}{int}\ get\_node\_quantitative\_invisibility(NodeIndex\ node\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00411\ \ \ \textcolor{keywordtype}{void}\ set\_node\_quantitative\_invisibility(NodeIndex\ node\_index,}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ new\_quantitative\_invisibility);}
+\DoxyCodeLine{00413\ \ \ \textcolor{keywordtype}{bool}\ node\_quantitative\_invisibility\_is\_set(NodeIndex\ node\_index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00414\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keywordflow}{return}\ m\_nodes[node\_index].quantitative\_invisibility\_is\_set();}
+\DoxyCodeLine{00416\ \ \ \}}
+\DoxyCodeLine{00417\ \ \ \textcolor{keywordtype}{void}\ mark\_node\_quantitative\_invisibility\_as\_set(NodeIndex\ node\_index)}
+\DoxyCodeLine{00418\ \ \ \{}
+\DoxyCodeLine{00419\ \ \ \ \ m\_nodes[node\_index].mark\_quantitative\_invisibility\_as\_set();}
+\DoxyCodeLine{00420\ \ \ \}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00423\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}}
+\DoxyCodeLine{00424\ \ \ \{}
+\DoxyCodeLine{00425\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00426\ \ \ \ \ \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_projected_curve_network}{ProjectedCurveNetwork}}\&\ parent,}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SegmentIndex\ segment\_index)}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ :\ m\_parent(parent)}
+\DoxyCodeLine{00429\ \ \ \ \ \{}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ m\_current\_segment\_index\ =\ segment\_index;}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ m\_is\_end\_of\_chain\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ m\_is\_reverse\_end\_of\_chain\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ spdlog::trace(\textcolor{stringliteral}{"{}Iterator\ initialized\ to\ segment\ \{\}"{}},}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_segment\_index);}
+\DoxyCodeLine{00435\ \ \ \ \ \}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}\&\ operator++()}
+\DoxyCodeLine{00438\ \ \ \ \ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ off\ end\ of\ chain}}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_is\_end\_of\_chain\ ||\ (m\_is\_reverse\_end\_of\_chain))}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ next\ is\ end\ of\ chain\ (i.e.\ the\ next\ node\ is\ not\ a\ knot\ node)}}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ NodeIndex\ to\_node\ =\ m\_parent.\mbox{\hyperlink{class_abstract_curve_network_aa3d30a52421c5086834ea7a02065bc84}{to}}(m\_current\_segment\_index);}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_parent.is\_knot\_node(to\_node))}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \textcolor{comment}{//\ if}}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \textcolor{comment}{//\ (!m\_parent.is\_valid\_segment\_index(m\_parent.next(m\_current\_segment\_index)))}}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ m\_current\_segment\_index\ =\ -\/1;}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ m\_is\_end\_of\_chain\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ m\_current\_segment\_index\ =\ m\_parent.\mbox{\hyperlink{class_abstract_curve_network_ac34af3870a4118a4a4b83b4e969fb637}{next}}(m\_current\_segment\_index);}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \ \ \ \ \ \ spdlog::trace(\textcolor{stringliteral}{"{}Iterator\ moved\ to\ segment\ \{\}"{}},\ m\_current\_segment\_index);}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00458\ \ \ \ \ \}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ \ \ \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}\ operator++(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{00461\ \ \ \ \ \{}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}\ temp\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ ++*\textcolor{keyword}{this};}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;}
+\DoxyCodeLine{00465\ \ \ \ \ \}}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \ \ \ \ \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}\&\ operator-\/-\/()}
+\DoxyCodeLine{00468\ \ \ \ \ \{}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ off\ end\ of\ chain}}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_is\_end\_of\_chain\ ||\ (m\_is\_reverse\_end\_of\_chain))}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ prev\ is\ reverse\ end\ of\ chain\ (i.e.\ the\ prev\ node\ is\ not\ a\ knot}}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \textcolor{comment}{//\ node)}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ NodeIndex\ from\_node\ =\ m\_parent.\mbox{\hyperlink{class_abstract_curve_network_a41421a1d2354e59c511a150954c50633}{from}}(m\_current\_segment\_index);}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_parent.is\_knot\_node(from\_node))}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \textcolor{comment}{//\ if}}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \textcolor{comment}{//\ (!m\_parent.is\_valid\_segment\_index(m\_parent.prev(m\_current\_segment\_index)))}}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ m\_current\_segment\_index\ =\ -\/1;}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ m\_is\_reverse\_end\_of\_chain\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ m\_current\_segment\_index\ =\ m\_parent.\mbox{\hyperlink{class_abstract_curve_network_ae70dbeea019f3846b1cc81cee2262d35}{prev}}(m\_current\_segment\_index);}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \ \ \ \ \ \ spdlog::trace(\textcolor{stringliteral}{"{}Iterator\ moved\ to\ segment\ \{\}"{}},\ m\_current\_segment\_index);}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00489\ \ \ \ \ \}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \ \ \ \ \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}\ operator-\/-\/(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{00492\ \ \ \ \ \{}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}\ temp\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ -\/-\/*\textcolor{keyword}{this};}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;}
+\DoxyCodeLine{00496\ \ \ \ \ \}}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \textcolor{keywordtype}{bool}\ at\_end\_of\_chain()\ \{\ \textcolor{keywordflow}{return}\ m\_is\_end\_of\_chain;\ \}}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \ \ \ \ \textcolor{keywordtype}{bool}\ at\_reverse\_end\_of\_chain()\ \{\ \textcolor{keywordflow}{return}\ m\_is\_reverse\_end\_of\_chain;\ \}}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \ \ \ \ SegmentIndex\ operator*()\ \{\ \textcolor{keywordflow}{return}\ m\_current\_segment\_index;\ \}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_projected_curve_network}{ProjectedCurveNetwork}}\&\ m\_parent;}
+\DoxyCodeLine{00506\ \ \ \ \ SegmentIndex\ m\_current\_segment\_index;}
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_is\_end\_of\_chain;}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_is\_reverse\_end\_of\_chain;}
+\DoxyCodeLine{00509\ \ \ \};}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00515\ \ \ \mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}\ \mbox{\hyperlink{class_projected_curve_network_adaacd39da0621fcef2a69a33759f0ea5}{get\_segment\_chain\_iterator}}(}
+\DoxyCodeLine{00516\ \ \ \ \ SegmentIndex\ segment\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00524\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_aeabfaa3f7f1845891049733ebc12cd9d}{write}}(\textcolor{keyword}{const}\ std::string\&\ output\_path,}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ SVGOutputMode\ color\_mode\ =\ SVGOutputMode::uniform\_visible\_chains,}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ show\_nodes\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00527\ }
+\DoxyCodeLine{00532\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_afcdbe4d50577a447201f0c8cbcc1d41b}{serialize\_closed\_curves}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00535\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_a7f88dd49ae8be678e42b902d5f651bfa}{clear}}();}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00539\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_a2df2ade0ea7872e0e957352eb2722fa9}{add\_spatial\_network\_to\_viewer}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00542\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_ae304a109aa9d64dca5d4910be94ed08f}{spatial\_network\_viewer}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00549\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_abf614f1c97ccdb9b4985aa3a15ce0306}{get\_closed\_curves}}(std::vector<NodeIndex>\&\ closed\_curve\_start\_nodes,}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<NodeIndex>\&\ closed\_curve\_end\_nodes)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00557\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projected_curve_network_a34cbb54c35c6a2bb494a25a00090d92d}{get\_visible\_curves}}(}
+\DoxyCodeLine{00558\ \ \ \ \ std::vector<NodeIndex>\&\ visible\_curve\_start\_nodes,}
+\DoxyCodeLine{00559\ \ \ \ \ std::vector<NodeIndex>\&\ visible\_curve\_end\_nodes)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00562\ \ \ \textcolor{keywordtype}{void}\ init\_projected\_curve\_network(}
+\DoxyCodeLine{00563\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Conic>\&\ parameter\_segments,}
+\DoxyCodeLine{00564\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 3>}}>\&\ spatial\_segments,}
+\DoxyCodeLine{00565\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_rational_function}{RationalFunction<4,\ 2>}}>\&\ planar\_segments,}
+\DoxyCodeLine{00566\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::map<std::string,\ int>>\&\ segment\_labels,}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<int>>\&\ chains,}
+\DoxyCodeLine{00568\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ chain\_labels,}
+\DoxyCodeLine{00569\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\ interior\_cusps,}
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<bool>\&\ has\_cusp\_at\_base,}
+\DoxyCodeLine{00571\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ intersections,}
+\DoxyCodeLine{00572\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<size\_t>>\&\ intersection\_indices,}
+\DoxyCodeLine{00573\ \ \ \ \ std::vector<std::vector<IntersectionData>>\&\ intersection\_data,}
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{keywordtype}{int}\ num\_intersections);}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \ \ \textcolor{keywordtype}{bool}\ is\_valid\_projected\_curve\_network()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00579\ \ \ \textcolor{keywordtype}{void}\ init\_chain\_start\_nodes();}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \ \ \textcolor{keywordtype}{void}\ discretize\_segment\_chain(\mbox{\hyperlink{class_projected_curve_network_1_1_segment_chain_iterator}{SegmentChainIterator}}\&\ iter,}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<PlanarPoint>\&\ points,}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\&\ polyline)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00584\ \ \ \textcolor{keywordtype}{void}\ discretize\_curve(NodeIndex\ start\_node\_index,}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NodeIndex\ end\_node\_index,}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_curve_discretization_parameters}{CurveDiscretizationParameters}}\&\ curve\_disc\_params,}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<PlanarPoint>\&\ points,}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\&\ polyline,}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<bool>\&\ is\_cusp)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00590\ \ \ \textcolor{keywordtype}{void}\ simplify\_curves(}
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<NodeIndex>\&\ visible\_curve\_start\_nodes,}
+\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<NodeIndex>\&\ visible\_curve\_end\_nodes,}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<PlanarPoint>>\&\ all\_points,}
+\DoxyCodeLine{00594\ \ \ \ \ std::vector<std::vector<PlanarPoint>>\&\ simplified\_points,}
+\DoxyCodeLine{00595\ \ \ \ \ std::vector<std::vector<int>>\&\ simplified\_polylines)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00596\ \ \ \textcolor{keywordtype}{void}\ write\_uniform\_segments(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00597\ \ \ \textcolor{keywordtype}{void}\ write\_uniform\_visible\_segments(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00598\ \ \ \textcolor{keywordtype}{void}\ write\_contrast\_invisible\_segments(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00599\ \ \ \textcolor{keywordtype}{void}\ write\_random\_chains(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00600\ \ \ \textcolor{keywordtype}{void}\ write\_uniform\_chains(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00601\ \ \ \textcolor{keywordtype}{void}\ write\_uniform\_visible\_chains(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00602\ \ \ \textcolor{keywordtype}{void}\ write\_uniform\_visible\_curves(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00603\ \ \ \textcolor{keywordtype}{void}\ write\_uniform\_closed\_curves(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00604\ \ \ \textcolor{keywordtype}{void}\ write\_uniform\_simplified\_visible\_curves(svg::SVG\&\ svgWriter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00606\ \ \ \textcolor{keywordtype}{void}\ add\_planar\_segments\_to\_viewer()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \textcolor{keywordtype}{void}\ add\_spatial\_segments\_to\_viewer()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00609\ }
+\DoxyCodeLine{00610\ \ \ \textcolor{keywordtype}{void}\ add\_spatial\_nodes\_to\_viewer()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00611\ }
+\DoxyCodeLine{00612\ \ \ \textcolor{keywordtype}{void}\ clear\_geometry();}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \ \ \textcolor{comment}{//\ Geometry}}
+\DoxyCodeLine{00615\ \ \ std::vector<SegmentGeometry>\ m\_segments;}
+\DoxyCodeLine{00616\ \ \ std::vector<NodeGeometry>\ m\_nodes;}
+\DoxyCodeLine{00617\ \ \ std::vector<NodeIndex>\ m\_chain\_start\_nodes;}
+\DoxyCodeLine{00618\ \};}
+
+\end{DoxyCode}

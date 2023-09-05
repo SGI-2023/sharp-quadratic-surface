@@ -1,0 +1,48 @@
+\doxysection{src/core/compute\+\_\+boundaries.h File Reference}
+\hypertarget{compute__boundaries_8h}{}\label{compute__boundaries_8h}\index{src/core/compute\_boundaries.h@{src/core/compute\_boundaries.h}}
+{\ttfamily \#include \"{}common.\+h\"{}}\newline
+{\ttfamily \#include \"{}halfedge.\+h\"{}}\newline
+{\ttfamily \#include \"{}quadratic\+\_\+spline\+\_\+surface.\+h\"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{compute__boundaries_8h_a3f2b0568d4603c50ee47c0936695ae45}{compute\+\_\+face\+\_\+boundary\+\_\+edges}} (const Eigen\+::\+Matrix\+Xi \&F, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&face\+\_\+boundary\+\_\+edges)
+\item 
+void \mbox{\hyperlink{compute__boundaries_8h_aaaebfa20bc6f4326f2e58c0c631c7ef0}{compute\+\_\+boundary\+\_\+vertices}} (const Eigen\+::\+Matrix\+Xi \&F, std\+::vector$<$ int $>$ \&boundary\+\_\+vertices)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods to compute the boundaries of a mesh 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{compute__boundaries_8h_aaaebfa20bc6f4326f2e58c0c631c7ef0}\label{compute__boundaries_8h_aaaebfa20bc6f4326f2e58c0c631c7ef0} 
+\index{compute\_boundaries.h@{compute\_boundaries.h}!compute\_boundary\_vertices@{compute\_boundary\_vertices}}
+\index{compute\_boundary\_vertices@{compute\_boundary\_vertices}!compute\_boundaries.h@{compute\_boundaries.h}}
+\doxysubsubsection{\texorpdfstring{compute\_boundary\_vertices()}{compute\_boundary\_vertices()}}
+{\footnotesize\ttfamily void compute\+\_\+boundary\+\_\+vertices (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Xi \&}]{F,  }\item[{std\+::vector$<$ int $>$ \&}]{boundary\+\_\+vertices }\end{DoxyParamCaption})}
+
+Given a mesh, compute the vertices on the boundary.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em F} & mesh faces \\
+\hline
+\mbox{\texttt{ out}}  & {\em boundary\+\_\+vertices} & vertices of the mesh on the boundary \\
+\hline
+\end{DoxyParams}
+\Hypertarget{compute__boundaries_8h_a3f2b0568d4603c50ee47c0936695ae45}\label{compute__boundaries_8h_a3f2b0568d4603c50ee47c0936695ae45} 
+\index{compute\_boundaries.h@{compute\_boundaries.h}!compute\_face\_boundary\_edges@{compute\_face\_boundary\_edges}}
+\index{compute\_face\_boundary\_edges@{compute\_face\_boundary\_edges}!compute\_boundaries.h@{compute\_boundaries.h}}
+\doxysubsubsection{\texorpdfstring{compute\_face\_boundary\_edges()}{compute\_face\_boundary\_edges()}}
+{\footnotesize\ttfamily void compute\+\_\+face\+\_\+boundary\+\_\+edges (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Xi \&}]{F,  }\item[{std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&}]{face\+\_\+boundary\+\_\+edges }\end{DoxyParamCaption})}
+
+Given a mesh, compute the edges on the boundary.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em F} & mesh faces \\
+\hline
+\mbox{\texttt{ out}}  & {\em face\+\_\+boundary\+\_\+edges} & edges of the triangles that are boundaries, indexed by face and opposite corner local face vertex index \\
+\hline
+\end{DoxyParams}
